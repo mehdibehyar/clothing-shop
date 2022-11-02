@@ -19,14 +19,7 @@ return new class extends Migration
             $table->string('label');
             $table->timestamps();
         });
-        Schema::create('color_product', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->unsignedBigInteger('color_id');
-            $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
-            $table->timestamps();
-        });
+
     }
 
     /**
@@ -36,7 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('color_product');
         Schema::dropIfExists('colors');
     }
 };

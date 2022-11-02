@@ -81,16 +81,28 @@
             let createNewColor = ({ colors , id }) => {
                 return `
                     <div class="row" id="colors-${id}">
-                        <div class="col-5">
+                        <div class="col-2">
                             <div class="form-group">
-                                 <label>انتخاب رنگ</label>
-                                 <input type="color" name="colors[${id}][color]">
+                                <label>انتخاب رنگ</label>
+                                <input type="color" name="cs[${id}][color]"><br>
                             </div>
                         </div>
-                        <div class="col-5">
+                        <div class="col-2">
                             <div class="form-group">
                                  <label>عنوان رنگ</label>
-                                 <input type="text" name="colors[${id}][label]">
+                                 <input type="text" name="cs[${id}][label]">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>سایز</label>
+                                <input type="text" name="cs[${id}][size]">
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <label>تعداد این نوع محصول</label>
+                                <input type="number" name="cs[${id}][number]"><br>
                             </div>
                         </div>
                          <div class="col-2 d-flex">
@@ -214,18 +226,30 @@
                         <div id="attribute_color">
                             @foreach($product->colors as $color)
                                 <div class="row" id="colors-{{$loop->index}}">
-                                        <div class="col-5">
-                                            <div class="form-group">
-                                                <label>انتخاب رنگ</label>
-                                                <input type="color" value="{{$color->color}}" name="colors[{{$loop->index}}][color]">
-                                            </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label>انتخاب رنگ</label>
+                                            <input type="color" value="{{$color->color}}" name="cs[{{$loop->index}}][color]"><br>
                                         </div>
-                                        <div class="col-5">
-                                            <div class="form-group">
-                                                <label>عنوان رنگ</label>
-                                                <input type="text" value="{{$color->label}}" name="colors[{{$loop->index}}][label]">
-                                            </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label>عنوان رنگ</label>
+                                            <input type="text" value="{{$color->label}}" name="cs[{{$loop->index}}][label]">
                                         </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label>سایز</label>
+                                            <input type="text" value="{{\App\Models\Size::find($color->pivot['size_id'])->size}}" name="cs[{{$loop->index}}][size]">
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-group">
+                                            <label>تعداد این نوع محصول</label>
+                                            <input type="number" value="{{$color->pivot['number']}}" name="cs[{{$loop->index}}][number]"><br>
+                                        </div>
+                                    </div>
                                     <div class="col-2 d-flex">
 
                                         <div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Discount\Entities\Discount;
 
 class Category extends Model
 {
@@ -26,6 +27,12 @@ class Category extends Model
     public function child()
     {
         return $this->hasMany(Category::class,'parent_id','id');
+    }
+
+    //for connect to discounts table
+    public function discounts()
+    {
+        return $this->morphToMany(Discount::class,'discountable');
     }
 
 }

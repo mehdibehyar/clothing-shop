@@ -51,6 +51,49 @@
                             </ul>
                         </li>
                     @endcan
+                    @can('show_categories')
+                        <li class="nav-item has-treeview {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.categories.index','admin.categories.create','admin.categories.edit'])?'menu-open':''}}">
+                            <a href="{{route('admin.categories.index')}}" class="nav-link {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.categories.index','admin.categories.create','admin.categories.edit'])?'active':''}}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    دسته بندی ها
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('admin.categories.index')}}" class="nav-link {{\Illuminate\Support\Facades\Route::currentRouteName()=='admin.categories.index'?'active':''}}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست دسته ها</p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                    @endcan
+
+                    @can('show_products')
+                        <li class="nav-item has-treeview {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.products.index','admin.products.create','admin.products.edit'])?'menu-open':''}}">
+                            <a href="{{route('admin.products.index')}}" class="nav-link {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.products.index','admin.products.create','admin.products.edit'])?'active':''}}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    محصولات
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('admin.products.index')}}" class="nav-link {{\Illuminate\Support\Facades\Route::currentRouteName()=='admin.products.index'?'active':''}}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست محصولات</p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                    @endcan
                     <li class="nav-item has-treeview {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.permissions.index','admin.roles.index','admin.permissions.create','admin.permissions.edit'])?'menu-open':''}}">
                         @canany(['show_permissions','show_roles'])
                             <a href="{{route('admin.permissions.index')}}" class="nav-link {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.permissions.index','admin.roles.index','admin.permissions.create','admin.permissions.edit'])?'active':''}}">

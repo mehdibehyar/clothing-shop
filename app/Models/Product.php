@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Discount\Entities\Discount;
 
 class Product extends Model
 {
@@ -49,6 +50,15 @@ class Product extends Model
     //for connect to colors table
     public function colors()
     {
-        return $this->belongsToMany(Color::class);
+        return $this->belongsToMany(Color::class)->withPivot(['number','size_id'])->withTimestamps();
     }
+
+
+    //for connect to discounts table
+    public function discounts()
+    {
+        return $this->morphToMany(Discount::class,'discountable');
+    }
+
+
 }

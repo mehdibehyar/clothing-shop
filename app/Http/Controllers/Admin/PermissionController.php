@@ -63,16 +63,7 @@ class PermissionController extends Controller
         return redirect(route('admin.permissions.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

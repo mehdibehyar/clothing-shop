@@ -14,5 +14,10 @@ use \Illuminate\Support\Facades\Gate;
 */
 
 Route::get('/', function () {
+
     return auth()->loginUsingId(1);
+
 });
+
+Route::post('cart/add/{product}',[\App\Http\Controllers\CartController::class,'addToCart'])->name('cart.add');
+

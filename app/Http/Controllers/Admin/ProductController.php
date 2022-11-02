@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Models\Attribute;
 use App\Models\Color;
 use App\Models\Permission;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use function PHPUnit\Framework\isNull;
 
 class ProductController extends Controller
@@ -54,8 +57,13 @@ class ProductController extends Controller
             'inventory'=>'required|integer',
             'categories'=>'array|required',
             'attributes'=>'array|required',
-            'colors'=>'array'
+            'cs.*.label'=>'required',
+            'cs.*.color'=>'required',
+            'cs.*.size'=>'required',
+            'cs.*.number'=>'required','integer',
+            'cs'=>'array',
         ]);
+
 
         $product=auth()->user()->products()->create($data);
         $product->categories()->sync($data['categories']);
@@ -67,15 +75,7 @@ class ProductController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -104,8 +104,13 @@ class ProductController extends Controller
             'inventory'=>'required|integer',
             'categories'=>'array|required',
             'attributes'=>'array|required',
-            'colors'=>'array'
+            'cs.*.label'=>'required',
+            'cs.*.color'=>'required',
+            'cs.*.size'=>'required',
+            'cs.*.number'=>'required|integer',
+            'cs'=>'array'
         ]);
+
         $product->update($data);
         $product->categories()->sync($data['categories']);
         $product->attributes()->detach();
@@ -158,15 +163,17 @@ class ProductController extends Controller
      */
     public function attachColor(array $data, $product): void
     {
-        if (isset($data['colors'])) {
-            $colors = collect($data['colors']);
+        if (isset($data['cs'])) {
+            $colors = collect($data['cs']);
             $colors->each(function ($item) use ($product) {
-                if (is_null($item['color'] || is_null($item['label']))) return;
+                if (is_null($item['color'] || is_null($item['label'] || $item['size'] || $item['number']))) return;
                 $color = Color::firstOrCreate(
                     ['color' => $item['color']],
                     ['label' => $item['label']]
                 );
-                $product->colors()->attach($color->id);
+                $size= Size::firstOrCreate(['size'=>$item['size']]);
+                $number=$item['number'];
+                $product->colors()->attach($color->id,['size_id'=>$size->id,'number'=>$number]);
 
             });
         }

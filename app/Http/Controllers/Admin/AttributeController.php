@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class AttributeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:create_product');
+    }
+
     public function getValues(Request $request)
     {
         $data=$request->validate(['name'=>'required']);

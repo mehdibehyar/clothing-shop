@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Modules\Discount\Entities\Discount;
 
 class User extends Authenticatable
 {
@@ -54,6 +55,20 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
+
+    //for connect to discounts table
+    public function discounts()
+    {
+        return $this->morphToMany(Discount::class,'discountable');
+    }
+
+
+    //for connect to descriptions table
+    public function discriptions()
+    {
+        return $this->hasMany(Description::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -89,5 +104,11 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password']= bcrypt($value);
+    }
+
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

@@ -7,6 +7,22 @@
 
     @slot('script')
         <script>
+
+            document.addEventListener("DOMContentLoaded", function() {
+
+                document.getElementById('button-image').addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
+                });
+            });
+
+            // set file link
+            function fmSetLink($url) {
+                document.getElementById('image_label').value = $url;
+            }
+
+
             $('#categories').select2({
                 'placeholder' : 'دسته بندی مورد نظر را انتخاب کنید'
             })
@@ -80,26 +96,38 @@
             }
             let createNewColor = ({ colors , id }) => {
                 return `
-                    <div class="row" id="colors-${id}">
-                        <div class="col-5">
-                            <div class="form-group">
-                                 <label>انتخاب رنگ</label>
-                                 <input type="color" name="colors[${id}][color]">
+                        <div class="row" id="colors-${id}">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>انتخاب رنگ</label>
+                                    <input type="color" name="cs[${id}][color]"><br>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="form-group">
-                                 <label>عنوان رنگ</label>
-                                 <input type="text" name="colors[${id}][label]">
+                            <div class="col-2">
+                                <div class="form-group">
+                                     <label>عنوان رنگ</label>
+                                     <input type="text" name="cs[${id}][label]">
+                                </div>
                             </div>
-                        </div>
-                         <div class="col-2 d-flex">
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>سایز</label>
+                                    <input type="text" name="cs[${id}][size]">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>تعداد این نوع محصول</label>
+                                    <input type="number" name="cs[${id}][number]"><br>
+                                </div>
+                            </div>
+                             <div class="col-2 d-flex">
 
-                            <div>
-                                <button type="button" class="btn btn-sm btn-warning" onclick="document.getElementById('colors-${id}').remove()">حذف</button>
+                                <div>
+                                    <button type="button" class="btn btn-sm btn-warning" onclick="document.getElementById('colors-${id}').remove()">حذف</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 `
             }
 
@@ -129,6 +157,21 @@
                 );
 
             });
+
+
+            // // input
+            // let image;
+            // $('body').on('click','.button-image' , (event) => {
+            //     event.preventDefault();
+            //
+            //     image = $(event.target).closest('.image-field');
+            //     window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
+            // });
+            //
+            // // set file link
+            // function fmSetLink($url) {
+            //     image.find('.image_label').first().val($url);
+            // }
 
 
         </script>
@@ -191,9 +234,19 @@
                     <div class="card-footer">
                         <button type="submit" class="btn btn-info">ثبت محصول</button>
                         <a href="" class="btn btn-default float-left">لغو</a>
+                    </div><br><br>
+                    <div class="input-group">
+                        <input type="text" id="image_label" class="form-control" name="image"
+                               aria-label="Image" aria-describedby="button-image">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-image">انتخاب</button>
+                        </div>
                     </div>
+
+
                     <!-- /.card-footer -->
                 </form>
+
             </div>
         </div>
     </div>

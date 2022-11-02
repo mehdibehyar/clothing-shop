@@ -4,12 +4,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>پنل مدیریت | داشبورد اول</title>
+    <link rel="stylesheet" href="{{ asset('vendor/file-manager/css/file-manager.css') }}">
+
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <!-- iCheck -->
@@ -90,7 +95,9 @@
 <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="/plugins/select2/select2.full.js"></script>
 <!-- FastClick -->
+
 <script src="/plugins/fastclick/fastclick.js"></script>
+<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="/resources/js/admin.js"></script>
 @yield('script')

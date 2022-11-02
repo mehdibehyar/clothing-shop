@@ -10,8 +10,10 @@ class Color extends Model
 {
     use HasFactory;
     protected $fillable=['color','label'];
+
+
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('number','size_id')->withTimestamps();
     }
 }
