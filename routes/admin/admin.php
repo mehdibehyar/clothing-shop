@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdvertiseController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostController;
@@ -26,3 +27,4 @@ Route::post('attribute/values',[AttributeController::class,'getValues'])->name('
 Route::resource('categories',CategoryController::class)->except(['show']);
 Route::resource('product.image',GalleryController::class)->except(['show']);
 Route::resource('posts', PostController::class)->except(['show']);
+Route::resource('advertises', AdvertiseController::class)->except(['show']);

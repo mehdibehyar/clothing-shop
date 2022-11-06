@@ -10,6 +10,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable=['title'];
+
     public function discriptions()
     {
         return $this->hasMany(Description::class);

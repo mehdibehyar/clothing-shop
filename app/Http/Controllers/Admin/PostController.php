@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:show_posts')->only(['index']);
+        $this->middleware('can:create_post')->only(['create','store']);
+        $this->middleware('can:edit_post')->only(['edit','update']);
+        $this->middleware('can:delete_post')->only(['destroy']);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -104,32 +114,28 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
+
         $data=$request->validate([
             'title'=>'required',
             'descriptions.*.image'=>'required',
             'descriptions.*.description'=>'required',
+            'descriptions.*.title'=>'required',
             'descriptions'=>'array|required'
         ]);
 
-
         $post->update([
-            'title'=>$request->title,
+            'title'=>$data['title'],
         ]);
 
-        $descriptions=collect($request->descriptions);
+        $post->discriptions()->delete();
+        $descriptions=collect($data['descriptions']);
         $descriptions->each(function ($item)use($post){
-            $post->discriptions()->update([
-                'title'=>$item['title'],
-                'image'=>$item['image'],
-                'description'=>$item['description']
-            ]);
+            $post->discriptions()->create($item);
         });
 
+
         return redirect(route('admin.posts.index'));
-
-
-
-
 
 
 
@@ -147,3 +153,4 @@ class PostController extends Controller
         return redirect(route('admin.posts.index'));
     }
 }
+

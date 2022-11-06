@@ -60,5 +60,11 @@ class Product extends Model
         return $this->morphToMany(Discount::class,'discountable');
     }
 
+    //for connect to advertises table
+    public function advertises()
+    {
+        return $this->belongsToMany(Advertise::class)->withTimestamps();
+    }
+
 
 }

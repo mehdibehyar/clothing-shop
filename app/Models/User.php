@@ -101,14 +101,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password']= bcrypt($value);
     }
 
-
+    //for connect to posts table
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    //for connect to advertises table
+    public function advertises()
+    {
+        return $this->hasMany(Advertise::class);
+    }
+
+    //for connect to active_codes table
+    public function active_code()
+    {
+        return $this->hasMany(Active_code::class);
     }
 }

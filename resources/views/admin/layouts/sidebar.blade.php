@@ -94,6 +94,48 @@
                             </ul>
                         </li>
                     @endcan
+                    @can('show_advertises')
+                        <li class="nav-item has-treeview {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.advertises.index','admin.advertises.create','admin.advertises.edit'])?'menu-open':''}}">
+                            <a href="{{route('admin.advertises.index')}}" class="nav-link {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.advertises.index','admin.advertises.create','admin.advertises.edit'])?'active':''}}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    تبلیغ ها
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('admin.advertises.index')}}" class="nav-link {{\Illuminate\Support\Facades\Route::currentRouteName()=='admin.advertises.index'?'active':''}}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست تبلیغ ها</p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                    @endcan
+                    @can('show_posts')
+                        <li class="nav-item has-treeview {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.posts.index','admin.posts.create','admin.posts.edit'])?'menu-open':''}}">
+                            <a href="{{route('admin.posts.index')}}" class="nav-link {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.posts.index','admin.posts.create','admin.posts.edit'])?'active':''}}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    پست ها
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('admin.posts.index')}}" class="nav-link {{\Illuminate\Support\Facades\Route::currentRouteName()=='admin.posts.index'?'active':''}}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست پست ها</p>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </li>
+                    @endcan
                     <li class="nav-item has-treeview {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.permissions.index','admin.roles.index','admin.permissions.create','admin.permissions.edit'])?'menu-open':''}}">
                         @canany(['show_permissions','show_roles'])
                             <a href="{{route('admin.permissions.index')}}" class="nav-link {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.permissions.index','admin.roles.index','admin.permissions.create','admin.permissions.edit'])?'active':''}}">

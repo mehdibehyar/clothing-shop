@@ -15,6 +15,15 @@ use function PHPUnit\Framework\isNull;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:show_products')->only(['index']);
+        $this->middleware('can:create_product')->only(['create','store']);
+        $this->middleware('can:edit_product')->only(['edit','update']);
+        $this->middleware('can:delete_product')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *

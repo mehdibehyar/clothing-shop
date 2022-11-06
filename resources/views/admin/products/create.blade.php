@@ -235,13 +235,7 @@
                         <button type="submit" class="btn btn-info">ثبت محصول</button>
                         <a href="" class="btn btn-default float-left">لغو</a>
                     </div><br><br>
-                    <div class="input-group">
-                        <input type="text" id="image_label" class="form-control" name="image"
-                               aria-label="Image" aria-describedby="button-image">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="button-image">انتخاب</button>
-                        </div>
-                    </div>
+
 
 
                     <!-- /.card-footer -->

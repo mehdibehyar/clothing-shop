@@ -13,10 +13,10 @@ use \Illuminate\Support\Facades\Gate;
 |
 */
 
+
 Route::get('/', function () {
-
-    return auth()->loginUsingId(1);
-
+    return \App\Models\Active_code::generateCode(auth()->user());
+    return view('index');
 });
 
 Route::post('cart/add/{product}',[\App\Http\Controllers\CartController::class,'addToCart'])->name('cart.add');
