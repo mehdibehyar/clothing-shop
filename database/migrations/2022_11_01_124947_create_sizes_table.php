@@ -19,11 +19,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        //create color_product table for connect many to many in color table and product table
-        Schema::create('color_product', function (Blueprint $table) {
-            $table->integer('number');
-            $table->unsignedBigInteger('color_id');
-            $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
+
+        Schema::create('product_size', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('size_id');
@@ -39,7 +36,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('color_product');
+        Schema::dropIfExists('product_size');
         Schema::dropIfExists('sizes');
     }
 };

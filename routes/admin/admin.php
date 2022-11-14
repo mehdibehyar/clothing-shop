@@ -23,6 +23,9 @@ Route::post('users/{user}/permission',[permission::class,'store'])->name('users.
 Route::resource('permissions',PermissionController::class)->except(['show']);
 Route::resource('roles',RoleController::class)->except(['show']);
 Route::resource('products',ProductController::class)->except(['show']);
+Route::get('products/pagination',[ProductController::class,'fetch_data'])->name('pagination_product');
+
+
 Route::post('attribute/values',[AttributeController::class,'getValues'])->name('getValues');
 Route::resource('categories',CategoryController::class)->except(['show']);
 Route::resource('product.image',GalleryController::class)->except(['show']);

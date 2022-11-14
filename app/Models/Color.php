@@ -14,6 +14,12 @@ class Color extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('number','size_id')->withTimestamps();
+        return $this->belongsToMany(Product::class)->withTimestamps();
+    }
+
+    //for connect to statistics table
+    public function statistics()
+    {
+        return $this->hasMany(Statistics::class);
     }
 }

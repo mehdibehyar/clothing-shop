@@ -158,11 +158,11 @@ return [
      */
     'aclRules'          => [
         null => [
-            //['disk' => 'public', 'path' => '/', 'access' => 2],
+            //['disk' => 'public_html', 'path' => '/', 'access' => 2],
         ],
         1    => [
 //            ['disk' => 'images', 'path' => '*', 'access' => 0],
-//            ['disk' => 'public', 'path' => 'files/*', 'access' => 0],
+//            ['disk' => 'public_html', 'path' => 'files/*', 'access' => 0],
         ],
         ],
 

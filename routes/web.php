@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\cart\CartController;
+use App\Http\Controllers\products\ProductViewController;
 use Illuminate\Support\Facades\Route;
-use \Illuminate\Support\Facades\Gate;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +18,29 @@ use \Illuminate\Support\Facades\Gate;
 
 
 Route::get('/', function () {
-    return \App\Models\Active_code::generateCode(auth()->user());
     return view('index');
+})->name('index');
+
+Route::get('login',[AuthController::class,'loginGet'])->name('login');
+Route::post('login',[AuthController::class,'loginPost']);
+
+Route::get('register',[AuthController::class,'registerGet'])->name('register');
+Route::post('register',[AuthController::class,'registerPost']);
+
+Route::get('token',[AuthController::class,'getToken'])->name('token');
+Route::post('token',[AuthController::class,'postToken']);
+
+Route::prefix('cart')->group(function (){
+    Route::post('add/{product}',[CartController::class,'addToCart'])->name('cart.add');
+    Route::get('/',[CartController::class,'cart'])->name('cart');
+    Route::delete('delete/{product}',[CartController::class,'delete'])->name('cart.delete');
+    Route::patch('update',[CartController::class,'update'])->name('cart.update');
 });
 
-Route::post('cart/add/{product}',[\App\Http\Controllers\CartController::class,'addToCart'])->name('cart.add');
+Route::get('products',[ProductViewController::class,'show'])->name('show_products');
+Route::get('product/{product}',[ProductViewController::class,'show_single_product'])->name('single_product');
+
+
+
+
 

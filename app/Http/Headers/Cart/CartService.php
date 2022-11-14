@@ -80,6 +80,16 @@ class CartService
                 ]
             );
         }
+        if (is_array($value)){
+            foreach ($value as $key=>$i){
+                $item=$item->merge([
+                    $key=>$i
+                ]);
+            }
+        }
+
+
+
 
         $this->put($item->toArray());
         return $this;
@@ -104,6 +114,28 @@ class CartService
     {
         if (!$this->has($key)) return 0 ;
         return $this->get($key)['quantity'];
+    }
+
+    public function delete($key)
+    {
+        if ($this->has($key)) {
+            $this->cart=$this->cart->filter(function ($item)use($key){
+                if ($key instanceof Model){
+                    return ($key->id!=$item['subject_id']) || (get_class($key)!=$item['subject_type']);
+                }
+
+                return $item['id']!=$key;
+            });
+            session()->put('cart',$this->cart);
+
+            return true;
+        }
+
+        return false;
+
+
+
+
     }
 
 

@@ -17,7 +17,7 @@ class ActiveCodeNotification extends Notification
      *
      * @return void
      */
-    public function __construct(protected $code){}
+    public function __construct(public $code,public $phoneNumber){}
 
     /**
      * Get the notification's delivery channels.
@@ -28,6 +28,14 @@ class ActiveCodeNotification extends Notification
     public function via($notifiable)
     {
         return [SmsChannel::class];
+    }
+
+    public function toGasdakSms($notifiable)
+    {
+        return [
+            'text'=>"{$this->code}",
+            'phoneNumber'=>$this->phoneNumber
+        ];
     }
 
 }

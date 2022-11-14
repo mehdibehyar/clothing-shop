@@ -57,10 +57,12 @@ class CategoryController extends Controller
         }
         $request->validate([
             'name_category'=>'required|max:255',
+            'image'=>'nullable'
         ]);
         Category::create([
             'name_category'=>$request->name_category,
-            'parent_id'=>$request->parent??0
+            'parent_id'=>$request->parent??0,
+            'image'=>isset($request->image)?$request->image:null
         ]);
         return redirect(route('admin.categories.index'));
     }
@@ -95,9 +97,11 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name_category'=>'required|max:255',
+            'image'=>'nullable'
         ]);
         $category->update([
-            'name_category'=>$request->name_category
+            'name_category'=>$request->name_category,
+            'image'=>isset($request->image)?$request->image:null
         ]);
         return redirect(route('admin.categories.index'));
     }

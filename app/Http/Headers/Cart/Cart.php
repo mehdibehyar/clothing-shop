@@ -11,7 +11,7 @@ use mysql_xdevapi\Collection;
  * @method static boolean has($key)
  * @method static Collection all()
  * @method static array get($key,$modelvalue=true)
- * @method static Cart update($key,$value)
+ * @method static Cart update($key,array $value)
  */
 
 

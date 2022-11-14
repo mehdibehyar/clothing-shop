@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name_category','parent_id'];
+    protected $fillable=['name_category','parent_id','image'];
     //connect to products table
     public function products()
     {

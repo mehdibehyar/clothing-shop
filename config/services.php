@@ -31,8 +31,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'sms'=>[
-        'ghasdak_sms'=>env('API_GHASEDAK_SMS')
+    'ghasedak'=>[
+        'apiKey'=>env('API_GHASEDAK_SMS')
     ]
 
 ];

@@ -10,25 +10,26 @@ class Active_code extends Model
     use HasFactory;
 
     public $timestamps=false;
-    protected $fillable=['code','expiration_time'];
+    protected $fillable=['code','expiration_time','username'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function scopeGenerateCode($query,$user)
+    public function scopeGenerateCode($query,$username)
     {
-        if ($code=$this->getAliveCodeForUser($user)){
+        if ($code=$this->getAliveCodeForUser($username)){
             $code=$code->code;
         }else{
             do{
                 $code=mt_rand(100000,999999);
-            }while($this->CheckCodeIsUnique($user,$code));
+            }while($this->CheckCodeIsUnique($username,$code));
 
-            $user->active_code()->create([
+            $this->create([
                 'code'=>$code,
-                'expiration_time'=>now()->addMinutes(1)
+                'expiration_time'=>now()->addMinutes(10),
+                'username'=>$username
             ]);
 
         }
@@ -37,14 +38,14 @@ class Active_code extends Model
         return $code;
     }
 
-    private function CheckCodeIsUnique($user, int $code)
+    private function CheckCodeIsUnique($username, int $code)
     {
-        return !! $user->active_code()->whereCode($code)->first();
+        return !! $this->whereUsername($username)->whereCode($code)->first();
     }
 
-    private function getAliveCodeForUser($user)
+    private function getAliveCodeForUser($username)
     {
-        return $user->active_code()->where('expiration_time','>',now())->first();
+        return $this->whereUsername($username)->where('expiration_time','>',now())->first();
     }
 
 
