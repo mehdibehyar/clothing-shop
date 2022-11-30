@@ -47,7 +47,7 @@
     @include('admin.layouts.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper container">
         @yield('content')
     </div>
     <!-- /.content-wrapper -->
@@ -62,7 +62,7 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-vite('resources/js/admin.js')
+@vite('resources/js/admin.js')
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

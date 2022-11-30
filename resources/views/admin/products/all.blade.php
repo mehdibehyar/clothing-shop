@@ -6,11 +6,11 @@
     @endslot
     @slot('script')
         <script>
-            let page=1;
+            let page={{!empty($products->currentPage())?$products->currentPage():1}};
 
             function paginate(event) {
                 if (page=={{$products->lastPage()}}){
-                    document.getElementById('more_downloads').remove();
+                    return document.getElementById('more_downloads').remove();
                 }
                 page+=1;
                 $.ajax({
@@ -90,7 +90,6 @@
                 <div style="text-align: center" id="more_downloads">
                     <button class="btn btn-warning" onclick="paginate(event)">بارگیری بیشتر</button>
                 </div>
-                {{$products->getPageName()}}
             </div>
             <!-- /.card-body -->
         </div>

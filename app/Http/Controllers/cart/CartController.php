@@ -24,8 +24,12 @@ class CartController extends Controller
         }
 
         if (!!$product->statistics->where('size_id',$request->size)->where('color_id',$request->color)->first()){
-            if (Cart::has($product)){
-                Cart::update($product,['quantity'=>1,'size'=>$request->size,'color'=>$request->color]);
+            if ($product->statistics->where('size_id',$request->size)->where('color_id',$request->color)->first()->number<=0){
+                $title=$product->title;
+                return response()->json(['errors'=>$data->errors()->add('color_size',"متاسفانه {$title}   موجود نیست.")->all()]);
+            }
+            if (Cart::has($product) && Cart::getAll($product)->where('size',$request->size)->where('color',$request->color)->first()){
+                return response()->json(['errors'=>$data->errors()->add('not','از قبل در سبد خرید وجود دارد.')->all()]);
 
             }else{
 
@@ -68,10 +72,10 @@ class CartController extends Controller
 
     }
 
-    public function delete(Product $product)
+    public function delete($id)
     {
-        if (Cart::has($product)){
-            if (Cart::delete($product)){
+        if (Cart::has($id)){
+            if (Cart::delete($id)){
                 return response()->json(['success'=>true]);
             }else{
                 return response()->json(['errors'=>'عملیات حذف ناموفق بود لطفا دباره امتحان کنید.']);

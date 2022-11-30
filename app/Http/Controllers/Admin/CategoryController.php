@@ -28,8 +28,18 @@ class CategoryController extends Controller
             $categories->where('parent_id',0)->orWhere('name_category','LIKE',"%{$search}%")->where('id',$search);
         }
 
-        $categories=$categories->where('parent_id',0)->latest()->paginate(10);
+        $categories=$categories->where('parent_id',0)->latest()->get();
         return view('admin.categories.all',compact('categories'));
+
+    }
+
+
+    public function fetch_data(Request $request)
+    {
+        if ($request->ajax()){
+            $categories=Category::query()->paginate(20);
+            return view('admin.categories.page',compact('categories'))->render();
+        }
 
     }
 

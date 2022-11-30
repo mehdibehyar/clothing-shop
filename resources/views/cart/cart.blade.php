@@ -67,24 +67,30 @@
                         <th>اقدامات</th>
                     </tr>
                     @foreach(\App\Http\Headers\Cart\Cart::all() as $cart)
-                        <tr id="product-{{$loop->index}}">
-                            <td><img src="{{$cart['product']->images['image']}}" height="10%" width="10%">{{\App\Models\Size::find($cart['size'])->size . "_" . \App\Models\Color::find($cart['color'])->label}}</td>
-                            <td>{{$cart['product']->price}}</td>
-                            <td><input type="number" name="number" onchange="updateQuantity(event,'{{$cart['id']}}')" value="{{$cart['quantity']}}"></td>
-                            <td>20000000</td>
-                            <td class="d-flex">
-                                <button type="submit" onclick="destroy(event,'{{$cart['product']->id}}','{{$loop->index}}')" class="btn btn-sm btn-danger ml-1">حذف</button>
-                            </td>
-                        </tr>
+                        @if(!is_null($cart['product']))
+                            <tr id="product-{{$loop->index}}">
+                                <td><img src="{{!is_null($cart['product']->images) ?url($cart['product']->images['image']):'ghj'}}" height="10%" width="10%">{{\App\Models\Size::find($cart['size'])->size . "_" . \App\Models\Color::find($cart['color'])->label}}</td>
+                                <td>{{$cart['product']->price}}</td>
+                                <td><input type="number" name="number" onchange="updateQuantity(event,'{{$cart['id']}}')" value="{{$cart['quantity']}}"></td>
+                                <td></td>
+                                <td class="d-flex">
+                                    <button type="submit" onclick="destroy(event,'{{$cart['id']}}','{{$loop->index}}')" class="btn btn-sm btn-danger ml-1">حذف</button>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
                 <div>
-                    <button class="btn btn-success">به روز رسانی سبد</button>
+                    <form action="{{route('cart.payment')}}" method="post" id="payment">
+                        @csrf
+                    </form>
+                    <button class="btn btn-success" onclick="document.getElementById('payment').submit()">خرید</button>
                 </div>
             </div>
             <!-- /.card-body -->
         </div>
+        @include('sweetalert::alert')
         <!-- /.card -->
     </div>
 @include('layouts.endSidebar')

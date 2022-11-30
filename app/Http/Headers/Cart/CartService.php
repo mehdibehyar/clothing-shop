@@ -66,7 +66,7 @@ class CartService
     public function all(){
         return $this->cart->map(function ($item){
             return $this->getModelValue($item);
-        })->all();
+        })->collect();
     }
 
 
@@ -137,6 +137,27 @@ class CartService
 
 
     }
+
+    public function getAll($key)
+    {
+        $item= $key instanceof Model ?
+            $this->cart->where('subject_id',$key->id)->where('subject_type',get_class($key))->collect():
+            $this->cart->where('id',$key)->collect();
+
+        return $item->map(function ($item){
+            return $this->getModelValue($item);
+        })->collect();
+    }
+
+    public function flush()
+    {
+        $this->cart=collect([]);
+        session()->put('cart',$this->cart);
+
+        return $this;
+    }
+
+
 
 
 

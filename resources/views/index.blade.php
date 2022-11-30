@@ -17,52 +17,6 @@
                         <button type="button" class="btn btn-light
                                         border"><i class="bi bi-search
                                             text-dark"></i></button>
-                        <button type="button" class="btn
-                                        dropdown-toggle
-                                        dropdown-toggle-split border d-none
-                                        d-lg-block"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                        <span class="text-muted ms-3"> انتخاب
-                                            دسته
-                                            بندی
-                                        </span>
-                            <span class="visually-hidden">Toggle
-                                            Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">انتخاب
-                                    دسته بندی</a></li>
-                            <li><a class="dropdown-item" href="#">اکسسوری</a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">
-                            <li>خدمات
-                                <ul>
-                                    <li>خدمات رزرو </li>
-                                    <li>خدمات ارسال</li>
-                                </ul>
-                            </li>
-                            </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                            <li><a class="dropdown-item" href="#">کلاه
-                                </a></li>
-                        </ul>
                         <input type="text" class="form-control"
                                placeholder="جستجوی محصولات"
                                aria-label="Text input with segmented
@@ -70,33 +24,15 @@
                                         button">
                     </div>
                 </div>
-                <!--==== Advertising(تبلیغات) ==-->
+                <!--==== categories with image ==-->
                 <div class="row forcenteradvertis text-center">
-                    <div class="col-12 col-lg-3 advertis">
-                        <a href="#"><img src="./img/tb-1.jpg" alt=""
-                                         class="pb-lg-3 pb-2"></a>
-                        <a href="#"><img src="./img/tb-2.jpg" alt=""
-                                         class="pb-lg-0 pb-2"></a>
-                    </div>
-                    <div class="col-12 col-lg-3 advertis">
-                        <a href="#"><img src="./img/tb-3.jpg" alt=""
-                                         class="pb-lg-3 pb-2"></a>
-                        <a href="#"><img src="./img/tb-4.jpg" alt=""
-                                         class="pb-lg-0 pb-2"></a>
-                    </div>
-                    <div class="col-12 col-lg-3 advertis">
-                        <a href="#"><img src="./img/tb-5.jpg" alt=""
-                                         class="pb-lg-3 pb-2"></a>
-                        <a href="#"><img src="./img/tb-6.jpg" alt=""
-                                         class="pb-lg-0 pb-2"></a>
-                    </div>
-                    <div class="col-12 col-lg-3 advertis">
-                        <a href="#"><img src="./img/tb-7.jpg" alt=""
-                                         class="pb-lg-3 pb-2"></a>
-                        <a href="#"><img src="./img/tb-8.jpg" alt=""
-                                         class="pb-lg-0 pb-2"></a>
-                    </div>
-
+                    @foreach(\App\Models\Category::all()->take(8) as $item)
+                        @if(!empty($item->image))
+                            <div class="col-12 col-lg-3 advertis">
+                                <a href="{{route('product_category',$item->id)}}"><img src="{{url($item->image)}}" alt="" class="pb-lg-3 pb-2"></a>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
                 <!-- =====پرفروش ترینها==== -->
                 <div class="row pt-4">
@@ -117,465 +53,53 @@
                 <div class="owl-carousel owl-theme">
                     <!-- ====card one in carousel==== -->
                     <div class="item itemforhover">
-                        <div class="card position-relative"
-                             style="width:14rem ;">
-                            <a href="#" class="text-decoration-none
-                                            text-dark ddd">
+                        <div class="card position-relative" style="width:14rem ;">
+                            <a href="#" class="text-decoration-none text-dark ddd">
+
                                 <!--== img for card == -->
-                                <img class="card-img-top "
-                                     id="img-card"
-                                     src="/img/kard1.jpeg"
-                                     alt="Card image cap">
+                                <img class="card-img-top " id="img-card" src="/img/kard1.jpeg" alt="Card image cap">
                             </a>
-                            <div class="like position-absolute
-                                            flex-column
-                                            justify-content-center bg-white"
-                                 style="width:30px ;height:
+                            <div class="like position-absolute flex-column justify-content-center bg-white" style="width:30px ;height:
                                             100px;">
+
                                 <!--=== show icon when hover card ===-->
                                 <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-cart3 icononimg
-                                                    " id="addbas1"></i>
+                                   class="text-decoration-none text-dark py-2">
+                                    <i class="bi bi-cart3 icononimg" id="addbas1"></i>
                                     <i class="bi bi-check2 selbas1"></i>
                                 </a>
+                                <a href="#" class="text-decoration-none text-dark py-2">
+                                    <i class="bi bi-search icononimg"></i>
+                                </a>
                                 <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2"><i
-                                        class="bi bi-search
-                                                    icononimg"></i></a>
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-heart
-                                                    iconlike1"></i>
-                                    <i class="bi bi-check2
-                                                    iconselect1"></i>
+                                   class="text-decoration-none text-dark py-2">
+                                    <i class="bi bi-heart iconlike1"></i>
+                                    <i class="bi bi-check2 iconselect1"></i>
                                 </a>
                             </div>
+
                             <!--===labale in imag ===-->
-                            <span class="badge text-bg-danger vijhe
-                                            p-2
-                                            rounded-0">ویژه</span>
-                            <span class="badge text-bg-secondary
-                                            mojoudi
-                                            p-2 rounded-0">اتمام موجودی</span>
+                            <span class="badge text-bg-danger vijhe p-2 rounded-0">ویژه</span>
+                            <span class="badge text-bg-secondary mojoudi p-2 rounded-0">اتمام موجودی</span>
                             <div class="card-body p-2">
+
                                 <!--== price == -->
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark">
-                                                <span class="badge
-                                                    text-bg-danger ">30%
-                                                    تخفیف</span>
+                                <a href="#" class="text-decoration-none text-dark">
+                                    <span class="badge text-bg-danger ">30% تخفیف</span>
                                     <p class="card-text">
                                         پیراهن جلو بندی استین گره
                                         <span class="span1">180091</span>
                                     </p>
                                 </a>
-                                <div class="d-flex
-                                                justify-content-between
-                                                card-text">
-                                    <del class="text-muted span1">528,000
-                                        تومان</del>
-                                    <small class="text-danger
-                                                    span1">398,000
-                                        تومان</small>
+                                <div class="d-flex justify-content-between card-text">
+                                    <del class="text-muted span1">528,000 تومان</del>
+
+                                    <small class="text-danger span1">398,000 تومان</small>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!--===== cart two in carousel ====-->
-                    <div class="item itemforhover">
-                        <div class="card position-relative"
-                             style="width:14rem ;">
-                            <a href="#" class="text-decoration-none
-                                            text-dark">
-                                <!--== img for card == -->
-                                <img class="card-img-top"
-                                     id="img-card"
-                                     src="/img/kard5.jpeg"
-                                     alt="Card image cap">
-                            </a>
-                            <div class="like position-absolute
-                                            flex-column
-                                            justify-content-center bg-white"
-                                 style="width:30px ;height:
-                                            100px;">
-                                <!--=== show icon when hover card ===-->
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-cart3 icononimg
-                                                    " id="addbas2"></i>
-                                    <i class="bi bi-check2 selbas2"></i>
-                                </a>
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2"><i
-                                        class="bi bi-search
-                                                    icononimg"></i></a>
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-heart
-                                                    iconlike2"></i>
-                                    <i class="bi bi-check2
-                                                    iconselect2"></i>
-                                </a>
-                            </div>
-                            <!--===labale in imag ===-->
-                            <span class="badge text-bg-danger vijhe
-                                            p-2
-                                            rounded-0">ویژه</span>
-                            <span class="badge text-bg-secondary
-                                            mojoudi
-                                            p-2 rounded-0">اتمام موجودی</span>
-                            <div class="card-body p-2">
-                                <!--== price == -->
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark">
-                                                <span class="badge
-                                                    text-bg-danger ">30%
-                                                    تخفیف</span>
-                                    <p class="card-text">
-                                        پیراهن جلو بندی استین گره
-                                        <span class="span1">180091</span>
-                                    </p>
-                                </a>
-                                <div class="d-flex
-                                                justify-content-between
-                                                card-text">
-                                    <del class="text-muted span1">528,000
-                                        تومان</del>
-                                    <small class="text-danger
-                                                    span1">398,000
-                                        تومان</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--==== card three in carusel==== -->
-                    <div class="item itemforhover">
-                        <div class="card position-relative"
-                             style="width:14rem ;">
-                            <a href="#" class="text-decoration-none
-                                            text-dark">
-                                <!--== img for card == -->
-                                <img class="card-img-top"
-                                     id="img-card"
-                                     src="/img/kard2.jpeg"
-                                     alt="Card image cap">
-                            </a>
-                            <div class="like position-absolute
-                                            flex-column
-                                            justify-content-center bg-white"
-                                 style="width:30px ;height:
-                                            100px;">
-                                <!--=== show icon when hover card ===-->
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-cart3 icononimg
-                                                    " id="addbas3"></i>
-                                    <i class="bi bi-check2 selbas3"></i>
-                                </a>
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2"><i
-                                        class="bi bi-search
-                                                    icononimg"></i></a>
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-heart
-                                                    iconlike3"></i>
-                                    <i class="bi bi-check2
-                                                    iconselect3"></i>
-                                </a>
-                            </div>
-                            <!--===labale in imag ===-->
-                            <span class="badge text-bg-danger vijhe
-                                            p-2
-                                            rounded-0">ویژه</span>
-                            <span class="badge text-bg-secondary
-                                            mojoudi
-                                            p-2 rounded-0">اتمام موجودی</span>
-                            <div class="card-body p-2">
-                                <!--== price == -->
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark">
-                                                <span class="badge
-                                                    text-bg-danger ">30%
-                                                    تخفیف</span>
-                                    <p class="card-text">
-                                        پیراهن جلو بندی استین گره
-                                        <span class="span1">180091</span>
-                                    </p>
-                                </a>
-                                <div class="d-flex
-                                                justify-content-between
-                                                card-text">
-                                    <del class="text-muted span1">528,000
-                                        تومان</del>
-                                    <small class="text-danger
-                                                    span1">398,000
-                                        تومان</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--==== card 4 in carusel==== -->
-                    <div class="item itemforhover">
-                        <div class="card position-relative"
-                             style="width:14rem ;">
-                            <a href="#" class="text-decoration-none
-                                            text-dark">
-                                <!--== img for card == -->
-                                <img class="card-img-top"
-                                     id="img-card"
-                                     src="/img/kard3.jpeg"
-                                     alt="Card image cap">
-                            </a>
-                            <div class="like position-absolute
-                                            flex-column
-                                            justify-content-center bg-white"
-                                 style="width:30px ;height:
-                                            100px;">
-                                <!--=== show icon when hover card ===-->
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-cart3 icononimg
-                                                    " id="addbas4"></i>
-                                    <i class="bi bi-check2 selbas4"></i>
-                                </a>
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2"><i
-                                        class="bi bi-search
-                                                    icononimg"></i></a>
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-heart
-                                                    iconlike4"></i>
-                                    <i class="bi bi-check2
-                                                    iconselect4"></i>
-                                </a>
-                            </div>
-                            <!--===labale in imag ===-->
-                            <span class="badge text-bg-danger vijhe
-                                            p-2
-                                            rounded-0">ویژه</span>
-                            <span class="badge text-bg-secondary
-                                            mojoudi
-                                            p-2 rounded-0">اتمام موجودی</span>
-                            <div class="card-body p-2">
-                                <!--== price == -->
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark">
-                                                <span class="badge
-                                                    text-bg-danger ">30%
-                                                    تخفیف</span>
-                                    <p class="card-text">
-                                        پیراهن جلو بندی استین گره
-                                        <span class="span1">180091</span>
-                                    </p>
-                                </a>
-                                <div class="d-flex
-                                                justify-content-between
-                                                card-text">
-                                    <del class="text-muted span1">528,000
-                                        تومان</del>
-                                    <small class="text-danger
-                                                    span1">398,000
-                                        تومان</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--==== card 5 in carusel==== -->
-                    <div class="item itemforhover">
-                        <div class="card position-relative"
-                             style="width:14rem ;">
-                            <a href="#" class="text-decoration-none
-                                            text-dark">
-                                <!--== img for card == -->
-                                <img class="card-img-top"
-                                     id="img-card"
-                                     src="/img/kard4.jpeg"
-                                     alt="Card image cap">
-                            </a>
-                            <div class="like position-absolute
-                                            flex-column
-                                            justify-content-center bg-white"
-                                 style="width:30px ;height:
-                                            100px;">
-                                <!--=== show icon when hover card ===-->
-                                <a href="#"
-                                   class="text-decoration-none
-                                                text-dark py-2">
-                                    <i class="bi bi-cart3 icononimg"
-                                       id="addbas5"></i>
-                                    <i class="bi bi-check2 selbas5"></i>
-                                </a>
-                                </a>
-                                <a href="#" class="text-decoration-none
-                                            text-dark py-2"><i
-                                        class="bi bi-search icononimg"></i></a>
-                                <a href="#" class="text-decoration-none
-                                            text-dark py-2">
-                                    <i class="bi bi-heart iconlike5"></i>
-                                    <i class="bi bi-check2 iconselect5"></i>
-                                </a>
-                            </div>
-                            <!--===labale in imag ===-->
-                            <span class="badge text-bg-danger vijhe p-2
-                                        rounded-0">ویژه</span>
-                            <span class="badge text-bg-secondary mojoudi
-                                        p-2 rounded-0">اتمام موجودی</span>
-                            <div class="card-body p-2">
-                                <!--== price == -->
-                                <a href="#" class="text-decoration-none
-                                            text-dark">
-                                            <span class="badge text-bg-danger ">30%
-                                                تخفیف</span>
-                                    <p class="card-text">
-                                        پیراهن جلو بندی استین گره
-                                        <span class="span1">180091</span>
-                                    </p>
-                                </a>
-                                <div class="d-flex
-                                            justify-content-between card-text">
-                                    <del class="text-muted span1">528,000
-                                        تومان</del>
-                                    <small class="text-danger span1">398,000
-                                        تومان</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--==== card 6 in carusel==== -->
-                    <div class="item itemforhover">
-                        <div class="card position-relative"
-                             style="width:14rem ;">
-                            <a href="#" class="text-decoration-none
-                                        text-dark">
-                                <!--== img for card == -->
-                                <img class="card-img-top" id="img-card"
-                                     src="./img/kard3.jpeg"
-                                     alt="Card image cap">
-                            </a>
-                            <div class="like position-absolute
-                                        flex-column
-                                        justify-content-center bg-white"
-                                 style="width:30px ;height:
-                                        100px;">
-                                <!--=== show icon when hover card ===-->
-                                <a href="#" class="text-decoration-none
-                                            text-dark py-2">
-                                    <i class="bi bi-cart3 icononimg "
-                                       id="addbas6"></i>
-                                    <i class="bi bi-check2 selbas6"></i>
-                                </a>
-                                <a href="#" class="text-decoration-none
-                                            text-dark py-2"><i
-                                        class="bi bi-search icononimg"></i></a>
-                                <a href="#" class="text-decoration-none
-                                            text-dark py-2">
-                                    <i class="bi bi-heart iconlike6"></i>
-                                    <i class="bi bi-check2 iconselect6"></i>
-                                </a>
-                            </div>
-                            <!--===labale in imag ===-->
-                            <span class="badge text-bg-danger vijhe p-2
-                                        rounded-0">ویژه</span>
-                            <span class="badge text-bg-secondary mojoudi
-                                        p-2 rounded-0">اتمام موجودی</span>
-                            <div class="card-body p-2">
-                                <!--== price == -->
-                                <a href="#" class="text-decoration-none
-                                            text-dark">
-                                            <span class="badge text-bg-danger ">30%
-                                                تخفیف</span>
-                                    <p class="card-text">
-                                        پیراهن جلو بندی استین گره
-                                        <span class="span1">180091</span>
-                                    </p>
-                                </a>
-                                <div class="d-flex
-                                            justify-content-between card-text">
-                                    <del class="text-muted span1">528,000
-                                        تومان</del>
-                                    <small class="text-danger span1">398,000
-                                        تومان</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--==== card 7 in carusel==== -->
-                    <div class="item itemforhover">
-                        <div class="card position-relative"
-                             style="width:14rem ;">
-                            <a href="#" class="text-decoration-none
-                                        text-dark">
-                                <!--== img for card == -->
-                                <img class="card-img-top" id="img-card"
-                                     src="./img/kard5.jpeg"
-                                     alt="Card image cap">
-                            </a>
-                            <div class="like position-absolute
-                                        flex-column
-                                        justify-content-center bg-white"
-                                 style="width:30px ;height:
-                                        100px;">
-                                <!--=== show icon when hover card ===-->
-                                <a href="#" class="text-decoration-none
-                                            text-dark py-2">
-                                    <i class="bi bi-cart3 icononimg "
-                                       id="addbas7"></i>
-                                    <i class="bi bi-check2 selbas7"></i>
-                                </a></a>
-                                <a href="#" class="text-decoration-none
-                                        text-dark py-2"><i
-                                        class="bi bi-search icononimg"></i></a>
-                                <a href="#" class="text-decoration-none
-                                        text-dark py-2">
-                                    <i class="bi bi-heart iconlike7"></i>
-                                    <i class="bi bi-check2 iconselect7"></i>
-                                </a>
-                            </div>
-                            <!--===labale in imag ===-->
-                            <span class="badge text-bg-danger vijhe p-2
-                                    rounded-0">ویژه</span>
-                            <span class="badge text-bg-secondary mojoudi
-                                    p-2 rounded-0">اتمام موجودی</span>
-                            <div class="card-body p-2">
-                                <!--== price == -->
-                                <a href="#" class="text-decoration-none
-                                        text-dark">
-                                        <span class="badge text-bg-danger ">30%
-                                            تخفیف</span>
-                                    <p class="card-text">
-                                        پیراهن جلو بندی استین گره
-                                        <span class="span1">180091</span>
-                                    </p>
-                                </a>
-                                <div class="d-flex
-                                        justify-content-between card-text">
-                                    <del class="text-muted span1">528,000
-                                        تومان</del>
-                                    <small class="text-danger span1">398,000
-                                        تومان</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
 
                 </div>
 
@@ -586,7 +110,7 @@
                         pliner-continer "></div>
                 <div class=" col-6 col-md-4 col-lg-2 pt-3
                         liner-continer text-center"><p
-                        class="fw-bolder h5 ">مجله دیریم</p></div>
+                        class="fw-bolder h5 " id="Magazine">مجله دیریم</p></div>
                 <div class="col-3 col-md-4 col-lg-5 pt-3
                         pliner-continer"></div>
             </div>
@@ -594,293 +118,55 @@
             <div class="swiper mySwiper pt-5 pb-4">
                 <div class="swiper-wrapper">
                     <!-- ===slide1==== -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <!-- ==img for magazin ==-->
-                            <a href="#" class="position-relative">
-                                <img class="card-img-top"
-                                     src="./img/swiper1.jpg"
-                                     alt="Card image cap">
-                                <!-- ==date in img === -->
-                                <div class="date d-flex
+                    @foreach(\App\Models\Post::all() as $post)
+                        <div class="swiper-slide">
+                            <div class="card">
+                                <!-- ==img for magazin ==-->
+                                <a href="#" class="position-relative">
+                                    <img class="card-img-top"
+                                         src="{{$post->discriptions()->image}}"
+                                         alt="Card image cap">
+                                    <!-- ==date in img === -->
+                                    <div class="date d-flex
                                         justify-content-center
                                         align-content-center bg-white ">
-                                    <p class="text-muted span1 px-1
-                                            pt-2">22مهر</p>
-                                </div>
-                                <span class="badge text-bg-danger p-2
+                                        <p class="text-muted span1 px-1
+                                            pt-2">{{jdate($post->created_at)}}</p>
+                                    </div>
+                                    <span class="badge text-bg-danger p-2
                                         rounded-0 position-absolute top-100
                                         start-50 translate-middle"> سبک
                                         پوشیدن</span>
-                            </a>
-                            <div class="card-body text-center">
+                                </a>
+                                <div class="card-body text-center">
 
-                                <p class="card-text h5">
-                                    چه رنگ لباسی برای پوست شما مناسب
-                                    است؟
-                                </p>
-                                <!--=== admin SEO=== -->
-                                <p class="card-text text-muted">
-                                    <i class="bi bi-person-circle"></i>
-                                    کارشناس محتوا
-                                </p>
-                                <p class="card-text">
-                                <p class="text-muted">سفید گندمی و
-                                    سبزه سه رنگ پوست هستند <br> که
-                                    بهتر است با توجه به آن رنگ
-                                    لباسهایتان را<br> انتخاب کنید
-                                    برخی از رنگها به خاطر تناسب <br>شان...</p>
-                                </p>
-                                <!--=== link for continue to read a content ===-->
-                                <a href="#" class="text-decoration-none
+                                    <p class="card-text h5">
+                                        {{$post->title}}
+                                    </p>
+                                    <!--=== admin SEO=== -->
+                                    <p class="card-text text-muted">
+                                        <i class="bi bi-person-circle"></i>
+                                        کارشناس محتوا
+                                    </p>
+                                    <p class="card-text">
+                                    <p class="text-muted">سفید گندمی و
+                                        سبزه سه رنگ پوست هستند <br> که
+                                        بهتر است با توجه به آن رنگ
+                                        لباسهایتان را<br> انتخاب کنید
+                                        برخی از رنگها به خاطر تناسب <br>شان...</p>
+                                    </p>
+                                    <!--=== link for continue to read a content ===-->
+                                    <a href="#" class="text-decoration-none
                                         d-flex justify-content-center
                                         text-danger fw-bolder content-in-card"><p
-                                        class="">ادامه
-                                        مطلب</p><span class="span2
+                                            class="">ادامه
+                                            مطلب</p><span class="span2
                                             fw-bolder ps-2 ">...</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ===slide2==== -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <!-- ==img for magazin ==-->
-                            <a href="#" class="position-relative">
-                                <img class="card-img-top"
-                                     src="./img/swiper2.jpeg"
-                                     alt="Card image cap">
-                                <!-- ==date in img === -->
-                                <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                                    <p class="text-muted span1 px-1
-                                            pt-2">21مهر</p>
                                 </div>
-                                <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                            </a>
-                            <div class="card-body text-center">
-
-                                <p class="card-text h5">
-                                    چه رنگ لباسی برای پوست شما مناسب
-                                    است؟
-                                </p>
-                                <!--=== admin SEO=== -->
-                                <p class="card-text text-muted">
-                                    <i class="bi bi-person-circle"></i>
-                                    کارشناس محتوا
-                                </p>
-                                <p class="card-text">
-                                <p class="text-muted">سفید گندمی و
-                                    سبزه سه رنگ پوست هستند <br> که
-                                    بهتر است با توجه به آن رنگ
-                                    لباسهایتان را<br> انتخاب کنید
-                                    برخی از رنگها به خاطر تناسب <br>شان...</p>
-                                </p>
-                                <!--=== link for continue to read a content ===-->
-                                <a href="#" class="text-decoration-none
-                                        d-flex justify-content-center
-                                        text-danger fw-bolder content-in-card"><p
-                                        class="">ادامه
-                                        مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
                             </div>
                         </div>
-                    </div>
-                    <!-- ===slide3==== -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <!-- ==img for magazin ==-->
-                            <a href="#" class="position-relative">
-                                <img class="card-img-top"
-                                     src="./img/swiper3.jpg"
-                                     alt="Card image cap">
-                                <!-- ==date in img === -->
-                                <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                                    <p class="text-muted span1 px-1
-                                            pt-2">20مهر</p>
-                                </div>
-                                <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                            </a>
-                            <div class="card-body text-center">
+                    @endforeach
 
-                                <p class="card-text h5">
-                                    چه رنگ لباسی برای پوست شما مناسب
-                                    است؟
-                                </p>
-                                <!--=== admin SEO=== -->
-                                <p class="card-text text-muted">
-                                    <i class="bi bi-person-circle"></i>
-                                    کارشناس محتوا
-                                </p>
-                                <p class="card-text">
-                                <p class="text-muted">سفید گندمی و
-                                    سبزه سه رنگ پوست هستند <br> که
-                                    بهتر است با توجه به آن رنگ
-                                    لباسهایتان را<br> انتخاب کنید
-                                    برخی از رنگها به خاطر تناسب <br>شان...</p>
-                                </p>
-                                <!--=== link for continue to read a content ===-->
-                                <a href="#" class="text-decoration-none
-                                        d-flex justify-content-center
-                                        text-danger fw-bolder content-in-card"><p
-                                        class="">ادامه
-                                        مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ===slide4==== -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <!-- ==img for magazin ==-->
-                            <a href="#" class="position-relative">
-                                <img class="card-img-top"
-                                     src="./img/swiper4.jpg"
-                                     alt="Card image cap">
-                                <!-- ==date in img === -->
-                                <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                                    <p class="text-muted span1 px-1
-                                            pt-2">19مهر</p>
-                                </div>
-                                <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                            </a>
-                            <div class="card-body text-center">
-
-                                <p class="card-text h5">
-                                    چه رنگ لباسی برای پوست شما مناسب
-                                    است؟
-                                </p>
-                                <!--=== admin SEO=== -->
-                                <p class="card-text text-muted">
-                                    <i class="bi bi-person-circle"></i>
-                                    کارشناس محتوا
-                                </p>
-                                <p class="card-text">
-                                <p class="text-muted">سفید گندمی و
-                                    سبزه سه رنگ پوست هستند <br> که
-                                    بهتر است با توجه به آن رنگ
-                                    لباسهایتان را<br> انتخاب کنید
-                                    برخی از رنگها به خاطر تناسب <br>شان...</p>
-                                </p>
-                                <!--=== link for continue to read a content ===-->
-                                <a href="#" class="text-decoration-none
-                                        text-danger fw-bolder d-flex
-                                        justify-content-center
-                                        content-in-card"><p class="">ادامه
-                                        مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ===slide5==== -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <!-- ==img for magazin ==-->
-                            <a href="#" class="position-relative">
-                                <img class="card-img-top"
-                                     src="./img/swiper1.jpg"
-                                     alt="Card image cap">
-                                <!-- ==date in img === -->
-                                <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                                    <p class="text-muted span1 px-1
-                                            pt-2">18مهر</p>
-                                </div>
-                                <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                            </a>
-                            <div class="card-body text-center">
-
-                                <p class="card-text h5">
-                                    چه رنگ لباسی برای پوست شما مناسب
-                                    است؟
-                                </p>
-                                <!--=== admin SEO=== -->
-                                <p class="card-text text-muted">
-                                    <i class="bi bi-person-circle"></i>
-                                    کارشناس محتوا
-                                </p>
-                                <p class="card-text">
-                                <p class="text-muted">سفید گندمی و
-                                    سبزه سه رنگ پوست هستند <br> که
-                                    بهتر است با توجه به آن رنگ
-                                    لباسهایتان را<br> انتخاب کنید
-                                    برخی از رنگها به خاطر تناسب <br>شان...</p>
-                                </p>
-                                <!--=== link for continue to read a content ===-->
-                                <a href="#" class="text-decoration-none
-                                        text-danger fw-bolder d-flex
-                                        justify-content-center
-                                        content-in-card"><p class="">ادامه
-                                        مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ===slide6==== -->
-                    <div class="swiper-slide">
-                        <div class="card">
-                            <!-- ==img for magazin ==-->
-                            <a href="#" class="position-relative">
-                                <img class="card-img-top"
-                                     src="./img/swiper2.jpeg"
-                                     alt="Card image cap">
-                                <!-- ==date in img === -->
-                                <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                                    <p class="text-muted span1 px-1
-                                            pt-2">17مهر</p>
-                                </div>
-                                <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                            </a>
-                            <div class="card-body text-center">
-
-                                <p class="card-text h5">
-                                    چه رنگ لباسی برای پوست شما مناسب
-                                    است؟
-                                </p>
-                                <!--=== admin SEO=== -->
-                                <p class="card-text text-muted">
-                                    <i class="bi bi-person-circle"></i>
-                                    کارشناس محتوا
-                                </p>
-                                <p class="card-text">
-                                <p class="text-muted">سفید گندمی و
-                                    سبزه سه رنگ پوست هستند <br> که
-                                    بهتر است با توجه به آن رنگ
-                                    لباسهایتان را<br> انتخاب کنید
-                                    برخی از رنگها به خاطر تناسب <br>شان...</p>
-                                </p>
-                                <!--=== link for continue to read a content ===-->
-                                <a href="#" class="text-decoration-none
-                                        d-flex justify-content-center
-                                        text-danger fw-bolder
-                                        content-in-card"><p class="">ادامه
-                                        مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
-                            </div>
-                        </div>
-                    </div>
                     <div class="swiper-pagination"></div>
                 </div>
             </div>

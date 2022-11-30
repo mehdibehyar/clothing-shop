@@ -15,7 +15,8 @@
         "laravel/tinker": "^2.7",
         "morilog/jalali": "3.*",
         "nwidart/laravel-modules": "^9.0",
-        "realrashid/sweet-alert": "^5.1"
+        "realrashid/sweet-alert": "^5.1",
+        "shopid/zarinpal": "^1.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

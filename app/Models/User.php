@@ -69,6 +69,13 @@ class User extends Authenticatable
         return $this->hasMany(Description::class);
     }
 
+
+    //for connect to orders table
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -123,5 +130,12 @@ class User extends Authenticatable
     public function active_code()
     {
         return $this->hasMany(Active_code::class);
+    }
+
+
+    //for connect to interests table
+    public function interests()
+    {
+        return $this->hasMany(Interest::class);
     }
 }

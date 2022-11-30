@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         \App\Http\Headers\Cart\CartServiceProvider::class,
         \App\Http\Headers\Notify\NotifyServiceProvider::class,
+        \App\Http\Headers\Interest\InterestServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         /*
@@ -216,6 +217,7 @@ return [
         'Cart'=> \App\Http\Headers\Cart\Cart::class,
         'Notify'=>\App\Http\Headers\Notify\Notify::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Interest'=>\App\Http\Headers\Interest\Interest::class,
 
     ])->toArray(),
 

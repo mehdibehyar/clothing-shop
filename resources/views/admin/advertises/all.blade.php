@@ -5,6 +5,29 @@
         <li class="breadcrumb-item active">تبلیغ ها</li>
     @endslot
 
+    @slot('script')
+        <script>
+            let page=1;
+
+            function paginate(event) {
+                if (page=={{$advertises->lastPage()}}){
+                    document.getElementById('more_downloads').remove();
+                }
+                page+=1;
+                $.ajax({
+                    type: 'get',
+                    url: 'advertises/pagination?page='+page,
+                    success: function (result) {
+                        $('#table_data').append(result);
+                    }
+                });
+                let url= new URL(window.location.href);
+                url.searchParams.set('page',page);
+                window.history.pushState(window.location.href,'mehdi behyar',url.href);
+            }
+        </script>
+    @endslot
+
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -61,6 +84,9 @@
                     @endforeach
                     </tbody>
                 </table>
+                <div style="text-align: center" id="more_downloads">
+                    <button class="btn btn-warning" onclick="paginate(event)">بارگیری بیشتر</button>
+                </div>
             </div>
             <!-- /.card-body -->
         </div>

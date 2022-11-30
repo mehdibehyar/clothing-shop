@@ -16,18 +16,30 @@ Route::get('/',function (){
 });
 
 Route::resource('users',UserController::class)->except(['show']);
+Route::get('users/pagination',[UserController::class,'fetch_data'])->name('pagination_users');
+
 Route::get('users/{user}/permissions',[permission::class,'create'])->name('users.permissions.create')->middleware('can:show_staff_access');
 Route::post('users/{user}/permission',[permission::class,'store'])->name('users.permission.store')->middleware('can:show_staff_access');
 
 
 Route::resource('permissions',PermissionController::class)->except(['show']);
+Route::get('permissions/pagination',[PermissionController::class,'fetch_data'])->name('pagination_permissions');
+
 Route::resource('roles',RoleController::class)->except(['show']);
+Route::get('roles/pagination',[RoleController::class,'fetch_data'])->name('roles_product');
+
 Route::resource('products',ProductController::class)->except(['show']);
 Route::get('products/pagination',[ProductController::class,'fetch_data'])->name('pagination_product');
 
 
 Route::post('attribute/values',[AttributeController::class,'getValues'])->name('getValues');
 Route::resource('categories',CategoryController::class)->except(['show']);
+Route::get('categories/pagination',[CategoryController::class,'fetch_data'])->name('categories_product');
+
 Route::resource('product.image',GalleryController::class)->except(['show']);
+
 Route::resource('posts', PostController::class)->except(['show']);
+Route::get('posts/pagination',[PostController::class,'fetch_data'])->name('posts_product');
+
 Route::resource('advertises', AdvertiseController::class)->except(['show']);
+Route::get('advertises/pagination',[ProductController::class,'fetch_data'])->name('advertises_product');

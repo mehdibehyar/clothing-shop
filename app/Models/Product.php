@@ -78,5 +78,17 @@ class Product extends Model
         return $this->hasMany(Statistics::class);
     }
 
+    //for connect to orders table
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
+
+    //for connect to interests table
+    public function interests()
+    {
+        return $this->morphMany(Interest::class,'interestable');
+    }
+
 
 }

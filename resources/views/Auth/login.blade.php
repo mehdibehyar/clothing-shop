@@ -42,6 +42,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <input type="submit" value="ورود">
             </form>
             <p><a href="{{route('register')}}">ثبت نام!</a></p>
+            <p><a href="{{route('resetPassword')}}">فراموشی پسورد</a></p>
         </div>
     </div>
 

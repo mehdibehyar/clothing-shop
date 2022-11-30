@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a1a221a7b9d82e8fb7c1579c4722345b",
+    "content-hash": "cac263791dfb7df4343c3541689f83c9",
     "packages": [
         {
             "name": "alexusmai/laravel-file-manager",
@@ -3459,6 +3459,42 @@
                 }
             ],
             "time": "2022-05-28T13:28:03+00:00"
+        },
+        {
+            "name": "shopid/zarinpal",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shopid-dev/zarinpal-php.git",
+                "reference": "4a2f754a724074dd18be830b9ed22089a972ed4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shopid-dev/zarinpal-php/zipball/4a2f754a724074dd18be830b9ed22089a972ed4f",
+                "reference": "4a2f754a724074dd18be830b9ed22089a972ed4f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "shopid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "alaeebehnam",
+                    "email": "alaeebehnam@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/shopid-dev/zarinpal-php/issues",
+                "source": "https://github.com/shopid-dev/zarinpal-php/tree/1.0.4"
+            },
+            "time": "2022-07-09T05:56:20+00:00"
         },
         {
             "name": "symfony/console",

@@ -17,10 +17,10 @@ class SmsChannel
         $message=$data['text'];
         $receptor= $data['phoneNumber'];
 
-        $apikey=config('services.ghasdak.apiKey');
+        $apikey=config('services.ghasedak.apiKey');
         try
         {
-            $lineNumber = "10008566";
+            $lineNumber = "50001212125081";
             $api = new \Ghasedak\GhasedakApi($apikey);
             $api->SendSimple($receptor,$message,$lineNumber);
         }

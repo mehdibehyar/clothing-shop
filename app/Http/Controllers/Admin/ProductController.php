@@ -38,14 +38,14 @@ class ProductController extends Controller
             $products->orWhere('title','LIKE',"%{$search}%")->orWhere('id',$search);
         }
 
-        $products=$products->paginate(1);
+        $products=$products->paginate(12);
         return view('admin.products.all',compact('products'))->render();
     }
 
     public function fetch_data(Request $request)
     {
         if ($request->ajax()){
-            $products=Product::query()->paginate(1);
+            $products=Product::query()->paginate(12);
             return view('admin.products.page',compact('products'))->render();
         }
 

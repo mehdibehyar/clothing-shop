@@ -5,6 +5,30 @@
         <li class="breadcrumb-item active">کاربران</li>
     @endslot
 
+    @slot('script')
+        <script>
+            let page={{!empty($users->currentPage())?$users->currentPage():1}};
+
+            function paginate(event) {
+                if (page=={{$users->lastPage()}}){
+                    return document.getElementById('more_downloads').remove();
+                }
+                page+=1;
+                $.ajax({
+                    type: 'get',
+                    url: 'users/pagination?page='+page,
+                    success: function (result) {
+                        $('#table_data').append(result);
+                    }
+                });
+                let url= new URL(window.location.href);
+                url.searchParams.set('page',page);
+                window.history.pushState(window.location.href,'mehdi behyar',url.href);
+            }
+
+        </script>
+    @endslot
+
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -33,7 +57,7 @@
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
-                    <tbody>
+                    <tbody id="table_data">
 
                             <tr>
                                 <th>ایدی کاربر</th>
@@ -71,6 +95,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div style="text-align: center" id="more_downloads">
+                    <button class="btn btn-warning" onclick="paginate(event)">بارگیری بیشتر</button>
+                </div>
             </div>
             <!-- /.card-body -->
         </div>

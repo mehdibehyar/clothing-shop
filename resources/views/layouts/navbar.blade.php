@@ -6,7 +6,7 @@
         <div class="col d-none d-lg-inline-flex">
             <!-- =NAME OLINE SHOP =-->
             <div class="name-onlinshop mt-3">
-                <p class="h5 fw-bolder">فروشگاه اینترنتی دیریم</p>
+                <p class="h5 fw-bolder">فروشگاه اینترنتی Deressland</p>
             </div>
         </div>
         <!--= MEIU =-->
@@ -28,27 +28,13 @@
                             <li class="nav-item">
                                 <a class="nav-link"
                                    aria-current="page"
-                                   href="#">مجله</a>
+                                   href="#Magazine">مجله</a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link"
-                                   href="#">مشاوره</a>
+                                <a class="nav-link" href="{{route('show_products')}}">فروشگاه</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   href="#">تماس با ما </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">فروشگاه</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">پیگیری
-                                    سفارش</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">راهنمای
-                                    پیگیری سفارش</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -108,8 +94,7 @@
                                                 text-white countere "
                       id="shownumbas">0</span>
             </div>
-            <span class="span1 text-muted mb-2"> 0
-                                            تومان </span>
+            <span onclick="document.location='{{route('cart')}}'">سبدخرید</span>
         </div>
         <div class="ms-2 border-start ps-3 d-flex">
             <div class="position-relative">
@@ -138,11 +123,11 @@
                 <span class="span1 position-absolute
                                             text-white countere counter">0</span>
             </div>
-            <span>علاقه مندی ها</span>
+            <span onclick="document.location='{{route('interests')}}'">علاقه مندی ها</span>
         </div>
         <div>
             <i class="bi bi-person"></i>
-            <span>ورود/ثبت نام</span>
+            <span onclick="document.location='{{route('register')}}'">ورود/ثبت نام</span>
         </div>
     </div>
 
@@ -153,51 +138,7 @@
                                         btn-outline-danger"><i class="bi
                                             bi-search
                                             text-white"></i></button>
-            <button type="button" class="btn
-                                        dropdown-toggle
-                                        dropdown-toggle-split border"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                                        <span class="text-muted ms-3"> انتخاب
-                                            دسته
-                                            بندی
-                                        </span>
-                <span class="visually-hidden">Toggle
-                                            Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">انتخاب
-                        دسته بندی</a></li>
-                <li><a class="dropdown-item" href="#">اکسسوری</a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">
-                <li>خدمات
-                    <ul>
-                        <li>خدمات رزرو </li>
-                        <li>خدمات ارسال</li>
-                    </ul>
-                </li>
-                </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-                <li><a class="dropdown-item" href="#">کلاه
-                    </a></li>
-            </ul>
+
             <input type="text" class="form-control"
                    placeholder="جستجوی محصولات"
                    aria-label="Text input with segmented
@@ -225,140 +166,30 @@
                         class="bi bi-list "></i>دسته
                     بندی
                     کالاها</p>
-                <div class="dropdowncontent1 ">
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کیف</a>
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کفش</a>
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کلاه</a>
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#"> تذس کاپشن</a>
-                    <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
+                <div class="dropdowncontent1">
+                    @foreach(\App\Models\Category::all() as $category)
+                        <a class="drop-item text-center border py-2 text-decoration-none text-muted" href="{{route('product_category',$category->id)}}">{{$category->name_category}}</a>
+                    @endforeach
                 </div>
         </ul>
     </div>
     <!--===== menu in end header ====-->
     <div class="col-8 mt-3 d-none d-lg-flex mnuhed">
         <ul class=" d-flex flex-row menuul">
-            <li class="me-2 menulist">
-                <a class="menu-link text-muted
-                                                munli"
-                   aria-current="page"
-                   href="#">مجله</a>
-            </li>
+
+
             <li class="me-3 menulist">
-                <a class="menu-link text-muted
-                                                munli"
-                   href="#">پیگیری سفارش</a>
-            </li>
-            <li class="me-3 menulist dropdown">
-                <a class="menu-link text-muted"
-                   href="#">سفارشات رزرو<i class="bi bi-chevron-compact-down"></i></a>
-                <div class="dropdowncontent">
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">راهنمای
-                        رزرو سفارشات</a>
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">ارسال
-                        سفارشات رزرو</a>
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">سفارشات
-                        من</a>
-                </div>
-            </li>
-            <li class="me-3 menulist dropdown">
-                <a class="menu-link text-muted
-                                                munli">کیف پول<i class="bi bi-chevron-compact-down pt-2"></i></a>
-                <div class="dropdowncontent">
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">راهنمای
-                        کیف پول </a>
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">موجودی
-                        و شارژکیف پول</a>
-                </div>
-            </li>
-            <li class="me-3 menulist">
-                <a class="menu-link text-muted
+                <a href="#information_phone" class="menu-link text-muted
                                                 munli">تماس با
                     ما</a>
             </li>
             <li class="me-3 menulist">
-                <a class="menu-link text-muted
+                <a href="#Magazine" class="menu-link text-muted
                                                 munli">مجله
                     دیریم</a>
             </li>
-            <li class="me-3 menulist dropdown">
-                <a class="menu-link text-muted
-                                                munli">فروشگاه<i class="bi bi-chevron-compact-down"></i></a>
-                <div class="dropdowncontent">
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">محصولات
-                        حراجی</a>
-                </div>
-            </li>
-            <li class="me-3 menulist dropdown">
-                <a class="menu-link text-muted munli
-                                                ">حساب
-                    کاربری من<i class="bi bi-chevron-compact-down"></i></a>
-                <div class="dropdowncontent">
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">پرداخت
-                    </a>
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">سبد
-                        خرید </a>
-                    <a href="#"
-                       class="text-decoration-none
-                                                    text-muted drop-item">علاقه
-                        مندی</a>
-                </div>
-            </li>
+
+
         </ul>
     </div>
     <div class="col-2 my-2 d-none d-lg-flex">

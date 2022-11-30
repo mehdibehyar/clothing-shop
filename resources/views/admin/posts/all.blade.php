@@ -5,6 +5,30 @@
         <li class="breadcrumb-item active">پوست ها</li>
     @endslot
 
+    @slot('script')
+        <script>
+            let page={{!empty($posts->currentPage())?$posts->currentPage():1}};
+
+            function paginate(event) {
+                if (page=={{$posts->lastPage()}}){
+                    return document.getElementById('more_downloads').remove();
+                }
+                page+=1;
+                $.ajax({
+                    type: 'get',
+                    url: 'posts/pagination?page='+page,
+                    success: function (result) {
+                        $('#table_data').append(result);
+                    }
+                });
+                let url= new URL(window.location.href);
+                url.searchParams.set('page',page);
+                window.history.pushState(window.location.href,'mehdi behyar',url.href);
+            }
+
+        </script>
+    @endslot
+
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -30,8 +54,8 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
-                    <tbody>
+            <table class="table table-hover">
+                <tbody id="table_data">
 
                     <tr>
                         <th>عنوان پست</th>
@@ -45,7 +69,7 @@
                             <td>{{$post->title}}</td>
                             <td>{{jdate($post->created_at)}}</td>
                             <td>{{$post->user->name}}</td>
-                            <td><a href="{{url($post->image)}}"><img src="{{url($post->image)}}" width="10%" height="10%"></a></td>
+                            <td><a href="{{url($post->discriptions[0]->image)}}"><img src="{{url($post->discriptions[0]->image)}}" width="10%" height="10%"></a></td>
                             <td class="d-flex">
                                 @can('delete_post')
                                     <form action="{{route('admin.posts.destroy',$post->id)}}" method="POST">
@@ -60,8 +84,13 @@
                             </td>
                         </tr>
                     @endforeach
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
+
+                <div style="text-align: center" id="more_downloads">
+                    <button class="btn btn-warning" onclick="paginate(event)">بارگیری بیشتر</button>
+                </div>
+
             </div>
             <!-- /.card-body -->
         </div>
