@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdvertiseController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ProductController;
@@ -43,3 +44,8 @@ Route::get('posts/pagination',[PostController::class,'fetch_data'])->name('posts
 
 Route::resource('advertises', AdvertiseController::class)->except(['show']);
 Route::get('advertises/pagination',[ProductController::class,'fetch_data'])->name('advertises_product');
+
+Route::get('orders',[OrderController::class,'index'])->name('orders.index');
+Route::get('order/{order}',[OrderController::class,'single_order'])->name('single_order');
+Route::delete('order/delete',[OrderController::class,'destroy'])->name('orders.destroy');
+Route::get('orders/pagination',[OrderController::class,'fetch_data'])->name('orders.pagination');

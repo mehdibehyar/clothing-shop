@@ -104,9 +104,9 @@
 
 {{--        </div>--}}
 {{--    </div>--}}
-    <div class="row ">
+    <div class="row " id="aaa">
         <div class="col-12 col-lg-6 p-4 ">
-            <img class="img-fluid " src="{{url($product->images->image)}}"
+            <img class="img-fluid " src="{{!$product->images()->count()==0?url($product->images->image):''}}"
                  alt="img">
         </div>
         <!--======> مشخصات محصول <=======-->
@@ -115,12 +115,16 @@
                 <div class=" boxes mx-5 p-5 shadow
                                     rounded "  id="nvc" >
                     <div >
-                        <h5 class="fw-bolder pt">کوله جلو دو جیب
-                            کد
-                            280212
+                        <h5 class="fw-bolder pt">
+                            {{$product->title}}
                         </h5>
-                        <p><del class="span1 text-muted">{{$product->price}}تومان</del><span
-                                class="span1 text-danger me-4">186,000تومان</span></p>
+                        @php
+                            $discount=$product->discounts->sum(function ($dis){
+                                return $dis->percent;
+                            });
+                        @endphp
+                        <p><del class="span1 text-muted">{{$discount==0?'':$product->price . ' تومان'}}</del><span
+                                class="span1 text-danger me-4">{{$discount==0?$product->price:$product->price/100*$discount-$product->price}}تومان</span></p>
                         @foreach($product->attributes as $att)
                             <p class="text-muted">
                                 <img src="https://img.icons8.com/material-sharp/24/null/chevron-left.png"/>
@@ -237,7 +241,7 @@
                             <!--== img for card == -->
                             <img class="card-img-top rounded-0 "
                                  id="img-card"
-                                 src="{{url($product1->images->image)}}"
+                                 src="{{!$product1->images()->count()==0?url($product1->images->image):''}}"
                                  alt="Card image cap">
                         </a>
                         <div class="like1 position-absolute
@@ -377,22 +381,23 @@
     //
     // };
 
-    {{--$('#btnSearch').click(function (){--}}
-    {{--    $.ajax({--}}
-    {{--        type:'get',--}}
-    {{--        // headers:{--}}
-    {{--        //     'X-CSRF-TOKEN' :document.querySelector('.csrf-token').content--}}
-    {{--        // },--}}
-    {{--        data:{--}}
-    {{--            search:document.getElementById('searchInput').value--}}
-    {{--        }--}}
-    {{--        ,--}}
-    {{--        url:'{{route('search')}}',--}}
-    {{--        success:function (result){--}}
-    {{--            document.getElementById('productsSearch').append(cardSearch(result));--}}
-    {{--        }--}}
-    {{--    });--}}
-    {{--});--}}
+    $('#btnSearch').click(function (){
+        $.ajax({
+            type:'get',
+            // headers:{
+            //     'X-CSRF-TOKEN' :document.querySelector('.csrf-token').content
+            // },
+            data:{
+                search:document.getElementById('searchInput').value
+            }
+            ,
+            url:'{{route('search')}}',
+            success:function (result){
+                $('#aaa').children().remove();
+                $('#aaa').append(result);
+            }
+        });
+    });
 
 
 
@@ -495,6 +500,8 @@
             }
         });
     }
+
+
 </script>
 
 </body>

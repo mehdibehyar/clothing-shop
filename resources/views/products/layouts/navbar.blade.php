@@ -9,7 +9,7 @@
                        class="bi bi-x-lg "></i>
                 </div>
                 <ul>
-                    <li class="list-unstyled py-3"><a href="#" class="text-decoration-none text-muted text-end">فروشگاه</a></li>
+{{--                    <li class="list-unstyled py-3"><a href="#" class="text-decoration-none text-muted text-end">فروشگاه</a></li>--}}
                     <li class="list-unstyled py-3"><a href="{{route('interests')}}" class="text-decoration-none text-muted text-end">علاقه مندی</a></li>
                     <li class="list-unstyled py-3"><a href="{{route('register')}}" class="text-decoration-none text-muted text-end">ثبت نام/ورود</a></li>
                 </ul>
@@ -23,7 +23,7 @@
                 <div class="col d-none d-lg-inline-flex">
                     <!-- =NAME OLINE SHOP =-->
                     <div class="name-onlinshop mt-3">
-                        <p class="h5 fw-bolder">فروشگاه اینترنتی Dresland</p>
+                        <p class="h5 fw-bolder">فروشگاه Deress Land</p>
                     </div>
                 </div>
                 <!--= MEIU =-->
@@ -47,16 +47,16 @@
                                         <a class="nav-link"
                                            href="#phone">تماس با ما </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link">فروشگاه</a>
-                                    </li>
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a class="nav-link">فروشگاه</a>--}}
+{{--                                    </li>--}}
 
                                 </ul>
                             </div>
                         </div>
                 </div>
                 <div class="col-4 logo-in-top d-flex d-lg-none ">
-                    <img class="logo-img" src="../img/dream-logo.png"
+                    <img class="logo-img" src="../img/1414.png"
                          alt="">
                 </div>
                 <div class="col-4 d-flex justify-content-end mt-2">
@@ -165,7 +165,7 @@
 
             <!-- ============logo ====-->
             <div class="col-2 d-none d-lg-flex">
-                <img class="logo-img" src="../img/dream-logo.png"
+                <img class="logo-img" src="../img/1414.png"
                      alt="">
             </div>
         </div>
@@ -218,12 +218,12 @@
 
                 <!-- delete************************************************** -->
             </div>
-            <div class="d-block d-lg-none py-3">
-                <a href="#" class="text-muted
-                                    text-decoration-none " id="">خانه\</a>
-                <a href="#" class="text-muted
-                                    text-decoration-none " id="">کیف</a>
-            </div>
+{{--            <div class="d-block d-lg-none py-3">--}}
+{{--                <a href="#" class="text-muted--}}
+{{--                                    text-decoration-none " id="">خانه\</a>--}}
+{{--                <a href="#" class="text-muted--}}
+{{--                                    text-decoration-none " id="">کیف</a>--}}
+{{--            </div>--}}
     </header>
 
 </section>

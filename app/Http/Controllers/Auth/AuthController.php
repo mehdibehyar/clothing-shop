@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Notifications\ActiveCodeNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use mysql_xdevapi\Exception;
 
 class AuthController extends Controller
 {
@@ -49,7 +50,12 @@ class AuthController extends Controller
 
         $request->session()->flash('auth', $data);
         $code = Active_code::generateCode($data['username']);
-        Notify::notifyCode($data['phone'], $code);
+        try {
+            Notify::notifyCode($data['phone'], $code,'register');
+        }catch (Exception){
+            alert()->error('ناموفق','مشکلی پیش آمده لطفا با پشتیبانی تماس بگیرید.');
+            return redirect(route('register'));
+        }
         return redirect(route('token'));
     }
 
@@ -154,6 +160,12 @@ class AuthController extends Controller
 
         \auth()->user()->update(['password'=>$data['password']]);
         return redirect(route('index'));
+    }
+
+    public function getOut()
+    {
+        \auth()->logout();
+        return back();
     }
 
 

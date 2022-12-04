@@ -45,7 +45,7 @@
                     </form>
                     @can('create_advertise')
                         <div class="btn-group-sm mr-1">
-                            <a href="{{route('admin.advertises.create')}}" class="btn btn-info">ایجاد پوست جدید</a>
+                            <a href="{{route('admin.advertises.create')}}" class="btn btn-info">ایجاد تبلیغ جدید</a>
                         </div>
                     @endcan
 

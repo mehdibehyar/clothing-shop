@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cart;
 
 use App\Http\Controllers\Controller;
 use App\Http\Headers\Cart\Cart;
+use App\Models\Information;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
@@ -15,8 +16,31 @@ use shopid\zarinPal;
 
 class PaymentController extends Controller
 {
-    public function payment()
+    public function create_information()
     {
+        if (Cart::all()->count()==0){
+            return back();
+        }
+        return view('cart.create_information');
+    }
+
+    public function payment(Request $request)
+    {
+        if (Cart::all()->count()==0){
+            return back();
+        }
+        $validate=$request->validate([
+            'firstname'=>['required','max:250','min:2'],
+            'lastname'=>['required','max:250','min:2'],
+            'phone'=>['required','regex:/^(?:98|\+98|0098|0)?9[0-9]{9}$/'],
+            'state'=>['required','max:250'],
+            'city'=>['required','max:250'],
+            'address'=>['required','max:250','min:30'],
+            'postal_code'=>['required'],
+            'description'=>['nullable','max:250']
+        ]);
+
+
         $cartItems=Cart::all();
         $cartItems=$cartItems->filter(function ($item){
             return !is_null($item['product']);
@@ -44,8 +68,23 @@ class PaymentController extends Controller
 
         }
         if ($cartItems->count()){
-            $price=$cartItems->sum(function ($cart){
-                return $cart['product']->price * $cart['quantity'];
+//            $price=$cartItems->sum(function ($cart){
+//                return $cart['product']->price * $cart['quantity'];
+//            });
+            $arr=[];
+            foreach (Cart::all() as $cart){
+                $arr[]=$cart['product']->discounts->sum(function ($des)use($cart){
+                    $p=$cart['product']->price/100*$des->percent;
+                    $p1=$cart['product']->price-$p;
+                    return $p1*$cart['quantity'];
+                })>0?$cart['product']->discounts->sum(function ($des)use($cart){
+                    $p=$cart['product']->price/100*$des->percent;
+                    $p1=$cart['product']->price-$p;
+                    return $p1*$cart['quantity'];
+                }):$cart['price']*$cart['quantity'];
+            }
+            $price=collect($arr)->sum(function ($item){
+                return $item;
             });
 
             $cartItems=$cartItems->mapWithKeys(function ($cart){
@@ -56,6 +95,17 @@ class PaymentController extends Controller
             $order=auth()->user()->orders()->create([
                 'status'=>'unpaid',
                 'price'=>$price,
+            ]);
+
+            $order->informations()->create([
+                'firstname'=>$validate['firstname'],
+                'lastname'=>$validate['lastname'],
+                'phone'=>$validate['phone'],
+                'state'=>$validate['state'],
+                'city'=>$validate['city'],
+                'address'=>$validate['address'],
+                'postal_code'=>$validate['postal_code'],
+                'description'=>!is_null($validate['description'])?$validate['description']:null
             ]);
 
             $order->products()->attach($cartItems);
@@ -69,11 +119,12 @@ class PaymentController extends Controller
 
             try {
                 $des_numbere=Str::random();
+                $order->update(['tracking_code'=>$des_numbere]);
                 $payment=$order->payments()->create([
                     'resnumber'=>$des_numbere
                 ]);
                 $request = $zarinpal->apiRequest([
-                    "amount" => $price,
+                    "amount" => $price*10,
                     'description'=>$des_numbere,
                     "callbackurl" => route('payment.callback',$payment->id),
                     "email"=>'mehdibehyar.100@gmail.com',
@@ -116,15 +167,18 @@ class PaymentController extends Controller
             '-54'=>'اتوریتی نامعتبر است',
             '101'=>'عملیات موفق'
         ];
+
         try {
             $zarinpal=new zarinPal(["merchantId" => "90353dcc-a11d-460a-97e7-2634e957ac7a",]);
             $verify = $zarinpal->verify(
                 [
                     "authority" => $request->Authority,
-                    "amount" => $payment->order->price
+                    "amount" => $payment->order->price*10
                 ]
             );
             $verifyrequest=json_decode($verify);
+            $payment->order()->update(['response_info'=>$verify]);
+
             if (isset($verifyrequest->code)){
                 if ($verifyrequest->code==100 || $verifyrequest->code==101){
                     $payment->update(['status'=>1]);
@@ -135,11 +189,13 @@ class PaymentController extends Controller
                     });
 
 
+
                     $payment->order()->update(['status'=>'paid']);
                     alert()->success('موفق',$errors[json_decode($verify,true)['code']]);
                     return redirect(route('cart'));
                 }
             }
+
             alert()->error('ناموفق',$errors[json_decode($verify,true)['error']['code']]);
             return redirect(route('cart'));
 

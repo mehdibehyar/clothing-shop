@@ -6,7 +6,7 @@
         <div class="col d-none d-lg-inline-flex">
             <!-- =NAME OLINE SHOP =-->
             <div class="name-onlinshop mt-3">
-                <p class="h5 fw-bolder">فروشگاه اینترنتی Deressland</p>
+                <p class="h5 fw-bolder">فروشگاه Deress Land</p>
             </div>
         </div>
         <!--= MEIU =-->
@@ -34,13 +34,18 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('show_products')}}">فروشگاه</a>
                             </li>
+                            @auth()
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('show_orders')}}">سفارش ها</a>
+                                </li>
+                            @endauth
 
                         </ul>
                     </div>
                 </div>
         </div>
         <div class="col-4 logo-in-top d-flex d-lg-none ">
-            <img class="logo-img" src="./img/dream-logo.png"
+            <img class="logo-img" src="./img/1414.png"
                  alt="">
         </div>
         <div class="col-4 d-flex justify-content-end mt-2">
@@ -127,7 +132,11 @@
         </div>
         <div>
             <i class="bi bi-person"></i>
-            <span onclick="document.location='{{route('register')}}'">ورود/ثبت نام</span>
+            <span onclick="document.location='{{route('login')}}'">ورود/ثبت نام</span>
+        </div>
+        <div>
+            <i class="bi bi-person"></i>
+            <span onclick="document.location='{{route('getOut')}}'">خروج</span>
         </div>
     </div>
 
@@ -148,7 +157,7 @@
     </div>
     <!-- ============logo ====-->
     <div class="col-2 d-none d-lg-flex">
-        <img class="logo-img" src="./img/dream-logo.png"
+        <img class="logo-img" src="./img/1414.png"
              alt="">
     </div>
 </div>
@@ -192,9 +201,9 @@
 
         </ul>
     </div>
-    <div class="col-2 my-2 d-none d-lg-flex">
-        <a href="#" class="btn btn-danger rounded-0
-                                        px-3
-                                        py-2 text-center">%تخفیف های روز</a>
-    </div>
+{{--    <div class="col-2 my-2 d-none d-lg-flex">--}}
+{{--        <a href="#" class="btn btn-danger rounded-0--}}
+{{--                                        px-3--}}
+{{--                                        py-2 text-center">%تخفیف های روز</a>--}}
+{{--    </div>--}}
 </div>

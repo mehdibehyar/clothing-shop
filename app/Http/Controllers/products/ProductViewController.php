@@ -47,6 +47,7 @@ class ProductViewController extends Controller
 
     public function show_single_product(Product $product)
     {
+
         return view('products.single_product',compact('product'));
     }
 
@@ -67,7 +68,9 @@ class ProductViewController extends Controller
                 $category= !empty(Category::where('name_category', 'LIKE', "%{$request->search}%")->first()) ?Category::where('name_category','LIKE',"%{$request->search}%")->first()->products:[];
                 $products=$products->merge($category);
             }
-            return \response()->json($products);
+            return view('products.page',compact('products'))->render();
         }
     }
+
+
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('price');
+            $table->text('response_info')->nullable();
             $table->string('tracking_code')->nullable();
             $table->enum('status',['unpaid','paid','preparation','posted','received','canceled']);
             $table->timestamps();

@@ -7,7 +7,7 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="./main-style.css">
     <meta name="csrf-token" class="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/x-icon" href="./img/iconfort4.webp">
+    <link rel="icon" type="image/x-icon" href="./img/1212.jpg">
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
         rel="stylesheet"

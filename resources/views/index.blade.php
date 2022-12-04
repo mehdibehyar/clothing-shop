@@ -6,18 +6,58 @@
 
     @slot('script')
         <script>
+            function addToInterest(event,id){
+                event.preventDefault();
+
+                $.ajax({
+                    type : 'post',
+                    url :'{{route('interest.add')}}',
+                    data:{
+                        product:id
+                    },
+                    headers:{
+                        'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+                    },
+                    success : function(result) {
+                        console.log(result);
+                    }
+                });
+            }
+
+
+
+            function search1(event){
+
+                $.ajax({
+                    type : 'get',
+                    url :'{{route('search')}}',
+                    data:{
+                        search: document.getElementById('search1').value
+                    },
+
+                    success : function(result) {
+                        $('#aaa').children().remove();
+                        $('#aaa').append(result);
+                    }
+                });
+
+            }
+
+
+
 
         </script>
     @endslot
-        <div class="container-fluid">
+
+        <div class="container-fluid row" id="aaa">
             <section class="content">
                 <!--========== search product in content ======-->
                 <div class="row pt-4">
                     <div class="input-group inputgroup1 mb-3">
-                        <button type="button" class="btn btn-light
+                        <button onclick="search1(event)" type="button" class="btn btn-light
                                         border"><i class="bi bi-search
                                             text-dark"></i></button>
-                        <input type="text" class="form-control"
+                        <input id="search1" type="text" class="form-control"
                                placeholder="جستجوی محصولات"
                                aria-label="Text input with segmented
                                         dropdown
@@ -52,54 +92,68 @@
             <div class="slider1 p-5">
                 <div class="owl-carousel owl-theme">
                     <!-- ====card one in carousel==== -->
-                    <div class="item itemforhover">
-                        <div class="card position-relative" style="width:14rem ;">
-                            <a href="#" class="text-decoration-none text-dark ddd">
+                    @php
+                        $products=\App\Models\Product::all();
+    $arr=[];
+    foreach ($products as $product){
+        $arr[$product->id]=['count_order'=>$product->orders->count(),'product'=>$product];
 
-                                <!--== img for card == -->
-                                <img class="card-img-top " id="img-card" src="/img/kard1.jpeg" alt="Card image cap">
-                            </a>
-                            <div class="like position-absolute flex-column justify-content-center bg-white" style="width:30px ;height:
+    }
+    $productsort=collect($arr)->sortByDesc('count_order')->take(12);
+                    @endphp
+                    @foreach($productsort as $item)
+                        <div class="item itemforhover">
+                            <div class="card position-relative" style="width:14rem ;">
+                                <a href="#" class="text-decoration-none text-dark ddd">
+
+                                    <!--== img for card == -->
+                                    <img class="card-img-top " id="img-card" src="{{!$item['product']->images()->count()==0?url($item['product']->images->image):''}}" alt="Card image cap">
+                                </a>
+                                <div class="like position-absolute flex-column justify-content-center bg-white" style="width:30px ;height:
                                             100px;">
 
-                                <!--=== show icon when hover card ===-->
-                                <a href="#"
-                                   class="text-decoration-none text-dark py-2">
-                                    <i class="bi bi-cart3 icononimg" id="addbas1"></i>
-                                    <i class="bi bi-check2 selbas1"></i>
-                                </a>
-                                <a href="#" class="text-decoration-none text-dark py-2">
-                                    <i class="bi bi-search icononimg"></i>
-                                </a>
-                                <a href="#"
-                                   class="text-decoration-none text-dark py-2">
-                                    <i class="bi bi-heart iconlike1"></i>
-                                    <i class="bi bi-check2 iconselect1"></i>
-                                </a>
-                            </div>
+                                    <!--=== show icon when hover card ===-->
+                                    <a href="{{route('single_product',$item['product']->id)}}"
+                                       class="text-decoration-none text-dark py-2">
+                                        <i class="bi bi-cart3 icononimg" id="addbas1"></i>
+                                        <i class="bi bi-check2 selbas1"></i>
+                                    </a>
 
-                            <!--===labale in imag ===-->
-                            <span class="badge text-bg-danger vijhe p-2 rounded-0">ویژه</span>
-                            <span class="badge text-bg-secondary mojoudi p-2 rounded-0">اتمام موجودی</span>
-                            <div class="card-body p-2">
+                                    <a href="#" onclick="addToInterest(event,'{{$item['product']->id}}')"
+                                       class="text-decoration-none text-dark py-2">
+                                        <i class="bi bi-heart iconlike1"></i>
+                                        <i class="bi bi-check2 iconselect1"></i>
+                                    </a>
+                                </div>
 
-                                <!--== price == -->
-                                <a href="#" class="text-decoration-none text-dark">
-                                    <span class="badge text-bg-danger ">30% تخفیف</span>
-                                    <p class="card-text">
-                                        پیراهن جلو بندی استین گره
-                                        <span class="span1">180091</span>
-                                    </p>
-                                </a>
-                                <div class="d-flex justify-content-between card-text">
-                                    <del class="text-muted span1">528,000 تومان</del>
+                                <!--===labale in imag ===-->
+                                <span class="badge text-bg-danger vijhe p-2 rounded-0">ویژه</span>
+                                <span class="badge text-bg-secondary mojoudi p-2 rounded-0"></span>
+                                <div class="card-body p-2">
+                                    @php
+                                        $discount=$item['product']->discounts->sum(function ($dis){
+                                            return $dis->percent;
+                                        });
+                                    @endphp
+                                    <!--== price == -->
+                                    <a href="#" class="text-decoration-none text-dark">
+                                        @if(!$discount==0)
+                                            <span class="badge text-bg-danger ">{{$discount}} تخفیف</span>
+                                        @endif
+                                        <p class="card-text">
+                                            {{$item['product']->title}}
+                                        </p>
+                                    </a>
+                                    <div class="d-flex justify-content-between card-text">
+                                        <del class="text-muted span1">{{$discount==0?'':$item['product']->price . ' تومان'}}</del>
 
-                                    <small class="text-danger span1">398,000 تومان</small>
+                                        <small class="text-danger span1">{{$discount==0?$item['product']->price:$item['product']->price/100*$discount-$item['product']->price}}تومان</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    @endforeach
 
                 </div>
 
@@ -122,9 +176,9 @@
                         <div class="swiper-slide">
                             <div class="card">
                                 <!-- ==img for magazin ==-->
-                                <a href="#" class="position-relative">
+                                <a href="{{route('post.single_post',$post->id)}}" class="position-relative">
                                     <img class="card-img-top"
-                                         src="{{$post->discriptions()->image}}"
+                                         src="{{$post->discriptions[0]['image']}}"
                                          alt="Card image cap">
                                     <!-- ==date in img === -->
                                     <div class="date d-flex
@@ -149,11 +203,7 @@
                                         کارشناس محتوا
                                     </p>
                                     <p class="card-text">
-                                    <p class="text-muted">سفید گندمی و
-                                        سبزه سه رنگ پوست هستند <br> که
-                                        بهتر است با توجه به آن رنگ
-                                        لباسهایتان را<br> انتخاب کنید
-                                        برخی از رنگها به خاطر تناسب <br>شان...</p>
+                                    <p class="text-muted"></p>
                                     </p>
                                     <!--=== link for continue to read a content ===-->
                                     <a href="#" class="text-decoration-none

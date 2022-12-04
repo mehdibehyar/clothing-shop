@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable=['status','tracking_code','price'];
+    protected $fillable=['status','response_info','price','tracking_code'];
 
     public function user()
     {
@@ -25,5 +25,10 @@ class Order extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function informations()
+    {
+        return $this->hasMany(Information::class);
     }
 }

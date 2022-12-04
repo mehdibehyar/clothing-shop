@@ -74,7 +74,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <li></li>
     </ul>
 </div>
-
+@include('sweetalert::alert')
 <!-- //main -->
 </body>
 </html>

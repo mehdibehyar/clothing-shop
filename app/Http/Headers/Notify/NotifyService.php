@@ -5,7 +5,7 @@ namespace App\Http\Headers\Notify;
 class NotifyService
 {
 
-    public function notifyCode($receptor,$code)
+    public function notifyCode($receptor,$code,$path)
     {
         try
         {
@@ -15,10 +15,12 @@ class NotifyService
             $api->SendSimple($receptor,"وبسایت فروشگاه لباس dressland " . "\n" . "کد احراز هویت:" .$code,$lineNumber);
         }
         catch(\Ghasedak\Exceptions\ApiException $e){
-            throw $e;
+            alert()->error('ناموفق','مشکلی پیش آمده لطفا با پشتیبانی تماس بگیرید.');
+            return redirect(route($path));
         }
         catch(\Ghasedak\Exceptions\HttpException $e){
-            throw $e;
+            alert()->error('ناموفق','مشکلی پیش آمده لطفا با پشتیبانی تماس بگیرید.');
+            return redirect(route($path));
         }
     }
 }

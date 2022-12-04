@@ -80,46 +80,46 @@
         <!--============> row for order list for
         show<========== -->
         <div class="row">
-            <div class=" col-2 d-none d-lg-block
-                                                py-4">
-                <a href="#" class="text-mutedtext-decoration-none "
-                   id="">خانه\</a>
-                <a href="#" class="fw-bolder
-                                                    text-dark
-                                                    text-decoration-none
-                                                    text-decoration-none "
-                   id="">کیف</a>
-            </div>
+{{--            <div class=" col-2 d-none d-lg-block--}}
+{{--                                                py-4">--}}
+{{--                <a href="#" class="text-mutedtext-decoration-none "--}}
+{{--                   id="">خانه\</a>--}}
+{{--                <a href="#" class="fw-bolder--}}
+{{--                                                    text-dark--}}
+{{--                                                    text-decoration-none--}}
+{{--                                                    text-decoration-none "--}}
+{{--                   id="">کیف</a>--}}
+{{--            </div>--}}
             <div class="d-lg-none py-2">
                 <i id="open-filter-sm" class="bi
                                                     bi-list"></i>
             </div>
             <div class="col-lg-7 d-none
                                                 d-lg-block"></div>
-            <div class="col-lg-3 ">
-                <p class="pt-2 pb-0 text-center
-                                                    orederrlist d-none
-                                                    d-md-block">مرتب سازی بر
-                    اساس آخرین</p>
-                <!-- =====================>for order list in hidden <=============================-->
-                <div class="menu-for-orderlist d-flex justify-content-center align-content-center">
-                    <div class="orderhidde"> <i id="close-icon-listhidden"
-                                                class="bi bi-x-lg "></i></div>
-                    <ul class="unolist" >
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس گرانترین</a></li>
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس ارزانترین</a></li>
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس جدیدترین</a></li>
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس موجود شده</a></li>
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس آخرین تغییرات</a></li>
+{{--            <div class="col-lg-3 ">--}}
+{{--                <p class="pt-2 pb-0 text-center--}}
+{{--                                                    orederrlist d-none--}}
+{{--                                                    d-md-block">مرتب سازی بر--}}
+{{--                    اساس آخرین</p>--}}
+{{--                <!-- =====================>for order list in hidden <=============================-->--}}
+{{--                <div class="menu-for-orderlist d-flex justify-content-center align-content-center">--}}
+{{--                    <div class="orderhidde"> <i id="close-icon-listhidden"--}}
+{{--                                                class="bi bi-x-lg "></i></div>--}}
+{{--                    <ul class="unolist" >--}}
+{{--                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس گرانترین</a></li>--}}
+{{--                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس ارزانترین</a></li>--}}
+{{--                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس جدیدترین</a></li>--}}
+{{--                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس موجود شده</a></li>--}}
+{{--                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس آخرین تغییرات</a></li>--}}
 
-                    </ul>
-                </div>
+{{--                    </ul>--}}
+{{--                </div>--}}
 
 
-                <div class="underline w-100
-                                                    bg-danger d-none d-md-block"
-                     style="height:4px ;"></div>
-            </div>
+{{--                <div class="underline w-100--}}
+{{--                                                    bg-danger d-none d-md-block"--}}
+{{--                     style="height:4px ;"></div>--}}
+{{--            </div>--}}
         </div>
         <!-- ==================================>card in row1 <======================================-->
         <div class="row" id="products">
@@ -129,13 +129,19 @@
                     <div class="card cd1r1">
                         <!-- img in card2 -->
                         <a href="{{route('single_product',$product->id)}}">
-                            <img class="card-img-top img-fluid cdimgtop" src="{{url($product->images->image)}}" alt="Card image cap">
+                            <img class="card-img-top img-fluid cdimgtop" src="{{!$product->images()->count()==0?url($product->images->image):''}}" alt="Card image cap">
                             <div class="card-body cbody">
                                 <div class="d-flex justify-content-end mb-2">
                                     <a href="#" class="badge text-bg-success mt-0 text-decoration-none">ویژه</a>
                                 </div>
+                                @php
+                                    $discount=$product->discounts->sum(function ($dis){
+                                        return $dis->percent;
+                                    });
+                                @endphp
                                 <h5 class="card-title text-muted text-center">{{$product->title}}</h5>
-                                <p class="card-text span1 text-danger text-center pt-2">{{$product->price}}تومان</p>
+                                <p class="card-text span1 text-danger text-center pt-2">{{$discount==0?$product->price:$product->price/100*$discount-$product->price}}تومان</p>
+                                <del class="text-muted span1">{{$discount==0?'':$product->price . ' تومان'}}</del>
                                 <!--==== div with non style for hover ====-->
                                 <div class="nonestyle ">
                                     @foreach($product->attributes as $att)

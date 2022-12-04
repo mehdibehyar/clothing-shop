@@ -14,6 +14,7 @@ class InterestController extends Controller
 {
     public function interests()
     {
+//        dd(InterestC::all());
         return view('interests.interests');
     }
 
@@ -45,5 +46,20 @@ class InterestController extends Controller
 
 
         }
+    }
+
+
+    public function delete($id)
+    {
+        if (auth()->check()){
+            if (Interest::find($id)){
+                $delete=Interest::find($id)->delete();
+            }
+        }else{
+            if (InterestC::has($id)){
+                $delete=InterestC::delete($id);
+            }
+        }
+        return response()->json($delete);
     }
 }

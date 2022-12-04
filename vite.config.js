@@ -12,7 +12,8 @@ export default defineConfig({
                 'resources/js/index.js',
                 'resources/css/auth.css',
                 'resources/css/products.css',
-                'resources/css/single_product.css'
+                'resources/css/single_product.css',
+                'resources/css/bascket.css'
             ],
             publicDirectory: 'public_html',
             refresh: true,
