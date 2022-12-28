@@ -174,16 +174,27 @@
                                     <i class="right fa fa-angle-left"></i>
                                 </p>
                             </a>
-{{--                            <ul class="nav nav-treeview">--}}
-{{--                                <li class="nav-item">--}}
-{{--                                    <a href="{{route('admin.posts.index')}}" class="nav-link {{\Illuminate\Support\Facades\Route::currentRouteName()=='admin.posts.index'?'active':''}}">--}}
-{{--                                        <i class="fa fa-circle-o nav-icon"></i>--}}
-{{--                                        <p>لیست پست ها</p>--}}
-{{--                                    </a>--}}
-{{--                                </li>--}}
+                        </li>
+                    @endcan
+                    @can('show_discounts')
+                        <li class="nav-item has-treeview {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.discounts.index','admin.discounts.create','admin.discounts.edit'])?'menu-open':''}}">
+                            <a href="{{route('admin.discounts.index')}}" class="nav-link {{in_array(\Illuminate\Support\Facades\Route::currentRouteName(),['admin.discounts.index','admin.discounts.create','admin.discounts.edit'])?'active':''}}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    تخفیف ها
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('admin.discounts.index')}}" class="nav-link {{\Illuminate\Support\Facades\Route::currentRouteName()=='admin.discounts.index'?'active':''}}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست تخفیف ها</p>
+                                    </a>
+                                </li>
 
 
-{{--                            </ul>--}}
+                            </ul>
                         </li>
                     @endcan
 

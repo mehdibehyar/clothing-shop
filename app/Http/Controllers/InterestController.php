@@ -14,7 +14,6 @@ class InterestController extends Controller
 {
     public function interests()
     {
-//        dd(InterestC::all());
         return view('interests.interests');
     }
 
@@ -30,13 +29,13 @@ class InterestController extends Controller
             if (!!Product::find($request->product)){
                 if (!auth()->check()){
                     if (InterestC::has(Product::find($request->product))){
-                        return \response()->json(['success'=>true]);
+                        return \response()->json(['success'=>false]);
                     }
                     InterestC::put([],Product::find($request->product));
                     return \response()->json(['success'=>true]);
                 }else{
                     if(!!Product::find($request->product)->interests()->where('user_id',auth()->user()->id)->first()){
-                        return \response()->json(['success'=>true]);
+                        return \response()->json(['success'=>false]);
                     }
                     Product::find($request->product)->interests()->create(['user_id'=>auth()->user()->id]);
                     return \response()->json(['success'=>true]);

@@ -430,6 +430,7 @@
                 for (let resultKey in result) {
 
                     if (resultKey=='success'){
+                        document.getElementById('count_cart').innerHTML++;
                         window.alert('با موفقیت به سبد اضافه شد.');
 
                     }if (resultKey=='errors'){
@@ -465,6 +466,7 @@
                 for (let resultKey in result) {
 
                     if (resultKey=='success'){
+                        document.getElementById('count_cart').innerHTML++;
                         window.alert('با موفقیت به سبد اضافه شد.');
 
                     }if (resultKey=='errors'){

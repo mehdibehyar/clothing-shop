@@ -33,18 +33,8 @@
                 `
             }
 
-            $('#add_product_image').click(function() {
-                let imagesSection = $('#images_section');
-                let id = imagesSection.children().length;
 
-                imagesSection.append(
-                    createNewPic({
-                        id
-                    })
-                );
 
-            });
-            $('#add_product_image').click();
 
 
             // input
@@ -59,6 +49,18 @@
             // set file link
             function fmSetLink($url) {
                 image.find('.image_label').first().val($url);
+            }
+
+            function add_image(event) {
+                let imagesSection = $('#images_section');
+                let id = imagesSection.children.length;
+
+                imagesSection.append(
+                    createNewPic({
+                        id
+                    })
+                );
+
             }
         </script>
     @endslot
@@ -79,7 +81,7 @@
                         <div id="images_section">
 
                         </div>
-                        <button class="btn btn-sm btn-danger" type="button" id="add_product_image">تصویر جدید</button>
+                        <button class="btn btn-sm btn-danger" type="button" onclick="add_image(event)">تصویر جدید</button>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">

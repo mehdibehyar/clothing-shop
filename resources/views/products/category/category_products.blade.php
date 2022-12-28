@@ -360,30 +360,7 @@
             </div>
             <div class="col-lg-7 d-none
                                                 d-lg-block"></div>
-            <div class="col-lg-3 ">
-                <p class="pt-2 pb-0 text-center
-                                                    orederrlist d-none
-                                                    d-md-block">مرتب سازی بر
-                    اساس آخرین</p>
-                <!-- =====================>for order list in hidden <=============================-->
-                <div class="menu-for-orderlist d-flex justify-content-center align-content-center">
-                    <div class="orderhidde"> <i id="close-icon-listhidden"
-                                                class="bi bi-x-lg "></i></div>
-                    <ul class="unolist" >
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس گرانترین</a></li>
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس ارزانترین</a></li>
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس جدیدترین</a></li>
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس موجود شده</a></li>
-                        <li class="list-unstyled py-2"><a href="#" class="text-decoration-none text-muted">مرتب سازی بر اساس آخرین تغییرات</a></li>
 
-                    </ul>
-                </div>
-
-
-                <div class="underline w-100
-                                                    bg-danger d-none d-md-block"
-                     style="height:4px ;"></div>
-            </div>
         </div>
         <!-- ==================================>card in row1 <======================================-->
         <div class="row" id="products">
@@ -443,7 +420,7 @@
                                                     align-content-center py-5">
         <button id="download_more" class="btn
                                                         btn-secondary w-25">
-            بارگیری بیشتر محصولات</button>
+            محصولات بیشتر</button>
     </div>
 
     @slot('script')
@@ -600,7 +577,9 @@
                         'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
                     },
                     success : function(result) {
-                        console.log(result);
+                        if (result['success']==true){
+                            document.getElementById('count_interest').innerHTML+1;
+                        }
                     }
                 });
             }

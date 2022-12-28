@@ -32,7 +32,6 @@
                         <div class="container-fluid">
                             <button class="navbar-toggler mnubtnnav"
                                     type="button"
-                                    data-bs-toggle="collapse"
                                     data-bs-target="#navbarNav"
                                     aria-controls="navbarNav"
                                     aria-expanded="false"
@@ -61,7 +60,7 @@
                 </div>
                 <div class="col-4 d-flex justify-content-end mt-2">
                     <div class="d-none d-lg-flex">
-                        <a href="#" class="mx-3 text-muted">
+                        <a href="https://www.instagram.com/dresslandstore/followers/" class="mx-3 text-muted">
                             <i class="bi bi-instagram"></i>
                         </a>
                         <a href="#" class="text-muted">
@@ -69,22 +68,23 @@
                         </a>
                     </div>
                     <div class="d-flex d-lg-none">
-                        <i class="bi bi-person"></i>
-                        <div class="position-relative mx-3">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 width="25" height="25"
-                                 fill="currentColor" class="bi bi-bag
+                        <a href="{{route('cart')}}">
+                            <div class="position-relative mx-3">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="25" height="25"
+                                     fill="currentColor" class="bi bi-bag
                                             text-muted" viewBox="0 0 16 16">
-                                <path d="M8 1a2.5 2.5 0 0 1 2.5
+                                    <path d="M8 1a2.5 2.5 0 0 1 2.5
                                                 2.5V4h-5v-.5A2.5 2.5 0 0 1 8
                                                 1zm3.5 3v-.5a3.5 3.5 0 1 0-7
                                                 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0
                                                 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0
                                                 1-1 1H3a1 1 0 0 1-1-1V5z"/>
-                            </svg>
-                            <span class="span1 position-absolute
-                                                 shownumbas1">0</span>
-                        </div>
+                                </svg>
+                                <span class="span1 position-absolute
+                                                 shownumbas1" id="count_cart">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                                                 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                         </svg>
                         <span class="span1 position-absolute
-                                                text-white shownumbas">0</span>
+                                                text-white shownumbas" id="count_cart">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
                     </div>
                     <p class="text-muted mb-2"><span class="span1 text-muted mb-2"></span></p>
                 </div>
@@ -148,7 +148,7 @@
                                                     4.867 8 15z"></path>
                         </svg></i>
                         <span class="span1 position-absolute
-                                            text-white countere counter">0</span>
+                                            text-white countere counter" id="count_interest">{{auth()->check()?\App\Models\Interest::all()->count():\App\Http\Headers\Interest\Interest::all()->count()}}</span>
                     </div>
                     <a href="{{route('interests')}}" class="text-decoration-none text-muted"> <span>علاقه مندی ها</span></a>
 
