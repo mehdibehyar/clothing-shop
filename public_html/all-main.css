@@ -33,10 +33,21 @@
     .under-header{
         height: 150px;
     }
+    .like{
+        display: flex;
+    }
 }
 @media screen and (min-width: 1200px){
     .under-header{
         height: 300px;
+    }
+    .like{
+        display: none;
+    }
+    .itemforhover:hover .like{
+        display:flex;
+        animation-name: deelay;
+        animation-duration: 0.8s;
     }
 }
 @media screen and (max-width:992px) and (min-width: 578px){
@@ -174,16 +185,11 @@ body{
   }
 
   .like{
-    display: none;
     top:50px;
     left: 10px;
     align-items: center;
   }
-  .itemforhover:hover .like{
-    display:flex;
-    animation-name: deelay;
-    animation-duration: 0.8s;
-  }
+
 #img-card:hover{
   transform: scale(1.1,1.1);
   transition: 2s ease;
@@ -229,12 +235,6 @@ body{
     justify-content: center;
     top: -7px;
     right: 15px;
-  }
-  .iconselect1,.iconselect2,.iconselect3,
-  .iconselect4,.iconselect5,.iconselect6,
-  .iconselect7,.selbas1,.selbas2,.selbas3
-  ,.selbas4,.selbas5,.selbas6,.selbas7 {
-    display: none;
   }
   .mnuhed a:hover{
 color: red;

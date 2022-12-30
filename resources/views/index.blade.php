@@ -282,6 +282,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" class="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>main pag</title>
@@ -311,6 +312,7 @@
 <div class="under-header">
 
 </div>
+
 <section class="header container-fluid shadow">
     <header>
         <nav>
@@ -345,16 +347,21 @@
                                     <li class="nav-item">
                                         <a class="nav-link"
                                            aria-current="page"
-                                           href="#">مجله</a>
+                                           href="#m-dream">مجله</a>
                                     </li>
 
                                     <li class="nav-item">
                                         <a class="nav-link"
-                                           href="#">تماس با ما </a>
+                                           href="#call_me">تماس با ما </a>
                                     </li>
                                     <li css="nav-item">
-                                        <a class="nav-link">فروشگاه</a>
+                                        <a class="nav-link" href="{{route('show_products')}}">فروشگاه</a>
                                     </li>
+                                    @auth()
+                                        <li css="nav-item">
+                                            <a class="nav-link" href="{{route('show_orders')}}">سفارش ها</a>
+                                        </li>
+                                    @endauth
 
                                 </ul>
                             </div>
@@ -416,10 +423,14 @@
                                                 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                         </svg>
                         <span class="span1 position-absolute
-                                                text-white shownumbas">0</span>
+                                                text-white shownumbas">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
                     </div>
+                    @php
+                    $cart=\App\Http\Headers\Cart\Cart::all();
+                    $total_price=$cart->sum('price');
+                    @endphp
                     <p class="text-dark fw-bolder mb-2 "><span
-                            class="span1 text-muted mb-2"> 0
+                            class="span1 text-muted mb-2">{{$total_price}}
                                             </span>هزار تومان</p>
                 </div>
                 <div class="ms-2 ps-3 d-flex">
@@ -427,9 +438,9 @@
                         <img src="./img/icons8-heart-32.png"
                              alt="">
                         <span class="span1 position-absolute
-                                                text-white countere counter">0</span>
+                                                text-white countere counter">{{auth()->check()?\App\Models\Interest::all()->count():\App\Http\Headers\Interest\Interest::all()->count()}}</span>
                     </div>
-                    <a href="#" class="text-decoration-none
+                    <a href="{{route('interests')}}" class="text-decoration-none
                                             text-dark pt-1"> <span class="fw-bolder">علاقه مندی ها</span></a>
                 </div>
                 <div>
@@ -469,51 +480,11 @@
                             بندی
                             کالاها</p>
                         <div class="dropdowncontent1 ">
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کیف</a>
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کفش</a>
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کلاه</a>
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                 " href="#"> تذس کاپشن</a>
-                            <a class="drop-item text-center
-                                                border
-                                                py-2 text-decoration-none
-                                                text-muted
-                                                " href="#">کاپشن</a>
+                            @foreach(\App\Models\Category::all() as $cate)
+                                <a class="drop-item text-center border py-2 text-decoration-none text-muted" href="{{route('product_category',$cate->id)}}">
+                                    {{$cate->name_category}}
+                                </a>
+                            @endforeach
                         </div>
                 </ul>
 
@@ -533,7 +504,7 @@
                                                     bi-search
                                                     text-white"></i></button>
                         <input type="text"
-                               class="form-control ٍEnter"
+                               class="form-control Enter"
                                placeholder="جستجوی محصولات"
                                aria-label="Text input with
                                                 segmented
@@ -555,18 +526,24 @@
                class="bi bi-x-lg "></i>
         </div>
         <ul>
-            <li class="list-unstyled py-3"><a href="#"
+            <li class="list-unstyled py-3"><a href="#call_me"
                                               class="text-decoration-none text-muted
                 text-end">تماس با ما </a></li>
-            <li class="list-unstyled py-3"><a href="#"
+            <li class="list-unstyled py-3"><a href="#m-dream"
                                               class="text-decoration-none text-muted
                 text-end">مجله ی دیریم</a></li>
-            <li class="list-unstyled py-3"><a href="#"
+            <li class="list-unstyled py-3"><a href="{{route('show_products')}}"
                                               class="text-decoration-none text-muted
                 text-end">فروشگاه</a></li>
-            <li class="list-unstyled py-3"><a href="#"
+            <li class="list-unstyled py-3"><a href="{{route('interests')}}"
                                               class="text-decoration-none text-muted
                 text-end">علاقه مندی</a></li>
+            @auth()
+                <li class="list-unstyled py-3"><a href="{{route('show_orders')}}"
+                                                  class="text-decoration-none text-muted
+                text-end">سفارش ها</a></li>
+            @endauth
+
 
         </ul>
     </div>
@@ -594,46 +571,54 @@
                     </div>
                 </div>
                 <div class="hrr"></div>
-                <div class="row py-4 mx-2 forclosepro">
-                    <div class="col-5 col-md-4">
-                        <img src="./img/bask1.webp"
-                             class="img-for-bsket"
-                             alt="img">
-                    </div>
-                    <div class="col-6 col-md-7 d-flex
+                @foreach(\App\Http\Headers\Cart\Cart::all() as $cart)
+                    <div class="row py-4 mx-2 forclosepro">
+
+                        <div class="col-5 col-md-4">
+                            <a href="{{route('single_product',$cart['product']->id)}}">
+                                <img src="{{!$cart['product']->images()->count()==0?url($cart['product']->images->image):''}}"
+                                     class="img-for-bsket"
+                                     alt="img">
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-7 d-flex
                                                 flex-column ">
-                        <p class="">شلوار اسلش جیب
-                            جلومدل
-                            121575</p>
-                        <div class="btn-group p-0
+                            <p class="">{{$cart['product']->title}}</p>
+                            <div class="btn-group p-0
                                                     counterr1 trh diir
                                                     " role="group"
-                             aria-label="First
+                                 aria-label="First
                                                     group" style="max-width:
                                                     max-content;">
-                            <button type="button"
-                                    class="btn
+                                <button type="button"
+                                        class="btn
                                                         btn-outline-danger
                                                         plus">+</button>
-                            <button type="button"
-                                    class="btn
+                                <button type="button"
+                                        class="btn
                                                         btn-outline-danger
                                                         disabled" id="result">1</button>
-                            <button type="button"
-                                    class="btn
+                                <button type="button"
+                                        class="btn
                                                         btn-outline-danger
                                                         mines">-</button>
+                            </div>
+                            @php
+                                $discount=$cart['product']->discounts->sum(function ($dis){
+                                    return $dis->percent;
+                                });
+                            @endphp
+                            <p class="text-danger ">تومان
+                                <span
+                                    class="span1">{{$discount==0?$cart['product']->price:$cart['product']->price/100*$discount-$cart['product']->price}}</span></p>
                         </div>
-                        <p class="text-danger ">تومان
-                            <span
-                                class="span1">418,000</span></p>
+                        <div class="col-1">
+                            <img
+                                src="./img/icons8-macos-close-24.png"
+                                class="closepro" alt="">
+                        </div>
                     </div>
-                    <div class="col-1">
-                        <img
-                            src="./img/icons8-macos-close-24.png"
-                            class="closepro" alt="">
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="row customer m-2 position-absolute
@@ -676,30 +661,33 @@ CLOSE BASKET HIDDEN
         </div>
     </div>
     <div class="hrr"></div>
-    <div class="p-4 d-flex flex-column">
-        <label class=" h5">
-            شماره موبایل<span class="text-danger fw-bolder">*</span>
-        </label>
-        <input type="text" class="py-3 rounded"id="input1" placeholder="تلفن">
-    </div>
-    <div class="p-4 d-flex flex-column">
-        <label class=" h5">
-            رمز عبور<span class="text-danger fw-bolder">*</span>
-        </label>
-        <input type="text" class="py-3 rounded"id="input1" >
-    </div>
-    <div class="text-center py-3"><a href="#" class="btn btn-danger rounded-0"id="login" style="width: 90%;">ورود</a></div>
-    <div class="d-flex containforcheck">
-        <input type="checkbox"id="input2"class="m-3">
-        <a href="#" class="text-decoration-none text-dark py-3">مرا به خاطر بسپار</a>
-    </div>
-    <a href="#" class="text-decoration-none text-danger m-3 py-4">رمز عبور را فراموش کرده اید ؟</a>
-    <p class="w-100 text-center py-3">یا</p>
-    <div class="text-center py-3"><a href="#" class="btn btn-danger rounded-0"id="login" style="width: 90%;">ورودبا رمز یکبارمصرف</a></div>
+    <form method="post" action="{{route('login')}}">
+        @csrf
+        <div class="p-4 d-flex flex-column">
+            <label class=" h5">
+                نام کاربری<span class="text-danger fw-bolder">*</span>
+            </label>
+            <input type="text" name="username" class="user_name py-3 rounded"id="input1" placeholder="نام کاربری">
+        </div>
+        <div class="p-4 d-flex flex-column">
+            <label class=" h5">
+                رمز عبور<span class="text-danger fw-bolder">*</span>
+            </label>
+            <input type="text" name="password" class="password py-3 rounded"id="input1" >
+        </div>
+
+    <div class="text-center py-3"><button class="btn-login btn btn-danger rounded-0"id="login" style="width: 90%;">ورود</button></div>
+    </form>
+
+    <a href="{{route('resetPassword')}}" class="text-decoration-none text-danger m-3 py-4">رمز عبور را فراموش کرده اید ؟</a>
+    <p class="w-100 text-center py-3"></p>
+    @auth()
+        <div class="text-center py-3"><a href="{{route('getOut')}}" class="btn btn-dark rounded-0"id="login" style="width: 90%;">خروج</a></div>
+    @endauth
     <div class="hrr"></div>
     <div style="width: -webkit-fill-available;" class="text-center py-4 avatar"><img src="./img/icons8-customer-32 (1).png" style="opacity: 0.2;height: 91px;" alt="img">
         <p class="fw-bolder">هنوز حساب کاربری ندارید؟ </p>
-        <a href="#"class="text-decoration-none text-dark">ایجاد حساب کاربری</a>
+        <a href="{{route('register')}}"class="text-decoration-none text-dark">ایجاد حساب کاربری</a>
         <div class="bg-danger w-50"style="height:5px"></div>
 
     </div>
@@ -711,7 +699,11 @@ CLOSE BASKET HIDDEN
 
 <!--=================================================================== new section ===content page ===========================-->
 <div class="container-fluid">
-    <section class="content">
+    <div class="row main2">
+
+
+    </div>
+    <section class="content main1 py-2">
         <!--==== Advertising(تبلیغات) ==-->
         <div class="row forcenteradvertis text-center">
             @foreach(\App\Models\Category::all()->take(8) as $item)
@@ -722,7 +714,7 @@ CLOSE BASKET HIDDEN
                 </div>
             @endforeach
         </div>
-        <!-- =====پرفروش ترینها==== -->
+        4<!-- =====پرفروش ترینها==== -->
         <div class="row pt-4">
             <div class="col-3 col-md-4 col-lg-5 pt-3
                                     pliner-continer "></div>
@@ -734,7 +726,6 @@ CLOSE BASKET HIDDEN
                                     pliner-continer"></div>
         </div>
 
-    </section>
 
     <!--============ =================================owl carousel-1================================= =======-->
     <div class="slider1 p-5">
@@ -752,7 +743,7 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
                 <div class="item itemforhover">
                     <div class="card position-relative"
                          style="width:14rem ;">
-                        <a href="#" class="text-decoration-none
+                        <a href="{{route('single_product',$pro_or['product']->id)}}" class="text-decoration-none
                                         text-dark">
                             <!--== img for card == -->
                             <img class="card-img-top" id="img-card"
@@ -769,12 +760,11 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
                                             text-dark py-2">
                                 <i class="bi bi-cart3 icononimg"
                                    id="addbas7"></i>
-                                <i class="bi bi-check2 selbas7"></i>
                             </a></a>
                             <a href="#" class="text-decoration-none
                                         text-dark py-2">
-                                <i class="bi bi-heart iconlike7"></i>
-                                <i class="bi bi-check2 iconselect7"></i>
+                                    <i class="bi bi-heart iconlike{{$loop->index}}" onclick="addToInterest(event,{{$pro_or['product']->id}},{{$loop->index}})"></i>
+                                <i style="display: none" class="bi bi-check2 iconselect{{$loop->index}}"></i>
                             </a>
                         </div>
                         <!--===labale in imag ===-->
@@ -816,9 +806,11 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
                                     <small class="text-danger span1">{{$pro_or['product']->price/100*$discount-$pro_or['product']->price}}
                                         تومان</small>
                                 </div>
+                            @else
+                                <small class="text-danger span1">{{$pro_or['product']->price}}
+                                    تومان</small>
                             @endif
-                            <small class="text-danger span1">{{$pro_or['product']->price}}
-                                تومان</small>
+
                         </div>
                     </div>
                 </div>
@@ -833,7 +825,7 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
                         pliner-continer "></div>
         <div class=" col-6 col-md-4 col-lg-2 pt-3
                         liner-continer text-center"><p
-                class="fw-bolder h5 ">مجله دیریم</p></div>
+                class="fw-bolder h5 " id="m-dream">مجله دیریم</p></div>
         <div class="col-3 col-md-4 col-lg-5 pt-3
                         pliner-continer"></div>
     </div>
@@ -841,296 +833,56 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
     <div class="swiper mySwiper pt-5 pb-4">
         <div class="swiper-wrapper">
             <!-- ===slide1==== -->
-            <div class="swiper-slide">
-                <div class="card">
-                    <!-- ==img for magazin ==-->
-                    <a href="#" class="position-relative">
-                        <img class="card-img-top"
-                             src="./img/swiper1.jpg"
-                             alt="Card image cap">
-                        <!-- ==date in img === -->
-                        <div class="date d-flex
+            @foreach(\App\Models\Post::all() as $post)
+                <div class="swiper-slide">
+                    <div class="card">
+                        <!-- ==img for magazin ==-->
+                        <a href="{{route('post.single_post',$post->id)}}" class="position-relative">
+                            <img class="card-img-top"
+                                 src="{{url($post->discriptions[0]->image)}}"
+                                 alt="Card image cap">
+                            <!-- ==date in img === -->
+                            <div class="date d-flex
                                         justify-content-center
                                         align-content-center bg-white ">
-                            <p class="text-muted span1 px-1
-                                            pt-2">22مهر</p>
-                        </div>
-                        <span class="badge text-bg-danger p-2
+                                <p class="text-muted span1 px-1
+                                            pt-2">{{jdate($post->created_at)->ago()}}</p>
+                            </div>
+                            <span class="badge text-bg-danger p-2
                                         rounded-0 position-absolute top-100
                                         start-50 translate-middle"> سبک
                                         پوشیدن</span>
-                    </a>
-                    <div class="card-body text-center">
+                        </a>
+                        <div class="card-body text-center">
 
-                        <p class="card-text h5">
-                            چه رنگ لباسی برای پوست شما مناسب
-                            است؟
-                        </p>
-                        <!--=== admin SEO=== -->
-                        <p class="card-text text-muted">
-                            <i class="bi bi-person-circle"></i>
-                            کارشناس محتوا
-                        </p>
-                        <p class="card-text">
-                        <p class="text-muted">سفید گندمی و
-                            سبزه سه رنگ پوست هستند <br> که
-                            بهتر است با توجه به آن رنگ
-                            لباسهایتان را<br> انتخاب کنید
-                            برخی از رنگها به خاطر تناسب <br>شان...</p>
-                        </p>
-                        <!--=== link for continue to read a content ===-->
-                        <a href="#" class="text-decoration-none
+                            <p class="card-text h5">
+                                چه رنگ لباسی برای پوست شما مناسب
+                                است؟
+                            </p>
+                            <!--=== admin SEO=== -->
+                            <p class="card-text text-muted">
+                                <i class="bi bi-person-circle"></i>
+                                کارشناس محتوا
+                            </p>
+                            <p class="card-text">
+
+                            <!--=== link for continue to read a content ===-->
+                            <a href="#" class="text-decoration-none
                                         d-flex justify-content-center
-                                        text-danger fw-bolder content-in-card"><p
+                                        text-danger fw-bolder content-in-card"><a href="{{route('post.single_post',$post->id)}}">
+                            <p
                                 class="">ادامه
-                                مطلب</p><span class="span2
+                                مطلب</p>
+                                </a><span class="span2
                                             fw-bolder ps-2 ">...</span></a>
-                    </div>
-                </div>
-            </div>
-            <!-- ===slide2==== -->
-            <div class="swiper-slide">
-                <div class="card">
-                    <!-- ==img for magazin ==-->
-                    <a href="#" class="position-relative">
-                        <img class="card-img-top"
-                             src="./img/swiper2.jpeg"
-                             alt="Card image cap">
-                        <!-- ==date in img === -->
-                        <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                            <p class="text-muted span1 px-1
-                                            pt-2">21مهر</p>
                         </div>
-                        <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                    </a>
-                    <div class="card-body text-center">
-
-                        <p class="card-text h5">
-                            چه رنگ لباسی برای پوست شما مناسب
-                            است؟
-                        </p>
-                        <!--=== admin SEO=== -->
-                        <p class="card-text text-muted">
-                            <i class="bi bi-person-circle"></i>
-                            کارشناس محتوا
-                        </p>
-                        <p class="card-text">
-                        <p class="text-muted">سفید گندمی و
-                            سبزه سه رنگ پوست هستند <br> که
-                            بهتر است با توجه به آن رنگ
-                            لباسهایتان را<br> انتخاب کنید
-                            برخی از رنگها به خاطر تناسب <br>شان...</p>
-                        </p>
-                        <!--=== link for continue to read a content ===-->
-                        <a href="#" class="text-decoration-none
-                                        d-flex justify-content-center
-                                        text-danger fw-bolder content-in-card"><p
-                                class="">ادامه
-                                مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
                     </div>
                 </div>
-            </div>
-            <!-- ===slide3==== -->
-            <div class="swiper-slide">
-                <div class="card">
-                    <!-- ==img for magazin ==-->
-                    <a href="#" class="position-relative">
-                        <img class="card-img-top"
-                             src="./img/swiper3.jpg"
-                             alt="Card image cap">
-                        <!-- ==date in img === -->
-                        <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                            <p class="text-muted span1 px-1
-                                            pt-2">20مهر</p>
-                        </div>
-                        <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                    </a>
-                    <div class="card-body text-center">
-
-                        <p class="card-text h5">
-                            چه رنگ لباسی برای پوست شما مناسب
-                            است؟
-                        </p>
-                        <!--=== admin SEO=== -->
-                        <p class="card-text text-muted">
-                            <i class="bi bi-person-circle"></i>
-                            کارشناس محتوا
-                        </p>
-                        <p class="card-text">
-                        <p class="text-muted">سفید گندمی و
-                            سبزه سه رنگ پوست هستند <br> که
-                            بهتر است با توجه به آن رنگ
-                            لباسهایتان را<br> انتخاب کنید
-                            برخی از رنگها به خاطر تناسب <br>شان...</p>
-                        </p>
-                        <!--=== link for continue to read a content ===-->
-                        <a href="#" class="text-decoration-none
-                                        d-flex justify-content-center
-                                        text-danger fw-bolder content-in-card"><p
-                                class="">ادامه
-                                مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
-                    </div>
-                </div>
-            </div>
-            <!-- ===slide4==== -->
-            <div class="swiper-slide">
-                <div class="card">
-                    <!-- ==img for magazin ==-->
-                    <a href="#" class="position-relative">
-                        <img class="card-img-top"
-                             src="./img/swiper4.jpg"
-                             alt="Card image cap">
-                        <!-- ==date in img === -->
-                        <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                            <p class="text-muted span1 px-1
-                                            pt-2">19مهر</p>
-                        </div>
-                        <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                    </a>
-                    <div class="card-body text-center">
-
-                        <p class="card-text h5">
-                            چه رنگ لباسی برای پوست شما مناسب
-                            است؟
-                        </p>
-                        <!--=== admin SEO=== -->
-                        <p class="card-text text-muted">
-                            <i class="bi bi-person-circle"></i>
-                            کارشناس محتوا
-                        </p>
-                        <p class="card-text">
-                        <p class="text-muted">سفید گندمی و
-                            سبزه سه رنگ پوست هستند <br> که
-                            بهتر است با توجه به آن رنگ
-                            لباسهایتان را<br> انتخاب کنید
-                            برخی از رنگها به خاطر تناسب <br>شان...</p>
-                        </p>
-                        <!--=== link for continue to read a content ===-->
-                        <a href="#" class="text-decoration-none
-                                        text-danger fw-bolder d-flex
-                                        justify-content-center
-                                        content-in-card"><p class="">ادامه
-                                مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
-                    </div>
-                </div>
-            </div>
-            <!-- ===slide5==== -->
-            <div class="swiper-slide">
-                <div class="card">
-                    <!-- ==img for magazin ==-->
-                    <a href="#" class="position-relative">
-                        <img class="card-img-top"
-                             src="./img/swiper1.jpg"
-                             alt="Card image cap">
-                        <!-- ==date in img === -->
-                        <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                            <p class="text-muted span1 px-1
-                                            pt-2">18مهر</p>
-                        </div>
-                        <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                    </a>
-                    <div class="card-body text-center">
-
-                        <p class="card-text h5">
-                            چه رنگ لباسی برای پوست شما مناسب
-                            است؟
-                        </p>
-                        <!--=== admin SEO=== -->
-                        <p class="card-text text-muted">
-                            <i class="bi bi-person-circle"></i>
-                            کارشناس محتوا
-                        </p>
-                        <p class="card-text">
-                        <p class="text-muted">سفید گندمی و
-                            سبزه سه رنگ پوست هستند <br> که
-                            بهتر است با توجه به آن رنگ
-                            لباسهایتان را<br> انتخاب کنید
-                            برخی از رنگها به خاطر تناسب <br>شان...</p>
-                        </p>
-                        <!--=== link for continue to read a content ===-->
-                        <a href="#" class="text-decoration-none
-                                        text-danger fw-bolder d-flex
-                                        justify-content-center
-                                        content-in-card"><p class="">ادامه
-                                مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
-                    </div>
-                </div>
-            </div>
-            <!-- ===slide6==== -->
-            <div class="swiper-slide">
-                <div class="card">
-                    <!-- ==img for magazin ==-->
-                    <a href="#" class="position-relative">
-                        <img class="card-img-top"
-                             src="./img/swiper2.jpeg"
-                             alt="Card image cap">
-                        <!-- ==date in img === -->
-                        <div class="date d-flex
-                                        justify-content-center
-                                        align-content-center bg-white ">
-                            <p class="text-muted span1 px-1
-                                            pt-2">17مهر</p>
-                        </div>
-                        <span class="badge text-bg-danger p-2
-                                        rounded-0 position-absolute top-100
-                                        start-50 translate-middle"> سبک
-                                        پوشیدن</span>
-                    </a>
-                    <div class="card-body text-center">
-
-                        <p class="card-text h5">
-                            چه رنگ لباسی برای پوست شما مناسب
-                            است؟
-                        </p>
-                        <!--=== admin SEO=== -->
-                        <p class="card-text text-muted">
-                            <i class="bi bi-person-circle"></i>
-                            کارشناس محتوا
-                        </p>
-                        <p class="card-text">
-                        <p class="text-muted">سفید گندمی و
-                            سبزه سه رنگ پوست هستند <br> که
-                            بهتر است با توجه به آن رنگ
-                            لباسهایتان را<br> انتخاب کنید
-                            برخی از رنگها به خاطر تناسب <br>شان...</p>
-                        </p>
-                        <!--=== link for continue to read a content ===-->
-                        <a href="#" class="text-decoration-none
-                                        d-flex justify-content-center
-                                        text-danger fw-bolder
-                                        content-in-card"><p class="">ادامه
-                                مطلب</p><span class="span2
-                                            fw-bolder ps-2 ">...</span></a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
             <div class="swiper-pagination"></div>
         </div>
     </div>
+    </section>
     <section class="footer pt-5 ">
         <footer>
             <div class="row  text-center">
@@ -1161,7 +913,7 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
             <div class="text-center">
                 <p class="text-muted">هرگونه سوالی در خصوص انتخاب
                     محصول و ثبت سفارش و تحویل کالا</p></div>
-            <p class=" h5 fw-bolder text-center">
+            <p id="call_me" class=" h5 fw-bolder text-center">
                 تیم پشتیبانی سایت همه روزه به جز جمعه ها از ساعت 8
                 تا 17 پاسخگوی درخواستهای شما از طریق سامانه پشتیبانی
                 هستند.</p>
@@ -1196,13 +948,13 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
     </div>
     <div class="row-text-navmobile row ">
         <div class="col-3 text-center">
-            <a class="text-decoration-none text-dark fw-bold" href=""><p>فروشگاه</p></a>
+            <a class="text-decoration-none text-dark fw-bold" href="{{route('show_products')}}"><p>فروشگاه</p></a>
         </div>
         <div class="col-3 text-center">
-            <a class="text-decoration-none text-dark fw-bold" href="#"> <p>خانه</p></a>
+            <a class="text-decoration-none text-dark fw-bold" href="{{route('index')}}"> <p>خانه</p></a>
         </div>
         <div class="col-3 text-center">
-            <a class="text-decoration-none text-dark fw-bold" href="#"><p>علاقه مندی</p></a>
+            <a class="text-decoration-none text-dark fw-bold" href="{{route('interests')}}"><p>علاقه مندی</p></a>
         </div>
         <div class="col-3 text-center">
             <a class="text-decoration-none text-dark fw-bold" href="#"><p>حساب کاربری</p></a>
@@ -1223,19 +975,114 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
 <script>
 
 
-    function addToInterests(event,id){
 
+    function addToInterest(event,id,index){
+        event.preventDefault();
+        $.ajax({
+            type : 'post',
+            url :'{{route('interest.add')}}',
+            data:{
+                product:id
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function(result) {
+
+                if (result['success']==true){
+
+                    let like7=document.querySelector(".iconlike"+index);
+                    let select7=document.querySelector('.iconselect'+index);
+                    like7.style.display="none";
+                    select7.style.display="block";
+
+                    document.querySelector('.countere').innerHTML++;
+                    document.querySelector('.counter1').innerHTML++;
+                }
+            }
+        });
     }
 
-    //////////
-    let like7=document.querySelector(".iconlike7");
-    let select7=document.querySelector('.iconselect7')
-    like7.addEventListener('click',function(e){
-        e.preventDefault();
-        like7.style.display="none";
-        select7.style.display="block"
-        return (shownumlike.innerHTML)++,(shownumlike1.innerHTML)++;
-    })
+    let button_back=()=>{
+        return `
+            <div class="text-center py-2">
+                <button onclick="back_page(event)" class="btn btn-danger w-50 btn-back">
+                بازگشت
+            </button>
+            </div>
+            `;
+    }
+    $('.btn-Enter').click(function (){
+
+        $.ajax({
+            type : 'get',
+            url :'{{route('search')}}',
+            data:{
+                search: document.querySelector('.Enter').value
+            },
+
+            success : function(result) {
+                if (result.length==0){
+
+                }else if(document.querySelector('.Enter').value.length==0){
+
+                }
+                else {
+                    $('.main1').css('display','none');
+                    $('.main2').children().remove();
+                    $('.main2').append(button_back());
+                    $('.main2').append(result);
+                }
+
+            }
+        });
+
+
+
+    });
+
+    function back_page(event){
+        $('.main2').children().remove();
+        $('.main1').css('display','block');
+    }
+
+    //phone ckeck
+    function check_phone(number) {
+        let regex = new RegExp("^(\\+98|0)?9\\d{9}$");
+        let result = regex.test(number);
+        return result;
+    };
+
+
+    {{--$('.btn-login').click(function (){--}}
+
+    {{--    if ($('.user_name').val().length==0){--}}
+    {{--        return window.alert('وارد کردن فیلد شماره تماس الزامی است.');--}}
+    {{--    }--}}
+    {{--    if ($('.password').val().length==0){--}}
+    {{--        return window.alert('وارد کردن فیلد پسورد الزامی است.');--}}
+    {{--    }--}}
+
+    {{--    $.ajax({--}}
+    {{--        type : 'post',--}}
+    {{--        url :'{{route('login')}}',--}}
+    {{--        data:{--}}
+    {{--            password:$('.password').val(),--}}
+    {{--            username:$('.user_name').val()--}}
+    {{--        },--}}
+    {{--        headers:{--}}
+    {{--            'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content--}}
+    {{--        },--}}
+    {{--        success : function(result) {--}}
+    {{--            if (result['login']==true){--}}
+    {{--                return console.log(result);--}}
+    {{--            }--}}
+    {{--            if (result['errors']){--}}
+    {{--                return window.alert(result['errors']);--}}
+    {{--            }--}}
+    {{--        }--}}
+    {{--    });--}}
+    {{--});--}}
 </script>
 </body>
 </html>

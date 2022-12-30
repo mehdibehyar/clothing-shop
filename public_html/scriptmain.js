@@ -89,6 +89,11 @@ $(document).ready(function() {
    })
 
 })
+$('.Enter').keyup(function (event){
+    if (event.key==='Enter'){
+        document.querySelector('.btn-Enter').click();
+    }
+});
 
 
 $('.owl-carousel1').owlCarousel({
@@ -324,6 +329,8 @@ const displayblok = function (el) {
   el.parentElement.parentElement.lastElementChild.style.display = "block";
   el.preventDefault;
 };
+
+
 
 
 

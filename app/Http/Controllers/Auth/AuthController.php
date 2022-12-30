@@ -7,6 +7,7 @@ use App\Http\Headers\Notify\Notify;
 use App\Models\Active_code;
 use App\Models\User;
 use App\Notifications\ActiveCodeNotification;
+use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use mysql_xdevapi\Exception;
@@ -21,6 +22,23 @@ class AuthController extends Controller
 
     public function loginPost(Request $request)
     {
+//        if ($request->ajax()){
+//            $validator=\Illuminate\Support\Facades\Validator::make($request->all(),[
+//                'username' => ['required', 'exists:users,username'],
+//                'password' => ['required']
+//            ]);
+//
+//            if ($validator->fails()){
+//                return response()->json(['errors'=>$validator->errors()->all()]);
+//            }
+//
+//            if (Auth::attempt(['username'=>$request->username,'password'=>$request->password])) {
+//                return response()->json(['login'=>\auth()->check()]);
+//            }
+//            return response()->json(['errors'=>$validator->errors()->add('username' , 'فیل های وارد شده با هم متابقت ندارند')->all()]);
+//
+//
+//        }
 
         $data = $request->validate([
             'username' => ['required', 'exists:users,username'],

@@ -19,23 +19,24 @@ class InterestController extends Controller
 
     public function addInterest(Request $request)
     {
-        $validate=Validator::make($request->all(),[
-            'product'=>['required']
-        ]);
-        if ($validate->fails()){
-            return \response()->json(['errors'=>$validate->errors()->all()]);
-        }
         if ($request->ajax()){
+            $validate=Validator::make($request->all(),[
+                'product'=>['required']
+            ]);
+            if ($validate->fails()){
+                return \response()->json(['errors'=>$validate->errors()->all()]);
+            }
+
             if (!!Product::find($request->product)){
                 if (!auth()->check()){
                     if (InterestC::has(Product::find($request->product))){
-                        return \response()->json(['success'=>false]);
+                        return \response()->json(['success'=>true]);
                     }
                     InterestC::put([],Product::find($request->product));
                     return \response()->json(['success'=>true]);
                 }else{
                     if(!!Product::find($request->product)->interests()->where('user_id',auth()->user()->id)->first()){
-                        return \response()->json(['success'=>false]);
+                        return \response()->json(['success'=>true]);
                     }
                     Product::find($request->product)->interests()->create(['user_id'=>auth()->user()->id]);
                     return \response()->json(['success'=>true]);
