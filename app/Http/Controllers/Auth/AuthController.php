@@ -48,7 +48,7 @@ class AuthController extends Controller
         if (Auth::attempt($data)) {
             return redirect(route('index'));
         }
-        return back()->withErrors(['username' => 'فیل های وارد شده با هم متابقت ندارند']);
+        return back()->withErrors(['username' => 'فیلد های وارد شده با هم متابقت ندارند']);
 
     }
 

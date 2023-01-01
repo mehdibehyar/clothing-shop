@@ -1,284 +1,5 @@
-{{--@component('layouts.content')--}}
 
-{{--    @slot('title')--}}
-{{--        dresland.org--}}
-{{--    @endslot--}}
-
-{{--    @slot('script')--}}
-{{--        <script>--}}
-{{--            function addToInterest(event,id){--}}
-{{--                event.preventDefault();--}}
-
-{{--                $.ajax({--}}
-{{--                    type : 'post',--}}
-{{--                    url :'{{route('interest.add')}}',--}}
-{{--                    data:{--}}
-{{--                        product:id--}}
-{{--                    },--}}
-{{--                    headers:{--}}
-{{--                        'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content--}}
-{{--                    },--}}
-{{--                    success : function(result) {--}}
-
-{{--                        if (result['success']==true){--}}
-{{--                            document.getElementById('count_interest_index').innerHTML+1;--}}
-{{--                            document.getElementById('count_interest_index1').innerHTML++;--}}
-{{--                        }--}}
-{{--                    }--}}
-{{--                });--}}
-{{--            }--}}
-
-
-
-{{--            function search1(event){--}}
-
-{{--                $.ajax({--}}
-{{--                    type : 'get',--}}
-{{--                    url :'{{route('search')}}',--}}
-{{--                    data:{--}}
-{{--                        search: document.getElementById('search1').value--}}
-{{--                    },--}}
-
-{{--                    success : function(result) {--}}
-{{--                        $('#aaa').children().remove();--}}
-{{--                        $('#aaa').append(result);--}}
-{{--                    }--}}
-{{--                });--}}
-
-{{--            }--}}
-
-{{--            //جدید برای همه با اضافه کردن کلاس هدر به سکشن هدر--}}
-{{--            var lastScrollTop = 0;--}}
-{{--            $(window).scroll(function(event){--}}
-{{--                var st = $(this).scrollTop();--}}
-{{--                if (st > lastScrollTop){--}}
-{{--                    // downscroll code--}}
-{{--                    $(".header").css({position:'absolute',background:'#fff'})--}}
-{{--                    $(".header").css('z-index',3000)--}}
-{{--                } else {--}}
-{{--                    // upscroll code--}}
-{{--                    $(".header").css({position:'fixed',background:'#fff',top:'0'})--}}
-{{--                    $(".header").css('z-index',3000)--}}
-
-{{--                }--}}
-{{--                lastScrollTop = st;--}}
-{{--            });--}}
-
-
-{{--        </script>--}}
-{{--    @endslot--}}
-
-{{--    <div class="container-fluid row" id="aaa">--}}
-{{--        <section class="content">--}}
-{{--            <!--========== search product in content ======-->--}}
-{{--            <div class="row pt-4">--}}
-{{--                <div class="input-group inputgroup1 mb-3">--}}
-{{--                    <button onclick="search1(event)" type="button" class="btn btn-light--}}
-{{--                                            border"><i class="bi bi-search--}}
-{{--                                                text-dark"></i></button>--}}
-{{--                    <input id="search1" type="text" class="form-control"--}}
-{{--                           placeholder="جستجوی محصولات"--}}
-{{--                           aria-label="Text input with segmented--}}
-{{--                                            dropdown--}}
-{{--                                            button">--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <!--==== categories with image ==-->--}}
-{{--            <div class="row forcenteradvertis text-center">--}}
-{{--                @foreach(\App\Models\Category::all()->take(8) as $item)--}}
-{{--                    @if(!empty($item->image))--}}
-{{--                        <div class="col-12 col-lg-3 advertis">--}}
-{{--                            <a href="{{route('product_category',$item->id)}}"><img src="{{url($item->image)}}" alt="" class="pb-lg-3 pb-2" width="348px" height="174px"></a>--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-{{--                @endforeach--}}
-{{--            </div>--}}
-{{--            <!-- =====پرفروش ترینها==== -->--}}
-{{--            <div class="row pt-4">--}}
-{{--                <div class="col-3 col-md-4 col-lg-5 pt-3--}}
-{{--                                        pliner-continer "></div>--}}
-{{--                <div class=" col-6 col-md-4 col-lg-2 pt-3--}}
-{{--                                        liner-continer text-center"><p--}}
-{{--                        class="fw-bolder h5 ">پرفروش ترین--}}
-{{--                        محصولات</p></div>--}}
-{{--                <div class="col-3 col-md-4 col-lg-5 pt-3--}}
-{{--                                        pliner-continer"></div>--}}
-{{--            </div>--}}
-
-{{--        </section>--}}
-
-{{--        <!--============ =================================owl carousel-1================================= =======-->--}}
-{{--        <div class="slider1 p-5">--}}
-{{--            <div class="owl-carousel owl-theme">--}}
-{{--                <!-- ====card one in carousel==== -->--}}
-{{--                @php--}}
-{{--                    $products=\App\Models\Product::all();--}}
-{{--$arr=[];--}}
-{{--foreach ($products as $product){--}}
-{{--    $arr[$product->id]=['count_order'=>$product->orders->count(),'product'=>$product];--}}
-
-{{--}--}}
-{{--$productsort=collect($arr)->sortByDesc('count_order')->take(12);--}}
-{{--                @endphp--}}
-{{--                @foreach($productsort as $item)--}}
-{{--                    <div class="item itemforhover">--}}
-{{--                        <div class="card position-relative" style="width:14rem ;">--}}
-{{--                            <!--== img for card == -->--}}
-{{--                            <img class="card-img-top " id="img-card" src="{{!$item['product']->images()->count()==0?url($item['product']->images->image):''}}" alt="Card image cap">--}}
-
-{{--                            <div class="like position-absolute flex-column justify-content-center bg-white" style="width:30px ;height:--}}
-{{--                                                100px;">--}}
-
-{{--                                <!--=== show icon when hover card ===-->--}}
-{{--                                <a href="{{route('single_product',$item['product']->id)}}"--}}
-{{--                                   class="text-decoration-none text-dark py-2">--}}
-{{--                                    <i class="bi bi-cart3 icononimg" id="addbas1"></i>--}}
-{{--                                    <i class="bi bi-check2 selbas1"></i>--}}
-{{--                                </a>--}}
-
-{{--                                <a href="#" onclick="addToInterest(event,'{{$item['product']->id}}')"--}}
-{{--                                   class="text-decoration-none text-dark py-2">--}}
-{{--                                    <i class="bi bi-heart"></i>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-
-{{--                            <!--===labale in imag ===-->--}}
-{{--                            <span class="badge text-bg-danger vijhe p-2 rounded-0">ویژه</span>--}}
-{{--                            <span class="badge text-bg-secondary mojoudi p-2 rounded-0"></span>--}}
-{{--                            <div class="card-body p-2">--}}
-{{--                                @php--}}
-{{--                                    $discount=$item['product']->discounts->sum(function ($dis){--}}
-{{--                                        return $dis->percent;--}}
-{{--                                    });--}}
-{{--                                @endphp--}}
-{{--                                    <!--== price == -->--}}
-{{--                                <a href="#" class="text-decoration-none text-dark">--}}
-{{--                                    @if(!$discount==0)--}}
-{{--                                        <span class="badge text-bg-danger ">{{$discount}} تخفیف</span>--}}
-{{--                                    @endif--}}
-{{--                                    <p class="card-text">--}}
-{{--                                        {{$item['product']->title}}--}}
-{{--                                    </p>--}}
-{{--                                </a>--}}
-{{--                                <div class="d-flex justify-content-between card-text">--}}
-{{--                                    <del class="text-muted span1">{{$discount==0?'':$item['product']->price . ' تومان'}}</del>--}}
-
-{{--                                    <small class="text-danger span1">{{$discount==0?$item['product']->price:$item['product']->price/100*$discount-$item['product']->price}}تومان</small>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-{{--                @endforeach--}}
-
-{{--            </div>--}}
-
-{{--        </div>--}}
-{{--        <!-- =================================================مجله دریم============================ -->--}}
-{{--        <div class="row pt-4">--}}
-{{--            <div class="col-3 col-md-4 col-lg-5 pt-3--}}
-{{--                            pliner-continer "></div>--}}
-{{--            <div class=" col-6 col-md-4 col-lg-2 pt-3--}}
-{{--                            liner-continer text-center"><p--}}
-{{--                    class="fw-bolder h5 " id="Magazine">مجله دیریم</p></div>--}}
-{{--            <div class="col-3 col-md-4 col-lg-5 pt-3--}}
-{{--                            pliner-continer"></div>--}}
-{{--        </div>--}}
-{{--        <!--=============================================== magazine in dream   swiper slide ===-->--}}
-{{--        <div class="swiper mySwiper pt-5 pb-4">--}}
-{{--            <div class="swiper-wrapper">--}}
-{{--                <!-- ===slide1==== -->--}}
-{{--                @foreach(\App\Models\Post::all() as $post)--}}
-{{--                    <div class="swiper-slide">--}}
-{{--                        <div class="card">--}}
-{{--                            <!-- ==img for magazin ==-->--}}
-{{--                            <a href="{{route('post.single_post',$post->id)}}" class="position-relative">--}}
-{{--                                <img class="card-img-top"--}}
-{{--                                     src="{{$post->discriptions[0]['image']}}"--}}
-{{--                                     alt="Card image cap">--}}
-{{--                                <!-- ==date in img === -->--}}
-{{--                                <div class="date d-flex--}}
-{{--                                            justify-content-center--}}
-{{--                                            align-content-center bg-white ">--}}
-{{--                                    <p class="text-muted span1 px-1--}}
-{{--                                                pt-2">{{jdate($post->created_at)}}</p>--}}
-{{--                                </div>--}}
-{{--                                <span class="badge text-bg-danger p-2--}}
-{{--                                            rounded-0 position-absolute top-100--}}
-{{--                                            start-50 translate-middle"> سبک--}}
-{{--                              +              پوشیدن</span>--}}
-{{--                            </a>--}}
-{{--                            <div class="card-body text-center">--}}
-
-{{--                                <p class="card-text h5">--}}
-{{--                                    {{$post->title}}--}}
-{{--                                </p>--}}
-{{--                                <!--=== admin SEO=== -->--}}
-{{--                                <p class="card-text text-muted">--}}
-{{--                                    <i class="bi bi-person-circle"></i>--}}
-{{--                                    کارشناس محتوا--}}
-{{--                                </p>--}}
-{{--                                <p class="card-text">--}}
-{{--                                <p class="text-muted"></p>--}}
-{{--                                </p>--}}
-{{--                                <!--=== link for continue to read a content ===-->--}}
-{{--                                <a href="#" class="text-decoration-none--}}
-{{--                                            d-flex justify-content-center--}}
-{{--                                            text-danger fw-bolder content-in-card"><p--}}
-{{--                                        class="">ادامه--}}
-{{--                                        مطلب</p><span class="span2--}}
-{{--                                                fw-bolder ps-2 ">...</span></a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                @endforeach--}}
-
-{{--                <div class="swiper-pagination"></div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        @include('layouts.endSidebar')--}}
-
-{{--        <!-- open navbar in button page for mobile &tablet size -->--}}
-{{--        <div class="navformobile d-flex flex-column border position-fixed--}}
-{{--                        bottom-0 bg-white w-100 d-lg-none ">--}}
-{{--            <!-- جدید برای همه صفحات  -->--}}
-{{--            <div class="row">--}}
-
-{{--                <div class="col-3 text-center"><a href="#"><img src="./img/icons8-shop-32.png" alt="shop"style="width:25px; height=25px"></a></div>--}}
-{{--                <div class="col-3 text-center"><a href="#"><img src="./img/icons8-home-page-48.png" alt=""style="width:25px; height=25px"> </a></div>--}}
-{{--                <div class="col-3 text-center position-relative"><a href="#"><img src="./img/icons8-heart-32.png" alt=""style="width:25px; height=25px">--}}
-{{--                        <span class="span1--}}
-{{--                                                            position-absolute--}}
-{{--                                                            text-white counter1"id="counter1">0</span>--}}
-{{--                    </a> </div>--}}
-{{--                <div class="col-3 text-center">--}}
-{{--                    <a href="#"> <img src="./img/icons8-customer-32 (1).png" alt="person" style="width: 25px;height: 25px;"></a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="row-text-navmobile row ">--}}
-{{--                <div class="col-3 text-center">--}}
-{{--                    <a class="text-decoration-none text-dark fw-bold" href=""><p>فروشگاه</p></a>--}}
-{{--                </div>--}}
-{{--                <div class="col-3 text-center">--}}
-{{--                    <a class="text-decoration-none text-dark fw-bold" href="#"> <p>خانه</p></a>--}}
-{{--                </div>--}}
-{{--                <div class="col-3 text-center">--}}
-{{--                    <a class="text-decoration-none text-dark fw-bold" href="#"><p>علاقه مندی</p></a>--}}
-{{--                </div>--}}
-{{--                <div class="col-3 text-center">--}}
-{{--                    <a class="text-decoration-none text-dark fw-bold" href="#"><p>حساب کاربری</p></a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-
-
-
-
-{{--@endcomponent--}}
-
-
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -309,7 +30,7 @@
 <body>
 <!--== HEADER& NAVBAR ====-->
 <div class="bodyforclick"></div>
-<div class="under-header">
+<div class="container under-header">
 
 </div>
 
@@ -397,7 +118,7 @@
                                                 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                             </svg>
                             <span class="span1 position-absolute
-                                                shownumbas1 ">0</span>
+                                                shownumbas1 ">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
                         </div>
                     </div>
                 </div>
@@ -426,8 +147,29 @@
                                                 text-white shownumbas">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
                     </div>
                     @php
-                    $cart=\App\Http\Headers\Cart\Cart::all();
-                    $total_price=$cart->sum('price');
+
+                        $cart=\App\Http\Headers\Cart\Cart::all();
+                        $arr=[];
+                        foreach ($cart as $c){
+                            $discount=$c['product']->discounts->sum(function ($dis){
+                                return $dis->percent;
+                            });
+                            if (!$discount==0){
+                                $p=$c['product']->price/100*$discount;
+                                $percent=$c['product']->price - $p;
+                                $arr[]=$percent*$c['quantity'];
+
+                            }else{
+                                $arr[]=$c['product']->price * $c['quantity'];
+                            }
+
+                        }
+
+                        $total_price=collect($arr)->sum(function ($item){
+                            return $item;
+                        });
+
+
                     @endphp
                     <p class="text-dark fw-bolder mb-2 "><span
                             class="span1 text-muted mb-2">{{$total_price}}
@@ -517,6 +259,16 @@
 </section>
 <!-- for gap in pag -->
 
+
+@if($errors->any())
+    @foreach($errors->all() as $error)
+        <div class="Error-for-login remove_error-{{$loop->index}}" style="width: 100%">
+            <p class="fw-bolder pe-3">خطا: <span class=" fw-bolder"></span>{{$error}}</p>
+            <img onclick="delete_error(event,'{{$loop->index}}')" src="./img/icons8-macos-close-24.png"class="closepro fw-bolder closeerror"style="cursor: pointer;" alt="">
+        </div>
+    @endforeach
+@endif
+
 <div class="container-fluid">
     <!--===== menu collapse in top page<============-->
 
@@ -551,97 +303,123 @@
 
     <!-- for basket hidden -->
     <div class="hidden-basket col-lg-3 col-10 border
-                                rounded
-                                ">
-        <div class="position-relative"></div>
-        <!-- قسمت محصولات -->
-        <div class="boxforpro">
-            <!-- محصول اول -->
-            <div class="addingtobas">
-                <div class="row d-flex
-                                            justify-content-between ">
-                    <div class="col-6">
-                        <p class="h4 fw-bolder m-4">سبد
-                            خرید</p>
-                    </div>
-                    <div class="col-6 d-flex
-                                                justify-content-end ">
-                        <p class="h5 text-muted m-4
-                                                    closebas">بستن</p>
-                    </div>
-                </div>
-                <div class="hrr"></div>
-                @foreach(\App\Http\Headers\Cart\Cart::all() as $cart)
-                    <div class="row py-4 mx-2 forclosepro">
-
-                        <div class="col-5 col-md-4">
-                            <a href="{{route('single_product',$cart['product']->id)}}">
-                                <img src="{{!$cart['product']->images()->count()==0?url($cart['product']->images->image):''}}"
-                                     class="img-for-bsket"
-                                     alt="img">
-                            </a>
-                        </div>
-                        <div class="col-6 col-md-7 d-flex
-                                                flex-column ">
-                            <p class="">{{$cart['product']->title}}</p>
-                            <div class="btn-group p-0
-                                                    counterr1 trh diir
-                                                    " role="group"
-                                 aria-label="First
-                                                    group" style="max-width:
-                                                    max-content;">
-                                <button type="button"
-                                        class="btn
-                                                        btn-outline-danger
-                                                        plus">+</button>
-                                <button type="button"
-                                        class="btn
-                                                        btn-outline-danger
-                                                        disabled" id="result">1</button>
-                                <button type="button"
-                                        class="btn
-                                                        btn-outline-danger
-                                                        mines">-</button>
-                            </div>
-                            @php
-                                $discount=$cart['product']->discounts->sum(function ($dis){
-                                    return $dis->percent;
-                                });
-                            @endphp
-                            <p class="text-danger ">تومان
-                                <span
-                                    class="span1">{{$discount==0?$cart['product']->price:$cart['product']->price/100*$discount-$cart['product']->price}}</span></p>
-                        </div>
-                        <div class="col-1">
-                            <img
-                                src="./img/icons8-macos-close-24.png"
-                                class="closepro" alt="">
-                        </div>
-                    </div>
-                @endforeach
+                                    rounded
+                                    ">
+        <!-- قسمت بالای سبد -->
+        <div class="row d-flex
+                                                justify-content-between hed-bas-hidden">
+            <div class="col-6">
+                <p class="h4 fw-bolder m-4">سبد
+                    خرید</p>
+            </div>
+            <div class="col-6 d-flex
+                                                    justify-content-end ">
+                <p class="h5 text-muted m-4
+                                                        closebas">بستن</p>
             </div>
         </div>
-        <div class="row customer m-2 position-absolute
-                                    bottom-0 ">
+        <div class="hrr"></div>
+        <!-- قسمت میانی سبد -->
+        <div class="addingtobas">
+            @foreach(\App\Http\Headers\Cart\Cart::all() as $cart1)
+                <div class="row py-4 mx-2
+                                                        forclosepro{{$loop->index}}">
+                    <div class="col-5 col-md-4">
+                        <a href="{{route('single_product',$cart1['product']->id)}}">
+                            <img
+                                src="{{!$cart1['product']->images()->count()==0?url($cart1['product']->images->image):''}}"
+                                class="img-for-bsket"
+                                alt="img">
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-7
+                                                            d-flex
+                                                            flex-column ">
+                        <p class="">
+                            {{$cart1['product']->title}}
+                        </p>
+                        <div class="btn-group
+                                                                p-0
+                                                                counterr1 trh diir
+                                                                " role="group"
+                             aria-label="First
+                                                                group"
+                             style="max-width:
+                                                                max-content;">
+                            <button
+                                type="button"
+                                class="btn
+                                                                    btn-outline-danger
+                                                                    plus" onclick="plus(event,'{{$cart1['id']}}','{{$loop->index}}')">+</button>
+                            <button
+                                type="button"
+                                class="btn
+                                                                    btn-outline-danger
+                                                                    disabled result-{{$loop->index}}"
+                                id="result">{{$cart1['quantity']}}</button>
+                            <button
+                                type="button"
+                                class="btn
+                                                                    btn-outline-danger
+                                                                    mines" onclick="minus(event,'{{$cart1['id']}}','{{$loop->index}}')">-</button>
+                        </div>
+                        @php
+                            $discount=$cart1['product']->discounts->sum(function ($dis){
+                                return $dis->percent;
+                            });
+                        @endphp
+                        <p class="text-danger ">تومان
+                            <span
+                                class="span1">{{$discount==0?$cart1['product']->price:$cart1['product']->price/100*$discount-$cart1['product']->price}}</span></p>
+                    </div>
+                    <div class="col-1">
+                        <img onclick="closepro(event,'{{$cart1['id']}}','{{$loop->index}}')"
+                            src="./img/icons8-macos-close-24.png"
+                            class="closepro"
+                            alt="">
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="text-center update-basket">
+            <button class="btn btn-success">
+                بروز رسانی سبد
+            </button>
+        </div>
+
+        <!-- قسمت پایانی سبد -->
+        <div class="row customer m-2
+                                                ">
             <div class="col-12 d-flex
-                                        justify-content-between m-3">
-                <p class="h5 fw-bolder">جمع كل سبد خريد:</p>
-                <p class="h5 fw-bolder text-danger"><span
-                        class="span1">768,000</span>تومان</p>
+                                                    justify-content-between
+                                                    m-3">
+                <p class="h5 fw-bolder">جمع
+                    كل سبد خريد:</p>
+                <p class="h5 fw-bolder
+                                                        text-danger"><span
+                        class="span1">{{$total_price}}</span>تومان</p>
             </div>
-            <a href="#" class="text-decoration-none
-                                        text-muted py-2">مشاهده ی محصولات
+            <a href="{{route('show_products')}}"
+               class="text-decoration-none
+                                                    text-muted py-2">مشاهده ی
+                محصولات
                 بیشتر...</a>
-            <div class="col-12 text-center mt-4">
-                <a href="#" class="btn btn-light w-100
-                                            mb-1
-                                            rounded-0 border py-2">مشاهده ی سبد
+            <div class="col-12 text-center
+                                                    mt-4">
+                <a href="{{route('cart')}}" class="btn
+                                                        btn-light w-100
+                                                        mb-1
+                                                        rounded-0 border py-2">مشاهده
+                    ی سبد
                     خرید</a>
-                <a href="#" class="btn btn-danger w-100
-                                            rounded-0 py-2">تسویه حساب</a>
+                <a href="{{route('create_information')}}" class="btn
+                                                        btn-danger w-100
+                                                        rounded-0 py-2">تسویه
+                    حساب</a>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--=========================================================>
 CLOSE BASKET HIDDEN
@@ -714,7 +492,7 @@ CLOSE BASKET HIDDEN
                 </div>
             @endforeach
         </div>
-        4<!-- =====پرفروش ترینها==== -->
+        <!-- =====پرفروش ترینها==== -->
         <div class="row pt-4">
             <div class="col-3 col-md-4 col-lg-5 pt-3
                                     pliner-continer "></div>
@@ -1083,6 +861,37 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
     {{--        }--}}
     {{--    });--}}
     {{--});--}}
+
+    function closepro(event,id,index){
+        $.ajax({
+            type : 'post',
+            url : 'cart/delete/'+id,
+            data :{
+                _method : 'delete',
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }else {
+                        $(".forclosepro"+index).css({display:"none",});
+                    }
+                }
+
+            }
+        });
+
+
+    }
+
+    function delete_error(event,index){
+        document.querySelector('.remove_error-'+index).remove();
+    }
+
+    $('')
 </script>
 </body>
 </html>

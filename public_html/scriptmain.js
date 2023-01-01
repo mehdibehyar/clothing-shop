@@ -49,25 +49,26 @@ $(document).ready(function() {
     $(".bodyforclick").css({display:"none",});
     })
    })
-   $(".plus").click(function(){
-    var a=parseInt($("#result").text());
-    a=a+1;
-    $("#result").text(a);
-   })
-   $(".mines").click(function(){
-    var a=parseInt($("#result").text());
-    if (a>1) {
-      a=a-1;
-      $("#result").text(a);
-    }
-   })
+   // $(".plus").click(function(){
+   //  var a=parseInt($("#result").text());
+   //  a=a+1;
+   //  $("#result").text(a);
+   // })
+   // $(".mines").click(function(){
+   //  var a=parseInt($("#result").text());
+   //  if (a>1) {
+   //    a=a-1;
+   //    $("#result").text(a);
+   //  }
+   // })
 })
 
-$(document).ready(function(){
-  $(".closepro").click(function(){
-    $(".forclosepro").css({display:"none",});
-  })
-})
+// $(document).ready(function(){
+//   $(".closepro").click(function(){
+//     $(".forclosepro").css({display:"none",});
+//   })
+// })
+
 
 
 
@@ -112,17 +113,57 @@ $('.owl-carousel1').owlCarousel({
     }
   }
 })
-function plus(el){
-  (el.parentElement.children[1].innerHTML)++;
-    el.preventDefault();
+function plus(event,id,index){
+    (document.querySelector('.result-'+index).innerHTML)++;
+    event.preventDefault();
+
+    $.ajax({
+        type : 'post',
+        url : 'cart/update',
+        data :{
+            _method : 'patch',
+            id : id,
+            quantity : document.querySelector('.result-'+index).innerHTML,
+        },
+        headers:{
+            'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+        },
+        success : function (result){
+            for (let resultKey in result) {
+                if (resultKey=='errors'){
+                    window.alert(result[resultKey]);
+                }
+            }
+        }
+    });
  }
 
 
- function minus(el){
-   const resultpro=el.parentElement.children[1];
+ function minus(event,id,index){
+   const resultpro=document.querySelector('.result-'+index);
    if(resultpro.innerHTML>1)
    (resultpro.innerHTML)--;
-   el.preventDefault;
+   event.preventDefault;
+
+     $.ajax({
+         type : 'post',
+         url : 'cart/update',
+         data :{
+             _method : 'patch',
+             id : id,
+             quantity : document.querySelector('.result-'+index).innerHTML,
+         },
+         headers:{
+             'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+         },
+         success : function (result){
+             for (let resultKey in result) {
+                 if (resultKey=='errors'){
+                     window.alert(result[resultKey]);
+                 }
+             }
+         }
+     });
   }
 
 
