@@ -300,7 +300,106 @@
         </ul>
     </div>
 
+    <!--===============> gap for user <====================-->
+    @auth()
+        <svg xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 120 120" class="gap gap1
+                                        rounded-circle text-bg-success
+                                        animate__animated animate__bounce
+                                        animate__delay-1s"><path
+                d="M60.19,53.75a3,3,0,1,0,3.06,3A3,3,0,0,0,60.19,53.75Zm-11.37,0a3,3,0,1,0,3.06,3A3,3,0,0,0,48.81,53.75Zm45.94,4A35,35,0,1,0,52.75,92v12.76s14.55-4.25,30.53-19.28C94.68,74.74,94.75,59.41,94.75,59.41l0,0C94.74,58.87,94.75,58.3,94.75,57.72Zm-10.14.6s0,10.64-8,18.09A57.93,57.93,0,0,1,53,89.8V80.34A24.29,24.29,0,1,1,84.61,57.16c0,.4,0,.8,0,1.19ZM70.69,53.75a3,3,0,1,0,3.06,3A3,3,0,0,0,70.69,53.75Z"
+                transform="translate(0.25 0.25)"></path></svg>
+    @else
+        <a href="{{route('login')}}">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 viewBox="0 0 120 120" class="gap
+                                        rounded-circle text-bg-success
+                                        animate__animated animate__bounce
+                                        animate__delay-1s"><path
+                    d="M60.19,53.75a3,3,0,1,0,3.06,3A3,3,0,0,0,60.19,53.75Zm-11.37,0a3,3,0,1,0,3.06,3A3,3,0,0,0,48.81,53.75Zm45.94,4A35,35,0,1,0,52.75,92v12.76s14.55-4.25,30.53-19.28C94.68,74.74,94.75,59.41,94.75,59.41l0,0C94.74,58.87,94.75,58.3,94.75,57.72Zm-10.14.6s0,10.64-8,18.09A57.93,57.93,0,0,1,53,89.8V80.34A24.29,24.29,0,1,1,84.61,57.16c0,.4,0,.8,0,1.19ZM70.69,53.75a3,3,0,1,0,3.06,3A3,3,0,0,0,70.69,53.75Z"
+                    transform="translate(0.25 0.25)"></path></svg>
+        </a>
+    @endauth
+    @auth()
 
+        <div class="page-gap">
+
+            <div class="header-for-gap bg-success">
+                <div class="row">
+                    <div class="col-4 col-lg-3 d-flex
+                                                colforavataradmin">
+                        <img class="img-for-top-gap1
+                                                    rounded-circle "
+                             style="height: 35px; width:
+                                                    35px;"
+                             src="./img/profile1.png"
+                             alt="">
+                        <img class="img-for-top-gap2
+                                                    rounded-circle "
+                             style="height: 35px; width:
+                                                    35px;"
+                             src="./img/pofile2.jpg"
+                             alt="">
+                        <img class="img-for-top-gap3
+                                                    rounded-circle "
+                             style="height: 35px; width:
+                                                    35px;"
+                             src="./img/profile1.png"
+                             alt="">
+
+                    </div>
+                    <div class="col-6 col-lg-8 mt-3">
+                        <p class="h6 fw-bolder
+                                                    text-white">سامانه پشتیبانی
+                            سایت</p>
+                        <p class="text-white">پاسخگوی
+                            شما هستیم</p>
+                    </div>
+                    <div class="col-2 col-lg-1
+                                                justify-content-center">
+                        <img
+                            src="./img/icons8-macos-close-24.png"
+                            class="closegap"style="cursor: pointer;" alt="">
+                    </div>
+                </div>
+            </div>
+            @php
+                $collection_mess=[];
+                $messages1=auth()->user()->messages1;
+                $messages2=auth()->user()->messages2;
+                foreach ($messages1 as $mess1) {
+                    $collection_mess[]=$mess1;
+                }
+                foreach ($messages2 as $mess2){
+                    $collection_mess[]=$mess2;
+                }
+                $messages=collect($collection_mess)->sortBy('id')->values()->all();
+            @endphp
+            <div class="main-gap">
+                @foreach($messages as $message)
+                    @if($message->user_id1==auth()->user()->id)
+                        <div class="message">
+                            <p>
+                                {{$message->text_message}}
+                            </p>
+                        </div>
+                    @else
+                        <div class="messageadmin">
+                            <p>
+                                {{$message->text_message}}
+                            </p>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+            <div class="footer-gap">
+                <input type="text" class="input-for-chat
+                                            rounded-3">
+                <img src="./img/icons8-sent-50.png"
+                     alt="send" class="send-icon">
+            </div>
+        </div>
+    @endauth
     <!-- for basket hidden -->
     <div class="hidden-basket col-lg-3 col-10 border
                                     rounded

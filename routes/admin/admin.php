@@ -49,3 +49,9 @@ Route::get('orders',[OrderController::class,'index'])->name('orders.index');
 Route::get('order/{order}',[OrderController::class,'single_order'])->name('single_order');
 Route::delete('order/delete',[OrderController::class,'destroy'])->name('orders.destroy');
 Route::get('orders/pagination',[OrderController::class,'fetch_data'])->name('orders.pagination');
+
+Route::resource('messages',\App\Http\Controllers\Admin\MessageController::class)->except(['show']);
+Route::get('messages/pagination',[\App\Http\Controllers\Admin\MessageController::class,'fetch_data'])->name('messages.pagination');
+Route::get('message/{message}/response',[\App\Http\Controllers\Admin\MessageController::class,'response'])->name('messages.response');
+Route::post('message/{message}/response',[\App\Http\Controllers\Admin\MessageController::class,'response_post'])->name('messages.response');
+

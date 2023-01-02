@@ -39,7 +39,7 @@ class UserController extends Controller
 
         }
 
-        $users=$users->paginate(1);
+        $users=$users->paginate(12);
         return view('admin.users.all',compact('users'));
     }
 
@@ -47,7 +47,7 @@ class UserController extends Controller
     public function fetch_data(Request $request)
     {
         if ($request->ajax()){
-            $users=User::query()->paginate(1);
+            $users=User::query()->paginate(12);
             return view('admin.users.page',compact('users'))->render();
         }
 

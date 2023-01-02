@@ -138,4 +138,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Interest::class);
     }
+
+    //for connect to messages table
+    public function messages1(){
+        return $this->hasMany(Message::class,'user_id1','id');
+    }
+
+    public function messages2(){
+        return $this->hasMany(Message::class,'user_id2','id');
+    }
 }

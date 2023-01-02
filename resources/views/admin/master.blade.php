@@ -33,7 +33,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- bootstrap rtl -->
     <!-- template rtl version -->
-    @vite('resources/css/admin.css')
+    <link rel="stylesheet" href="/build/assets/admin.2e685f49.css">
 
 </head>
 <body class="hold-transition sidebar-mini">
@@ -52,7 +52,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-{{--        <strong>CopyLeft &copy; 2018 <a href="http://github.com/hesammousavi/">حسام موسوی</a>.</strong>--}}
+        {{--        <strong>CopyLeft &copy; 2018 <a href="http://github.com/hesammousavi/">حسام موسوی</a>.</strong>--}}
     </footer>
 
     <!-- Control Sidebar -->
@@ -62,7 +62,7 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-@vite('resources/js/admin.js')
+<script src="/build/assets/admin.bd00b5cd.js"></script>
 <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -97,8 +97,15 @@
 
 <script src="/plugins/fastclick/fastclick.js"></script>
 <script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>
+
+<script src="../../../dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../../../dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../../dist/js/demo.js"></script>
 <!-- AdminLTE App -->
-<script src="/resources/js/admin.js"></script>
+
 @yield('script')
+
 </body>
 </html>

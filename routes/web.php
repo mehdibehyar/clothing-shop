@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-
+    auth()->loginUsingId(1);
     return view('index');
 })->name('index');
 
@@ -62,6 +62,10 @@ Route::middleware('auth')->group(function (){
     Route::get('order/information',[PaymentController::class,'create_information'])->name('create_information');
 
     Route::get('orders',[\App\Http\Controllers\OrderController::class,'show_orders'])->name('show_orders');
+
+
+    //route for chats
+    Route::post('message/create',[\App\Http\Controllers\MessageController::class,'create_message'])->name('message.create');
 });
 
 

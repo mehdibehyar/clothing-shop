@@ -8,13 +8,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:show_categories')->only(['index']);
-        $this->middleware('can:create_category')->only(['create','store']);
-        $this->middleware('can:edit_category')->only(['edit','update']);
-        $this->middleware('can:delete_category')->only(['destroy']);
-    }
+
 
     /**
      * Display a listing of the resource.

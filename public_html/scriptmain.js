@@ -1,3 +1,108 @@
+
+// ///////////////////////////////////////for gap
+$('.gap1').click(function(){
+    $('.page-gap').css({transform: "translateX(0%)",transition:"0.7s linear"});
+    $('.closegap').click(function(){
+        $('.page-gap').css({transform: "translateX(120%)",transition:"0.6s linear"});
+    })
+})
+// send message in gap by user
+$('.send-icon').click(function(){
+    var message =$('.input-for-chat').val();
+    if (message.length>0) {
+        $.ajax({
+            type : 'post',
+            url : 'message/create',
+            data :{
+                message: message
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                if (result['errors']){
+                    return alert(result['errors']);
+                }
+                if (result['success']==true) {
+                    var div = $("<div>");
+                    var p = $("<p>");
+                    var br = $("br");
+                    p.text(message);
+                    div.addClass('message');
+                    div.append(p);
+                    $(".main-gap").append(div);
+                    document.querySelector('.input-for-chat').value = "";
+                }
+            }
+        });
+
+    }
+})
+
+$(".input-for-chat").keyup(function(event){
+    if(event.key==='Enter'){
+        var message =$('.input-for-chat').val();
+        if (message.length>0) {
+            $.ajax({
+                type : 'post',
+                url : 'message/create',
+                data :{
+                    message : message,
+                },
+                headers:{
+                    'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+                },
+                success : function (result){
+                    if (result['errors']){
+                        return alert(result['errors']);
+                    }
+                    if (result['success']==true){
+                        var div=$("<div>");
+                        var p=$("<p>")
+                        var br=$("br")
+                        p.text(message);
+                        div.addClass('message');
+                        div.append(p)
+                        $(".main-gap").append(div);
+                        document.querySelector('.input-for-chat').value="";
+                    }
+
+                }
+
+            });
+        }
+
+    }
+})
+// send message in gap by admin
+// $('.send-icon').click(function(){
+//   if (message.length>0) {
+// var div=$("<div>");
+// var p=$("<p>")
+// var br=$("br")
+// p.text(message);
+// div.addClass('messageadmin');
+// div.append(p)
+// $(".main-gap").append(div);
+// document.querySelector('.input-for-chat').value="";
+//   }
+// })
+// $(".input-for-chat").keyup(function(event){
+//   if(event.key==='Enter'){
+//     var message =$('.input-for-chat').val();
+//   if (message.length>0) {
+// var div=$("<div>");
+// var p=$("<p>")
+// var br=$("br")
+// p.text(message);
+// div.addClass('messageadmin');
+// div.append(p)
+// $(".main-gap").append(div);
+// document.querySelector('.input-for-chat').value="";
+//   }
+//   }
+// })
+
 $('.owl-carousel').owlCarousel({
   rtl:true,
   loop:false,
@@ -73,7 +178,73 @@ $(document).ready(function() {
 
 
 // ==========>برای login
-
+//
+// // ///////////////////////////////////////for gap
+// $('.gap').click(function(){
+//     $('.page-gap').css({transform: "translateX(0%)",transition:"0.7s linear"});
+//     $('.closegap').click(function(){
+//         $('.page-gap').css({transform: "translateX(120%)",transition:"0.6s linear"});
+//     })
+// })
+// // send message in gap by user
+// $('.send-icon').click(function(){
+//     var message =$('.input-for-chat').val();
+//     console.log(message.length);
+//     if (message.length>0) {
+//         var div=$("<div>");
+//         var p=$("<p>")
+//         var br=$("br")
+//         p.text(message);
+//         div.addClass('message');
+//         div.append(p)
+//         $(".main-gap").append(div);
+//         document.querySelector('.input-for-chat').value="";
+//     }
+// })
+//
+// $(".input-for-chat").keyup(function(event){
+//     if(event.key==='Enter'){
+//         var message =$('.input-for-chat').val();
+//         if (message.length>0) {
+//             var div=$("<div>");
+//             var p=$("<p>")
+//             var br=$("br")
+//             p.text(message);
+//             div.addClass('message');
+//             div.append(p)
+//             $(".main-gap").append(div);
+//             document.querySelector('.input-for-chat').value="";
+//         }
+//     }
+// })
+// // send message in gap by admin
+// // $('.send-icon').click(function(){
+// //   if (message.length>0) {
+// // var div=$("<div>");
+// // var p=$("<p>")
+// // var br=$("br")
+// // p.text(message);
+// // div.addClass('messageadmin');
+// // div.append(p)
+// // $(".main-gap").append(div);
+// // document.querySelector('.input-for-chat').value="";
+// //   }
+// // })
+// // $(".input-for-chat").keyup(function(event){
+// //   if(event.key==='Enter'){
+// //     var message =$('.input-for-chat').val();
+// //   if (message.length>0) {
+// // var div=$("<div>");
+// // var p=$("<p>")
+// // var br=$("br")
+// // p.text(message);
+// // div.addClass('messageadmin');
+// // div.append(p)
+// // $(".main-gap").append(div);
+// // document.querySelector('.input-for-chat').value="";
+// //   }
+// //   }
+// // })
 $(document).ready(function() {
   $(".for-show-login").click(function() {
     $(".show-login-hidden").css({transform: "translateX(0%)",transition:"0.4s linear"});
