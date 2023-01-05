@@ -159,7 +159,7 @@ body {
 .inputgroup1 {
     direction: ltr;
 }
-.logo-img {
+.logo-img,.img_single{
     max-width: -webkit-fill-available;
 }
 .row-nav-basket {

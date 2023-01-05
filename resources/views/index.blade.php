@@ -187,7 +187,7 @@
                 </div>
                 <div>
 
-                    <a href="#" class="text-decoration-none
+                    <a href="#" class="text-decoration-none for-show-login
                                              for-show-login">
                         <img src="./img/icons8-customer-32 (1).png"
                              style="width:30px;height:30px"
@@ -550,7 +550,7 @@ CLOSE BASKET HIDDEN
             <label class=" h5">
                 رمز عبور<span class="text-danger fw-bolder">*</span>
             </label>
-            <input type="text" name="password" class="password py-3 rounded"id="input1" >
+            <input type="password" name="password" class="password py-3 rounded"id="input1" >
         </div>
 
     <div class="text-center py-3"><button class="btn-login btn btn-danger rounded-0"id="login" style="width: 90%;">ورود</button></div>
@@ -994,4 +994,4 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
 </script>
 </body>
 </html>
-//شنبه ساعت دوازده
+

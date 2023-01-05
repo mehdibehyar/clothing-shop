@@ -28,11 +28,26 @@ class ProductViewController extends Controller
                 $products=$products->merge($category);
 
             }
+            if ($request->has('sort')){
+                if ($request->sort=='expensive'){
+                    $products=Product::all()->sortByDesc('price')->take(12)->all();
+
+                }
+                elseif ($request->sort=='inexpensive'){
+                    $products=Product::all()->sortBy('price')->take(12)->all();
+                }
+                elseif ($request->sort=='new'){
+                    $products=Product::all()->sortByDesc('created_at')->take(12)->all();
+                }
+            }
             return view('products.page',compact('products'))->render();
         }
 
-        $products=Product::query()->paginate(12);
+
+
+        $products=Product::paginate(12);
         return view('products.products',compact('products'));
+
     }
 
     public function fetch_data(Request $request)
