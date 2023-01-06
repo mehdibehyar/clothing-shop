@@ -38,6 +38,9 @@
     }
 }
 @media screen and (max-width: 577px) {
+    .img-for-single-pg{
+        min-width: 300px;
+    }
     .counter1 {
         top: -25%;
         left: 36%;
@@ -72,6 +75,9 @@
     }
 }
 @media screen and (min-width: 1200px) {
+    .img-for-single-pg{
+        min-width: 550px;
+    }
     .under-header {
         height: 300px;
     }
@@ -96,6 +102,9 @@
     .page-gap {
         bottom: 65px;
     }
+    .ddd,.card{
+        overflow: hidden;
+    }
     /*باشد[@media screen and (min-width: 1200px) {] این داخل  */
     .Error-for-login{
         height:105px;
@@ -108,6 +117,9 @@
     }
 }
 @media screen and (max-width: 1200px) and (min-width: 578px) {
+    .img-for-single-pg{
+        min-width: 400px;
+    }
     .counter1 {
         top: -25%;
         left: 43%;
@@ -159,7 +171,7 @@ body {
 .inputgroup1 {
     direction: ltr;
 }
-.logo-img,.img_single{
+.logo-img{
     max-width: -webkit-fill-available;
 }
 .row-nav-basket {
@@ -715,6 +727,10 @@ input[type="checkbox"] {
     top: 10px;
     left: -45px;
     opacity: 0;
+}
+.itemforhover{
+    display: flex;
+    justify-content: center;
 }
 .itemforhover:hover .like1 {
     left: 25px;

@@ -49,7 +49,7 @@ class CartController extends Controller
         }else{
             return response()->json(['errors'=>$data->errors()->add('color_size','این نوع سایز و رنگ که شما انتخاب کردید موجود نمیباشد')->all()]);
         }
-        return response()->json(['success'=>true]);
+        return response()->json(['success'=>Cart::get($product)]);
     }
 
 
@@ -112,6 +112,43 @@ class CartController extends Controller
                 return response()->json($price);
             }
             return response()->json(0);
+        }
+    }
+
+
+    public function get_date_cart(Request $request){
+        if ($request->ajax()){
+            if (!!$product=Product::find($request->cart['product']['id'])){
+                $arr=[];
+                $arr['quantity']=$request->cart['quantity'];
+                $arr['color']=$request->cart['color'];
+                $arr['id']=$request->cart['id'];
+                $arr['quantity']=$request->cart['price'];
+                $arr['size']=$request->cart['size'];
+
+
+                $arr['product']=$product;
+                $arr['image']=!$product->images()->count()==0?url($product->images->image):'';
+
+                $discount=$product->discounts->sum(function ($dis){
+                    return $dis->percent;
+                });
+                $arr['discount']=$discount;
+
+
+                return \response()->json(['cart'=>$arr]);
+
+            }else{
+                return false;
+            }
+
+
+
+
+
+        }
+        else{
+            return back();
         }
     }
 }

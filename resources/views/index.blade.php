@@ -172,7 +172,7 @@
 
                     @endphp
                     <p class="text-dark fw-bolder mb-2 "><span
-                            class="span1 text-muted mb-2">{{$total_price}}
+                            class="span1 text-muted mb-2 total-price">{{$total_price}}
                                             </span>هزار تومان</p>
                 </div>
                 <div class="ms-2 ps-3 d-flex">
@@ -480,11 +480,6 @@
                 </div>
             @endforeach
         </div>
-        <div class="text-center update-basket">
-            <button class="btn btn-success">
-                بروز رسانی سبد
-            </button>
-        </div>
 
         <!-- قسمت پایانی سبد -->
         <div class="row customer m-2
@@ -492,11 +487,16 @@
             <div class="col-12 d-flex
                                                     justify-content-between
                                                     m-3">
+                <div class="text-center update-basket">
+                    <button class="update-basket btn btn-success">
+                        بروز رسانی سبد
+                    </button>
+                </div>
                 <p class="h5 fw-bolder">جمع
                     كل سبد خريد:</p>
                 <p class="h5 fw-bolder
                                                         text-danger"><span
-                        class="span1">{{$total_price}}</span>تومان</p>
+                        class="span1 total-price-basket">{{$total_price}}</span>تومان</p>
             </div>
             <a href="{{route('show_products')}}"
                class="text-decoration-none
@@ -621,7 +621,7 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
                     <div class="card position-relative"
                          style="width:14rem ;">
                         <a href="{{route('single_product',$pro_or['product']->id)}}" class="text-decoration-none
-                                        text-dark">
+                                        text-dark ddd">
                             <!--== img for card == -->
                             <img class="card-img-top" id="img-card"
                                  src="{{!$pro_or['product']->images()->count()==0?url($pro_or['product']->images->image):''}}"
@@ -760,6 +760,7 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
         </div>
     </div>
     </section>
+</div>
     <section class="footer pt-5 ">
         <footer>
             <div class="row  text-center">
@@ -800,9 +801,6 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
             <br>
             <br>
             <br>
-
-
-</div>
 
 </footer>
 </section>
@@ -989,6 +987,59 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
     function delete_error(event,index){
         document.querySelector('.remove_error-'+index).remove();
     }
+
+
+    $('.update-basket').click(function ()
+    {
+        console.log('mehdi');
+        event.preventDefault();
+
+        $.ajax({
+            type : 'post',
+            url : '{{route('update.the.basket')}}',
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+                // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                // document.querySelector('.total-price').innerHTML=result;
+                document.querySelector('.total-price-basket').innerHTML=result;
+            }
+        });
+
+    });
+
+
+
+    $('.update-basket').click(function ()
+    {
+        console.log('mehdi');
+        event.preventDefault();
+
+        $.ajax({
+            type : 'post',
+            url : '{{route('update.the.basket')}}',
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+                // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                document.querySelector('.total-price').innerHTML=result;
+                document.querySelector('.total-price-basket').innerHTML=result;
+            }
+        });
+
+    });
 
     $('')
 </script>

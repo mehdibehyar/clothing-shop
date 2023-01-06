@@ -1312,8 +1312,48 @@ CLOSE BASKET HIDDEN
 
 </main>
 
+<section class="footer pt-5 ">
+    <footer>
+        <div class="row  text-center">
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="./img/fincol1.svg" alt="img">
+                <p class="text-muted">ارسال به تمام کشور</p>
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="./img/fincol2.svg" alt="img">
+                <p class="text-muted">بهترین کیفیت </p>
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="./img/fincol3.png" alt="img">
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="./img/fincol.png" alt="img">
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="./img/fincol4.svg" alt="img">
+                <p class="text-muted">پشتیبانی آنلاین</p>
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="./img/fincol5.svg" alt="img">
+                <p class="text-muted">پرداخت انلاین و ایمن</p>
+            </div>
 
-</footer>
+        </div>
+        <div class="text-center">
+            <p class="text-muted">هرگونه سوالی در خصوص انتخاب
+                محصول و ثبت سفارش و تحویل کالا</p></div>
+        <p id="call_me" class=" h5 fw-bolder text-center">
+            تیم پشتیبانی سایت همه روزه به جز جمعه ها از ساعت 8
+            تا 17 پاسخگوی درخواستهای شما از طریق سامانه پشتیبانی
+            هستند.</p>
+        <p class="fw-bolder h5 text-center py-3">آدرس فروشگاه</p>
+        <p class=" text-center"></p>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </footer>
 </section>
 <!-- open navbar in button page for mobile &tablet size -->
 <div class="navformobile d-flex flex-column border position-fixed

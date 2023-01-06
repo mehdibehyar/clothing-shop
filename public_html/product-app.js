@@ -166,23 +166,26 @@ $(document).ready(function() {
             $(".bodyforclick").css({display:"none",});
         })
     })
-    $(".plus").click(function(){
-        var a=parseInt($("#result").text());
-        a=a+1;
-        $("#result").text(a);
-    })
-    $(".mines").click(function(){
-        var a=parseInt($("#result").text());
-        if (a>1) {
-            a=a-1;
-            $("#result").text(a);
-        }
-    })
+
+
+
+    // $(".plus").click(function(){
+    //     var a=parseInt($("#result").text());
+    //     a=a+1;
+    //     $("#result").text(a);
+    // })
+    // $(".mines").click(function(){
+    //     var a=parseInt($("#result").text());
+    //     if (a>1) {
+    //         a=a-1;
+    //         $("#result").text(a);
+    //     }
+    // })
 })
 
 $(document).ready(function(){
     $(".closepro").click(function(){
-        $(".forclosepro").css({display:"none",});
+        $(".forclosepr-o").css({display:"none",});
     })
 })
 

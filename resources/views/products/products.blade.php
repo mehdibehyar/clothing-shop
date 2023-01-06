@@ -476,7 +476,7 @@
                         @endphp
                     </div>
                     <p class="text-dark fw-bolder mb-2 "><span
-                            class="span1 text-muted mb-2"> {{$total_price}}
+                            class="span1 text-muted mb-2 total-price"> {{$total_price}}
                                             </span>هزار تومان</p>
                 </div>
                 <div class="ms-2 ps-3 d-flex">
@@ -716,17 +716,12 @@
                                 class="btn
                                                                     btn-outline-danger
                                                                     plus" onclick="plus(event,'{{$cart1['id']}}','{{$loop->index}}')">+</button>
-                            <button
-                                type="button"
-                                class="btn
-                                                                    btn-outline-danger
-                                                                    disabled result-{{$loop->index}}"
-                                id="result">{{$cart1['quantity']}}</button>
-                            <button
-                                type="button"
-                                class="btn
-                                                                    btn-outline-danger
-                                                                    mines" onclick="minus(event,'{{$cart1['id']}}','{{$loop->index}}')">-</button>
+                            <button type="button" class="btn btn-outline-danger disabled result-{{$loop->index}}" id="result">
+                                {{$cart1['quantity']}}
+                            </button>
+                            <button type="button" class="btn btn-outline-danger mines" onclick="minus(event,'{{$cart1['id']}}','{{$loop->index}}')">
+                                -
+                            </button>
                         </div>
                         @php
                             $discount=$cart1['product']->discounts->sum(function ($dis){
@@ -746,11 +741,6 @@
                 </div>
             @endforeach
         </div>
-        <div class="text-center update-basket">
-            <button class="btn btn-success">
-                بروز رسانی سبد
-            </button>
-        </div>
 
         <!-- قسمت پایانی سبد -->
         <div class="row customer m-2
@@ -758,11 +748,16 @@
             <div class="col-12 d-flex
                                                     justify-content-between
                                                     m-3">
+                <div class="text-center update-basket">
+                    <button class="btn btn-success">
+                        بروز رسانی سبد
+                    </button>
+                </div>
                 <p class="h5 fw-bolder">جمع
                     كل سبد خريد:</p>
                 <p class="h5 fw-bolder
                                                         text-danger"><span
-                        class="span1">{{$total_price}}</span>تومان</p>
+                        class="span1 total-price-basket">{{$total_price}}</span>تومان</p>
             </div>
             <a href="{{route('show_products')}}"
                class="text-decoration-none
@@ -1660,9 +1655,91 @@ CLOSE BASKET HIDDEN
     });
 
 
+    function minus(event,id,index){
 
+        event.preventDefault;
+        const resultpro=document.querySelector('.result-'+index);
+        if(resultpro.innerHTML>1)
+            (resultpro.innerHTML)--;
+
+        $.ajax({
+            type : 'post',
+            url : '/cart/update',
+            data :{
+                _method : 'patch',
+                id : id,
+                quantity : document.querySelector('.result-'+index).innerHTML,
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+
+            }
+        });
+    }
+
+
+    function plus(event,id,index){
+        (document.querySelector('.result-'+index).innerHTML)++;
+        event.preventDefault();
+
+        $.ajax({
+            type : 'post',
+            url : '/cart/update',
+            data :{
+                _method : 'patch',
+                id : id,
+                quantity : document.querySelector('.result-'+index).innerHTML,
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+
+            }
+        });
+    }
+
+
+
+    $('.update-basket').click(function ()
+    {
+        console.log('mehdi');
+        event.preventDefault();
+
+        $.ajax({
+            type : 'post',
+            url : '{{route('update.the.basket')}}',
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+                    // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                    document.querySelector('.total-price').innerHTML=result;
+                document.querySelector('.total-price-basket').innerHTML=result;
+            }
+        });
+
+    });
 
 
 </script>
 </body>
 </html>
+

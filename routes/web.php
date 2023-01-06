@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    auth()->loginUsingId(2);
+
     return view('index');
 })->name('index');
 
@@ -44,6 +44,7 @@ Route::get('token',[AuthController::class,'getToken'])->name('token');
 Route::post('token',[AuthController::class,'postToken']);
 
 Route::prefix('cart')->group(function (){
+    Route::post('get_date_cart',[CartController::class,'get_date_cart'])->name('get_date_cart');
     Route::post('add/{product}',[CartController::class,'addToCart'])->name('cart.add');
     Route::get('/',[CartController::class,'cart'])->name('cart');
     Route::delete('delete/{id}',[CartController::class,'delete'])->name('cart.delete');

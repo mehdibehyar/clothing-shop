@@ -669,7 +669,7 @@
                                                 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                         </svg>
                         <span class="span1 position-absolute
-                                                text-white shownumbas">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
+                                                text-white shownumbas count_cart">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
                     </div>
                     @php
 
@@ -697,7 +697,7 @@
 
                     @endphp
                     <p class="text-dark fw-bolder mb-2 "><span
-                            class="span1 text-muted mb-2">{{$total_price}}
+                            class="span1 text-muted mb-2 total-price">{{$total_price}}
                                             </span>هزار تومان</p>
                 </div>
                 <div class="ms-2 ps-3 d-flex">
@@ -1005,23 +1005,25 @@
                 </div>
             @endforeach
         </div>
-        <div class="text-center update-basket">
-            <button class="btn btn-success">
-                بروز رسانی سبد
-            </button>
-        </div>
+
 
         <!-- قسمت پایانی سبد -->
         <div class="row customer m-2
                                                 ">
+
             <div class="col-12 d-flex
                                                     justify-content-between
                                                     m-3">
+                <div class="text-center update-basket">
+                    <button class="btn btn-success update-basket">
+                        بروز رسانی سبد
+                    </button>
+                </div>
                 <p class="h5 fw-bolder">جمع
                     كل سبد خريد:</p>
                 <p class="h5 fw-bolder
                                                         text-danger"><span
-                        class="span1">{{$total_price}}</span>تومان</p>
+                        class="span1 total-price-basket">{{$total_price}}</span>تومان</p>
             </div>
             <a href="{{route('show_products')}}"
                class="text-decoration-none
@@ -1105,8 +1107,8 @@ CLOSE BASKET HIDDEN
 <main class="container-fluid main1">
     <!--========> image for product <===========-->
     <div class="row ">
-        <div class="col-12 col-lg-6 p-4 ">
-            <img class="img-fluid " src="{{!$product->images()->count()==0?url($product->images->image):''}}"
+        <div class="col-12 col-lg-6 p-4 text-center ">
+            <img class="img-for-single-pg img-fluid " src="{{!$product->images()->count()==0?url($product->images->image):''}}"
                  alt="img">
         </div>
         <!--======> مشخصات محصول <=======-->
@@ -1148,23 +1150,14 @@ CLOSE BASKET HIDDEN
                     </div> -->
                         <!--=======> hidden div <==========-->
                         <div class="form-check pt-4">
-                            <div class="d-flex
-                                                justify-content-end form-check">
-                                <label class="form-check-label
-                                                    text-muted me-4"
-                                       for="flexCheckDefault">
-                                    زمانیکه محصول موجود شد از
-                                    طریق پیامک اطلاع بده
-                                </label>
-                                <input class="form-check-input"
-                                       type="checkbox" value=""
-                                       id="flexCheckDefault">
-                            </div>
-                            <input type="text" class="w-100
-                                                border rounded shadow p-2 mt-2"
-                                   placeholder="شماره موبایل">
-                            <a href="#" class="btn btn-danger
-                                                my-3">ثبت</a>
+
+                            <div class="d-flex justify-content-end form-check py-3">
+                                <select class="size1 form-select" aria-label="Default select example">
+
+                                    @foreach($product->sizes()->get()->unique('size') as $size)
+                                            <option value="{{$size->id}}">{{$size->size}}</option>
+                                    @endforeach
+                                </select>
                         </div>
 
                         <p class="h6 fw-bolder">انتخاب رنگ</p>
@@ -1177,18 +1170,8 @@ CLOSE BASKET HIDDEN
                         </div>
 
                         <div class="mt-4">
-                            <div class="btn-group me-2 counterr1
-                                                " role="group" aria-label="First
-                                                group">
-                                <button type="button" class="btn
-                                                    btn-outline-danger" onclick="plus(this)">+</button>
-                                <button type="button" class="btn
-                                                    btn-outline-danger
-                                                    disabled" id="result">1</button>
-                                <button type="button" class="btn
-                                                    btn-outline-danger"onclick="minus(this)">-</button>
-                            </div>
-                            <button class="btn btn-danger
+
+                            <button class="btn btn-danger btnCart1
                                                 rounded-0">افزودن به سبدخرید</button>
                         </div>
                     </div>
@@ -1221,21 +1204,11 @@ CLOSE BASKET HIDDEN
                 <div class="form-check pt-4">
                     <div class="d-flex
                                         flex-column form-check">
-                        <input class="form-check-input my-2"
-                               type="checkbox" value=""
-                               id="flexCheckDefault">
-                        <label class="form-check-label
-                                            text-muted ms-4"
-                               for="flexCheckDefault">
-                            زمانیکه محصول موجود شد از
-                            طریق پیامک اطلاع بده
-                        </label>
-                    </div>
-                    <input type="text" class="w-100
-                                        border rounded shadow p-2 mt-2"
-                           placeholder="شماره موبایل">
-                    <a href="#" class="btn btn-danger
-                                        my-3">ثبت</a>
+                        <select class="form-select size2" aria-label="Default select example">
+                            @foreach($product->sizes()->get()->unique('size') as $size)
+                                <option value="{{$size->id}}">{{$size->size}}</option>
+                            @endforeach
+                        </select>
                 </div>
                 <p class="h6 fw-bolder">انتخاب رنگ</p>
                 <div class="color d-flex">
@@ -1247,18 +1220,8 @@ CLOSE BASKET HIDDEN
                 </div>
 
                 <div class="mt-4">
-                    <div class="btn-group me-2 counterr1
-                                        " role="group" aria-label="First
-                                        group">
-                        <button type="button" class="btn
-                                            btn-outline-danger" onclick="plus(this)">+</button>
-                        <button type="button" class="btn
-                                            btn-outline-danger
-                                            disabled result">1</button>
-                        <button type="button" class="btn
-                                            btn-outline-danger"onclick="minus(this)">-</button>
-                    </div>
-                    <button class="btn btn-danger
+
+                    <button class="btn btn-danger btnCart2
                                         rounded-0 mt-3">افزودن به سبدخرید</button>
                 </div>
             </div>
@@ -1358,8 +1321,48 @@ CLOSE BASKET HIDDEN
 
 </main>
 
+<section class="footer pt-5 ">
+    <footer>
+        <div class="row  text-center">
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="../img/fincol1.svg" alt="img">
+                <p class="text-muted">ارسال به تمام کشور</p>
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="../img/fincol2.svg" alt="img">
+                <p class="text-muted">بهترین کیفیت </p>
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="../img/fincol3.png" alt="img">
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="../img/fincol.png" alt="img">
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="../img/fincol4.svg" alt="img">
+                <p class="text-muted">پشتیبانی آنلاین</p>
+            </div>
+            <div class="col-6 col-lg-2 pb-2">
+                <img src="../img/fincol5.svg" alt="img">
+                <p class="text-muted">پرداخت انلاین و ایمن</p>
+            </div>
 
-</footer>
+        </div>
+        <div class="text-center">
+            <p class="text-muted">هرگونه سوالی در خصوص انتخاب
+                محصول و ثبت سفارش و تحویل کالا</p></div>
+        <p id="call_me" class=" h5 fw-bolder text-center">
+            تیم پشتیبانی سایت همه روزه به جز جمعه ها از ساعت 8
+            تا 17 پاسخگوی درخواستهای شما از طریق سامانه پشتیبانی
+            هستند.</p>
+        <p class="fw-bolder h5 text-center py-3">آدرس فروشگاه</p>
+        <p class=" text-center"></p>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </footer>
 </section>
 <!-- open navbar in button page for mobile &tablet size -->
 <div class="navformobile d-flex flex-column border position-fixed
@@ -1405,6 +1408,9 @@ CLOSE BASKET HIDDEN
     src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script src="../scriptmain.js"></script>
 <script>
+
+
+
     let button_back=()=>{
         return `
             <div class="text-center py-2">
@@ -1415,6 +1421,7 @@ CLOSE BASKET HIDDEN
             `;
     }
     $('.btn-Enter').click(function (){
+
 
         $.ajax({
             type : 'get',
@@ -1489,7 +1496,7 @@ CLOSE BASKET HIDDEN
     function closepro(event,id,index){
         $.ajax({
             type : 'post',
-            url : 'cart/delete/'+id,
+            url : '/cart/delete/'+id,
             data :{
                 _method : 'delete',
             },
@@ -1502,6 +1509,26 @@ CLOSE BASKET HIDDEN
                         window.alert(result[resultKey]);
                     }else {
                         $(".forclosepro"+index).css({display:"none",});
+                        document.querySelector('.count_cart').innerHTML--;
+                        $.ajax({
+                            type : 'post',
+                            url : '{{route('update.the.basket')}}',
+                            headers:{
+                                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+                            },
+                            success : function (result){
+                                for (let resultKey in result) {
+                                    if (resultKey=='errors'){
+                                        window.alert(result[resultKey]);
+                                    }
+                                }
+                                // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                                document.querySelector('.total-price').innerHTML=result;
+                                document.querySelector('.total-price-basket').innerHTML=result;
+                            }
+                        });
+
+
                     }
                 }
 
@@ -1514,8 +1541,6 @@ CLOSE BASKET HIDDEN
     function delete_error(event,index){
         document.querySelector('.remove_error-'+index).remove();
     }
-
-    $('')
 
 
 
@@ -1564,7 +1589,9 @@ CLOSE BASKET HIDDEN
 
 
 
-    $('#btnCArt1').click(function(){
+
+
+    $('.btnCart1').click(function(){
 
 
         $.ajax({
@@ -1572,27 +1599,40 @@ CLOSE BASKET HIDDEN
             url : '{{route('cart.add',$product->id)}}',
             data :{
                 color:window.value,
-                size:document.getElementById('size1').value
+                size:document.querySelector('.size1').value
             },
             headers:{
                 'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
             },
             success : function(result) {
-                console.log(result);
+                if (result['success']){
+                    console.log(jsone(result['success']));
+                    $.ajax({
+                        type : 'post',
+                        url : '{{route('update.the.basket')}}',
+                        headers:{
+                            'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+                        },
+                        success : function (result){
+                            for (let resultKey in result) {
+                                if (resultKey=='errors'){
+                                    window.alert(result[resultKey]);
+                                }
+                            }
+                            // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                            document.querySelector('.total-price').innerHTML=result;
+                            document.querySelector('.total-price-basket').innerHTML=result;
+                        }
+                    });
+                    document.querySelector('.count_cart').innerHTML++;
+
+                }
                 for (let resultKey in result) {
-
-                    if (resultKey=='success'){
-                        document.getElementById('count_cart').innerHTML++;
-                        window.alert('با موفقیت به سبد اضافه شد.');
-
-                    }if (resultKey=='errors'){
+                    if (resultKey=='errors'){
 
                         window.alert(result[resultKey]);
 
                     }
-
-
-
 
                 }
             }
@@ -1601,36 +1641,36 @@ CLOSE BASKET HIDDEN
 
     });
 
-    $('#btnCart2').click(function (){
-
+    $('.btnCart2').click(function (){
+        console.log('mehi');
         $.ajax({
             type : 'post',
             url : '{{route('cart.add',$product->id)}}',
             data :{
                 color:window.value,
-                size:document.getElementById('size2').value
+                size:document.querySelector('.size2').value
             },
             headers:{
                 'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
             },
             success : function(result) {
-                console.log(result);
+                if (result['success']){
+                    document.getElementById('count_cart').innerHTML++;
+                    $(".hidden-basket").css({transform: "translateX(0%)",transition:"0.4s linear"});
+                    $(".bodyforclick").css({display:"block",});
+                    $(".bodyforclick").css('z-index',21);
+                    window.alert('با موفقیت به سبد اضافه شد.');
+
+                }
                 for (let resultKey in result) {
-
-                    if (resultKey=='success'){
-                        document.getElementById('count_cart').innerHTML++;
-                        window.alert('با موفقیت به سبد اضافه شد.');
-
-                    }if (resultKey=='errors'){
+                    if (resultKey=='errors'){
 
                         window.alert(result[resultKey]);
 
                     }
 
-
-
-
                 }
+
             }
         });
     });
@@ -1664,6 +1704,34 @@ CLOSE BASKET HIDDEN
             }
         });
     }
+
+
+
+
+
+    $('.update-basket').click(function ()
+    {
+
+        $.ajax({
+            type : 'post',
+            url : '{{route('update.the.basket')}}',
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+                // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                document.querySelector('.total-price').innerHTML=result;
+                document.querySelector('.total-price-basket').innerHTML=result;
+            }
+        });
+
+    });
+
 
 
 </script>
