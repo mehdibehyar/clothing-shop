@@ -1131,7 +1131,7 @@ CLOSE BASKET HIDDEN
                 </tbody>
             </table>
             <div class="justify-content-center d-none d-lg-flex">
-                <button class="btn btn-dark">
+                <button class="btn btn-dark update-basket">
                     بروزرسانی سبد خرید
                 </button>
             </div>
@@ -1232,7 +1232,7 @@ CLOSE BASKET HIDDEN
                     <p class="span1 text-danger total-basket1">{{$total_price}} تومان</p>
                 </div>
 
-                <div> <a href="#" class="btn btn-danger rounded-0 buttt m-4">ادامه جهت تسویه حساب</a>
+                <div> <a href="{{route('create_information')}}" class="btn btn-danger rounded-0 buttt m-4">ادامه جهت تسویه حساب</a>
                 </div>
             </div>
         </div>
