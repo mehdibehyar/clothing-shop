@@ -123,7 +123,7 @@ class CartController extends Controller
                 $arr['quantity']=$request->cart['quantity'];
                 $arr['color']=$request->cart['color'];
                 $arr['id']=$request->cart['id'];
-                $arr['quantity']=$request->cart['price'];
+                $arr['price']=$request->cart['price'];
                 $arr['size']=$request->cart['size'];
 
 

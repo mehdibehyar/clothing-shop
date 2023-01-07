@@ -617,7 +617,7 @@
                                                 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                         </svg>
                         <span class="span1 position-absolute
-                                                text-white shownumbas">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
+                                                text-white shownumbas count_cart">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
                     </div>
                     @php
 
@@ -645,7 +645,7 @@
 
                     @endphp
                     <p class="text-dark fw-bolder mb-2 "><span
-                            class="span1 text-muted mb-2">{{$total_price}}
+                            class="span1 text-muted mb-2 total-price">{{$total_price}}
                                             </span>هزار تومان</p>
                 </div>
                 <div class="ms-2 ps-3 d-flex">
@@ -953,11 +953,6 @@
                 </div>
             @endforeach
         </div>
-        <div class="text-center update-basket">
-            <button class="btn btn-success">
-                بروز رسانی سبد
-            </button>
-        </div>
 
         <!-- قسمت پایانی سبد -->
         <div class="row customer m-2
@@ -965,11 +960,16 @@
             <div class="col-12 d-flex
                                                     justify-content-between
                                                     m-3">
+                <div class="text-center update-basket">
+                    <button class="update-basket btn btn-success">
+                        بروز رسانی سبد
+                    </button>
+                </div>
                 <p class="h5 fw-bolder">جمع
                     كل سبد خريد:</p>
                 <p class="h5 fw-bolder
                                                         text-danger"><span
-                        class="span1">{{$total_price}}</span>تومان</p>
+                        class="span1 total-price-basket">{{$total_price}}</span>تومان</p>
             </div>
             <a href="{{route('show_products')}}"
                class="text-decoration-none
@@ -1046,9 +1046,12 @@ CLOSE BASKET HIDDEN
 
 
 
+<div class="row main2">
 
+
+</div>
 <!--=================================================================== new section ===content page ===========================-->
-<main class="container-fluid">
+<main class="container-fluid main1">
 
     <div class="row ">
         <div class="col-lg-8">
@@ -1069,213 +1072,141 @@ CLOSE BASKET HIDDEN
                 <tbody>
 
                 <!-- محصول اول -->
-                <tr>
-                    <th scope="row"><a href="#"
-                                       class="text-decoration-none
-                                                    text-danger"><span
-                                class="">حذف</span><img
-                                class="me-4"
-                                src="./img/icons8-remove-50.png"
-                                alt="remove"></a></th>
-                    <td class="d-flex tdha ">
-                        <img src="./img/bask1.webp"
-                             class="img-pro" alt="img">
-                        <p class="pe-4"> نیم بوت بندی کد
-                            300972 - 40, مشکی</p>
+                @foreach(\App\Http\Headers\Cart\Cart::all() as $cart2)
 
-                    </td>
-                    <td class=" text-center">
-                        <p class="span1 trh">598,000
-                            تومان</p>
-                    </td>
-                    <td class=" text-center">
-                        <div class="btn-group me-2
-                                                    counterr1 trh
-                                                    " role="group"
-                             aria-label="First
-                                                    group">
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark"
-                                    onclick="plus(this)">+</button>
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark
-                                                        disabled" id="result">1</button>
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark"
-                                    onclick="minus(this)">-</button>
-                        </div>
-                    </td>
-                    <td class=" text-center">
-                        <p class="span1 text-danger
-                                                    trh">598,000 تومان</p>
-                    </td>
-                </tr>
 
-                <!-- محصول دوم -->
-                <tr>
-                    <th scope="row"><a href="#"
-                                       class="text-decoration-none
-                                                    text-danger"><span
-                                class="">حذف</span><img
-                                class="me-4"
-                                src="./img/icons8-remove-50.png"
-                                alt="remove"></a></th>
-                    <td class="d-flex tdha ">
-                        <img src="./img/bask3.webp"
-                             class="img-pro" alt="img">
-                        <p class="pe-4"> نیم بوت بندی کد
-                            300972 - 40, مشکی</p>
+                    @php
+                        $discount=$cart2['product']->discounts->sum(function ($dis){
+                            return $dis->percent;
+                        });
 
-                    </td>
-                    <td class=" text-center">
-                        <p class="span1 trh">598,000
-                            تومان</p>
-                    </td>
-                    <td class=" text-center">
-                        <div class="btn-group me-2
-                                                    counterr1 trh
-                                                    " role="group"
-                             aria-label="First
-                                                    group">
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark"
-                                    onclick="plus(this)">+</button>
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark
-                                                        disabled" id="result">1</button>
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark"
-                                    onclick="minus(this)">-</button>
-                        </div>
-                    </td>
-                    <td class=" text-center">
-                        <p class="span1 text-danger
-                                                    trh">598,000 تومان</p>
-                    </td>
-                </tr>
+                        $d=$discount==0?$cart2['product']->price:$cart2['product']->price/100*$discount-$cart2['product']->price;
+                        $plural_of_part=$d * $cart2['quantity'];
+                    @endphp
+                    <tr class="basket-item-{{$loop->index}}">
+                        <th scope="row"><a href="#"
+                                           class="text-decoration-none
+                                                        text-danger"><span
+                                    class="">حذف</span><img
+                                    class="me-4"
+                                    src="./img/icons8-remove-50.png"
+                                    alt="remove"></a></th>
+                        <td class="d-flex tdha ">
+                            <img src="{{!$cart2['product']->images()->count()==0?url($cart2['product']->images->image):''}}"
+                                 class="img-pro" alt="img">
+                            <p class="pe-4">{{$cart2['product']->title}}</p>
+
+                        </td>
+                        <td class=" text-center">
+                            <p class="span1 trh">{{$discount==0?$cart2['product']->price:$cart2['product']->price/100*$discount-$cart2['product']->price}}تومان</p>
+                        </td>
+                        <td class=" text-center">
+                            <div class="btn-group me-2
+                                                        counterr1 trh
+                                                        " role="group"
+                                 aria-label="First
+                                                        group">
+                                <button type="button"
+                                        class="btn
+                                                            btn-outline-dark"
+                                        onclick="plus(event,'{{$cart2['id']}}','{{$loop->index}}')">+</button>
+                                <button type="button"
+                                        class="btn
+                                                            btn-outline-dark
+                                                            disabled result1-{{$loop->index}}" id="result">{{$cart2['quantity']}}</button>
+                                <button type="button"
+                                        class="btn
+                                                            btn-outline-dark"
+                                        onclick="minus(event,'{{$cart2['id']}}','{{$loop->index}}')">-</button>
+                            </div>
+                        </td>
+                        <td class=" text-center">
+                            <p class="span1 text-danger
+                                                        trh">{{$plural_of_part}} تومان</p>
+                        </td>
+                    </tr>
+                @endforeach
+
 
                 </tbody>
             </table>
+            <div class="justify-content-center d-none d-lg-flex">
+                <button class="btn btn-dark">
+                    بروزرسانی سبد خرید
+                </button>
+            </div>
 
             <!-- حالت ریسپانسیو جدول -->
             <div class="row d-flex d-lg-none
                                     justify-content-center m-3 ">
 
-                <!-- محصول اول در حالت ریسپانسیو -->
-                <div class=" border rounded-4 my-2">
-                    <div class="d-flex py-1"><a
-                            href="#"
-                            class="text-decoration-none
-                                                    text-danger"><span
-                                class="p-0 m-0 ">حذف</span><img
-                                class="me-4 rounded-3"
-                                src="./img/icons8-remove-50.png"
-                                alt="remove"></a></div>
-                    <div class="d-flex flex-column tdha py-0">
-                        <img src="./img/bask1.webp"
-                             class="img-pro" alt="img">
-                        <p class="pe-4"> نیم بوت بندی کد
-                            300972 - 40, مشکی</p>
+                @foreach(\App\Http\Headers\Cart\Cart::all() as $cart3)
 
-                    </div>
-                    <div class="d-flex flex-column
-                                                py-0 tdha">
-                        <p class="span1 trh">598,000
-                            تومان</p>
-                        <div class="btn-group me-2
-                                                    counterr1 trh w-25" role="group"
-                             aria-label="First
-                                                    group">
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark"
-                                    onclick="plus(this)">+</button>
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark
-                                                        disabled" id="result">1</button>
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark"
-                                    onclick="minus(this)">-</button>
+
+                    @php
+                        $discount=$cart3['product']->discounts->sum(function ($dis){
+                            return $dis->percent;
+                        });
+
+                        $d=$discount==0?$cart3['product']->price:$cart3['product']->price/100*$discount-$cart3['product']->price;
+                        $plural_of_part=$d * $cart3['quantity'];
+                    @endphp
+
+                    <!-- محصول اول در حالت ریسپانسیو -->
+                    <div class=" border rounded-4 my-2">
+                        <div class="d-flex py-1"><a
+                                href="#"
+                                class="text-decoration-none
+                                                        text-danger"><span
+                                    class="p-0 m-0 ">حذف</span><img
+                                    class="me-4 rounded-3"
+                                    src="./img/icons8-remove-50.png"
+                                    alt="remove"></a></div>
+                        <div class="d-flex flex-column tdha py-0">
+                            <img src="{{!$cart3['product']->images()->count()==0?url($cart3['product']->images->image):''}}"
+                                 class="img-pro" alt="img">
+                            <p class="pe-4">{{$cart3['product']->title}}</p>
 
                         </div>
-                        <div class=" text-center d-flex
-                                                d-lg-block py-0">
-                            <p class="span1 text-danger
-                                                    trh">598,000 تومان</p>
+                        <div class="d-flex flex-column
+                                                    py-0 tdha">
+                            <p class="span1 trh">{{$total_price}}
+                                تومان</p>
+                            <div class="btn-group me-2
+                                                        counterr1 trh w-25" role="group"
+                                 aria-label="First
+                                                        group">
+                                <button type="button"
+                                        class="btn
+                                                            btn-outline-dark"
+                                        onclick="plus(event,'{{$cart3['id']}}','{{$loop->index}}')">+</button>
+                                <button type="button"
+                                        class="btn
+                                                            btn-outline-dark
+                                                            disabled result2-{{$loop->index}}" id="result">{{$cart3['quantity']}}</button>
+                                <button type="button"
+                                        class="btn
+                                                            btn-outline-dark"
+                                        onclick="minus(event,'{{$cart3['id']}}','{{$loop->index}}')">-</button>
 
+                            </div>
+                            <div class=" text-center d-flex
+                                                    d-lg-block py-0">
+                                <p class="span1 text-danger
+                                                        trh">{{$plural_of_part}} تومان</p>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
 
-                <!-- محصول دوم در حالت ریسپانسیو موبایل -->
-                <div class=" border rounded-4 my-2">
-                    <div class="d-flex py-1"><a
-                            href="#"
-                            class="text-decoration-none
-                                                    text-danger"><span
-                                class="p-0 m-0 ">حذف</span><img
-                                class="me-4 rounded-3"
-                                src="./img/icons8-remove-50.png"
-                                alt="remove"></a></div>
-                    <div class="d-flex flex-column tdha py-0">
-                        <img src="./img/bask1.webp"
-                             class="img-pro" alt="img">
-                        <p class="pe-4"> نیم بوت بندی کد
-                            300972 - 40, مشکی</p>
-
-                    </div>
-                    <div class="d-flex flex-column
-                                                py-0 tdha">
-                        <p class="span1 trh">598,000
-                            تومان</p>
-                        <div class="btn-group me-2
-                                                    counterr1 trh w-25" role="group"
-                             aria-label="First
-                                                    group">
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark"
-                                    onclick="plus(this)">+</button>
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark
-                                                        disabled" id="result">1</button>
-                            <button type="button"
-                                    class="btn
-                                                        btn-outline-dark"
-                                    onclick="minus(this)">-</button>
-
-                        </div>
-                        <div class=" text-center d-flex
-                                                d-lg-block py-0">
-                            <p class="span1 text-danger
-                                                    trh">598,000 تومان</p>
-
-                        </div>
-                    </div>
-                </div>
 
                 <!-- تخفیف -->
                 <div class="d-flex justify-content-lg-between flex-column flex-lg-row
                                     pe-4">
 
-                    <div class="col-lg-6 align-content-lg-end d-flex d-lg-flex">
-                        <input type="text" placeholder="کدتخفیف"
-                               class="rounded mx-2 ">
-                        <button class="btn btn-danger ps-3 mx-2">اعمال
-                            کد
-                            تخفیف</button>
-                    </div>
                     <div class=" col-lg-6 d-flex justify-content-center justify-content-lg-end text-lg-end py-2">
-                        <a class="btn btn-secondary">بروزرسانی
+                        <a class="btn btn-secondary update-basket">بروزرسانی
                             سبدخرید</a>
                     </div>
 
@@ -1293,15 +1224,12 @@ CLOSE BASKET HIDDEN
                 <p class="p-3 h5 fw-bolder text-center "> جمع کل سبد خرید</p>
                 <div class="d-flex justify-content-between border-bottom py-2 m-4">
                     <p class="h6 fw-bold">جمع جزء</p>
-                    <p class="span1">2,622,000 تومان</p>
+                    <p class="span1 total-basket">{{$total_price}} تومان</p>
                 </div>
-                <div class="d-flex justify-content-between border-bottom py-2 m-4">
-                    <p class="h6 fw-bold">حمل و نقل</p>
-                    <p>پیک موتوری: <span class="span1 text-danger">40,000تومان</span></p>
-                </div>
+
                 <div class="d-flex justify-content-between border-bottom py-2 m-4">
                     <p class="h5 fw-bold">مجموع</p>
-                    <p class="span1 text-danger">2,662,000 تومان</p>
+                    <p class="span1 text-danger total-basket1">{{$total_price}} تومان</p>
                 </div>
 
                 <div> <a href="#" class="btn btn-danger rounded-0 buttt m-4">ادامه جهت تسویه حساب</a>
@@ -1402,32 +1330,6 @@ CLOSE BASKET HIDDEN
 
 
 
-    function addToInterest(event,id,index){
-        event.preventDefault();
-        $.ajax({
-            type : 'post',
-            url :'{{route('interest.add')}}',
-            data:{
-                product:id
-            },
-            headers:{
-                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
-            },
-            success : function(result) {
-
-                if (result['success']==true){
-
-                    let like7=document.querySelector(".iconlike"+index);
-                    let select7=document.querySelector('.iconselect'+index);
-                    like7.style.display="none";
-                    select7.style.display="block";
-
-                    document.querySelector('.countere').innerHTML++;
-                    document.querySelector('.counter1').innerHTML++;
-                }
-            }
-        });
-    }
 
     let button_back=()=>{
         return `
@@ -1539,7 +1441,149 @@ CLOSE BASKET HIDDEN
         document.querySelector('.remove_error-'+index).remove();
     }
 
-    $('')
+
+    $('.update-basket').click(function ()
+    {
+        console.log('mehdi');
+        event.preventDefault();
+
+        $.ajax({
+            type : 'post',
+            url : '{{route('update.the.basket')}}',
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+                // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                document.querySelector('.total-price').innerHTML=result;
+                document.querySelector('.total-price-basket').innerHTML=result;
+                document.querySelector('.total-basket').innerHTML=result + ' تومان';
+                document.querySelector('.total-basket1').innerHTML=result + ' تومان';
+            }
+        });
+
+    });
+
+
+    function closepro(event,id,index){
+        $.ajax({
+            type : 'post',
+            url : '/cart/delete/'+id,
+            data :{
+                _method : 'delete',
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }else {
+                        $(".forclosepro"+index).css({display:"none",});
+                        $('basket-item-'+index).css({display:"none",});
+                        document.querySelector('.count_cart').innerHTML--;
+
+                        $.ajax({
+                            type : 'post',
+                            url : '{{route('update.the.basket')}}',
+                            headers:{
+                                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+                            },
+                            success : function (result){
+                                for (let resultKey in result) {
+                                    if (resultKey=='errors'){
+                                        window.alert(result[resultKey]);
+                                    }
+                                }
+                                // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                                document.querySelector('.total-price').innerHTML=result;
+                                document.querySelector('.total-price-basket').innerHTML=result;
+                            }
+                        });
+
+
+                    }
+                }
+
+            }
+        });
+
+
+    }
+
+
+
+    function plus(event,id,index){
+
+        event.preventDefault();
+        (document.querySelector('.result-'+index).innerHTML)++;
+        (document.querySelector('.result1-'+index).innerHTML)++;
+        (document.querySelector('.result2-'+index).innerHTML)++;
+        $.ajax({
+            type : 'post',
+            url : '/cart/update',
+            data :{
+                _method : 'patch',
+                id : id,
+                quantity : document.querySelector('.result-'+index).innerHTML,
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+
+            }
+        });
+    }
+
+
+    function minus(event,id,index){
+        const resultpro=document.querySelector('.result-'+index);
+        const resultpro1=document.querySelector('.result1-'+index);
+        const resultpro2=document.querySelector('.result2-'+index);
+        if(resultpro.innerHTML>1 && resultpro1.innerHTML>1 && resultpro2.innerHTML>1){
+            (resultpro.innerHTML)--;
+            (resultpro1.innerHTML)--;
+            (resultpro2.innerHTML)--;
+        }
+
+        event.preventDefault;
+
+        $.ajax({
+            type : 'post',
+            url : '/cart/update',
+            data :{
+                _method : 'patch',
+                id : id,
+                quantity : document.querySelector('.result-'+index).innerHTML,
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }
+                }
+            }
+        });
+    }
+
+
+
+
 </script>
 </body>
 </html>

@@ -448,7 +448,7 @@
                                                 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                         </svg>
                         <span class="span1 position-absolute
-                                                text-white shownumbas">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
+                                                text-white shownumbas count_cart">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
                         @php
 
                             $cart=\App\Http\Headers\Cart\Cart::all();
@@ -476,7 +476,7 @@
                         @endphp
                     </div>
                     <p class="text-dark fw-bolder mb-2 "><span
-                            class="span1 text-muted mb-2 total-price"> {{$total_price}}
+                            class="span1 text-muted mb-2 total-price total-price"> {{$total_price}}
                                             </span>هزار تومان</p>
                 </div>
                 <div class="ms-2 ps-3 d-flex">
@@ -1737,6 +1737,53 @@ CLOSE BASKET HIDDEN
         });
 
     });
+
+    function closepro(event,id,index){
+        $.ajax({
+            type : 'post',
+            url : '/cart/delete/'+id,
+            data :{
+                _method : 'delete',
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function (result){
+                for (let resultKey in result) {
+                    if (resultKey=='errors'){
+                        window.alert(result[resultKey]);
+                    }else {
+                        $(".forclosepro"+index).css({display:"none",});
+                        document.querySelector('.count_cart').innerHTML--;
+
+                        $.ajax({
+                            type : 'post',
+                            url : '{{route('update.the.basket')}}',
+                            headers:{
+                                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+                            },
+                            success : function (result){
+                                for (let resultKey in result) {
+                                    if (resultKey=='errors'){
+                                        window.alert(result[resultKey]);
+                                    }
+                                }
+                                // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                                document.querySelector('.total-price').innerHTML=result;
+                                document.querySelector('.total-price-basket').innerHTML=result;
+                            }
+                        });
+
+
+                    }
+                }
+
+            }
+        });
+
+
+    }
+
 
 
 </script>

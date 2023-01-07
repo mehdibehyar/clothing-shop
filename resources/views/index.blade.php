@@ -144,7 +144,7 @@
                                                 1-1 1H3a1 1 0 0 1-1-1V5z"/>
                         </svg>
                         <span class="span1 position-absolute
-                                                text-white shownumbas">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
+                                                text-white shownumbas count_cart">{{\App\Http\Headers\Cart\Cart::all()->count()}}</span>
                     </div>
                     @php
 
@@ -962,7 +962,7 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
     function closepro(event,id,index){
         $.ajax({
             type : 'post',
-            url : 'cart/delete/'+id,
+            url : '/cart/delete/'+id,
             data :{
                 _method : 'delete',
             },
@@ -975,6 +975,27 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
                         window.alert(result[resultKey]);
                     }else {
                         $(".forclosepro"+index).css({display:"none",});
+                        document.querySelector('.count_cart').innerHTML--;
+
+                        $.ajax({
+                            type : 'post',
+                            url : '{{route('update.the.basket')}}',
+                            headers:{
+                                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+                            },
+                            success : function (result){
+                                for (let resultKey in result) {
+                                    if (resultKey=='errors'){
+                                        window.alert(result[resultKey]);
+                                    }
+                                }
+                                // document.getElementById('sum_price').innerHTML=result + ' تومان';
+                                document.querySelector('.total-price').innerHTML=result;
+                                document.querySelector('.total-price-basket').innerHTML=result;
+                            }
+                        });
+
+
                     }
                 }
 
@@ -983,36 +1004,14 @@ $productsort=collect($arr)->sortByDesc('count_order')->take(12);
 
 
     }
+
 
     function delete_error(event,index){
         document.querySelector('.remove_error-'+index).remove();
     }
 
 
-    $('.update-basket').click(function ()
-    {
-        console.log('mehdi');
-        event.preventDefault();
 
-        $.ajax({
-            type : 'post',
-            url : '{{route('update.the.basket')}}',
-            headers:{
-                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
-            },
-            success : function (result){
-                for (let resultKey in result) {
-                    if (resultKey=='errors'){
-                        window.alert(result[resultKey]);
-                    }
-                }
-                // document.getElementById('sum_price').innerHTML=result + ' تومان';
-                // document.querySelector('.total-price').innerHTML=result;
-                document.querySelector('.total-price-basket').innerHTML=result;
-            }
-        });
-
-    });
 
 
 

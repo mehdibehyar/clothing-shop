@@ -546,85 +546,11 @@ const displayblok = function (el) {
 
 let product_for_basket=({cart})=>{
     return `
-        <div class="row py-4 mx-2 forclosepro{{$loop->index}}">
-                    <div class="col-5 col-md-4">
-                        <a href="/product/${cart['product']['id']}">
-                            <img src="${cart['image']}" class="img-for-bsket" alt="img">
-                        </a>
-                    </div>
-                    <div class="col-6 col-md-7 d-flex flex-column ">
-                        <p class="">
-                            ${cart['product']['title']}
-                        </p>
-                        <div class="btn-group p-0 counterr1 trh diir "role="group" aria-label="First group" style="max-width: max-content;">
-                        <button type="button" class="btn btn-outline-danger plus" >
-                            +
-                        </button>
-                        <button type="button" class="btn btn-outline-danger disabled result-{{$loop->index}}" id="result">
-                            ${cart['quantity']}
-                        </button>
-                        <button type="button" class="btn btn-outline-danger mines" >
-                            -
-                        </button>
-                    </div>
-                    <p class="text-danger ">تومان <span class="span1">
-                        ${cart['discount']==0?cart['product']['price']:cart['product']['price']/100*cart['discount']-cart['product']['price']}
-                        </span>
-                    </p>
-                    </div>
-                    <div class="col-1">
-                        <img src="../img/icons8-macos-close-24.png" class="closepro" alt="">
-                    </div>
-        </div>
+        <div class="row py-4 mx-2 forclosepro{{$loop->index}}"><div class="col-5 col-md-4"><a href="/product/${cart['product']['id']}"><img src="${cart['image']}" class="img-for-bsket" alt="img"></a></div><div class="col-6 col-md-7 d-flex flex-column "><p class="">${cart['product']['title']}</p><div class="btn-group p-0 counterr1 trh diir "role="group" aria-label="First group" style="max-width: max-content;"><button type="button" class="btn btn-outline-danger plus" >+</button><button type="button" class="btn btn-outline-danger disabled result-{{$loop->index}}" id="result">${cart['quantity']}</button><button type="button" class="btn btn-outline-danger mines" >-</button></div><p class="text-danger ">تومان <span class="span1">${cart['discount']==0?cart['product']['price']:cart['product']['price']/100*cart['discount']-cart['product']['price']}</span></p></div><div class="col-1"><img src="../img/icons8-macos-close-24.png" class="closepro" alt=""></div></div>
 
     `;
 }
 
-function jsone(result1){
-
-    $.ajax({
-        type : 'post',
-        url : '/cart/get_date_cart',
-        data :{
-            cart: result1
-        },
-        headers:{
-            'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
-        },
-        success : function(result) {
-            $(".hidden-basket").css({transform: "translateX(0%)",transition:"0.4s linear"});
-            $(".bodyforclick").css({display:"block",});
-            $(".bodyforclick").css('z-index',21);
-            $('.forclosepro').append('<div class="parepro "><div class="col-5 col-md-4"><img src="./img/bask1.webp"class="img-for-bsket"alt="img"></div><div class="col-6 col-md-7 d-flex flex-column pe-3"><p id="nameprobashide" >شلوار اسلش جیب جلومدل 121575</p><div class="btn-group p-0 counterr1 trh diir" role="group" aria-label="First group" style="max-width: max-content;"> <button type="button" class="btn btn-outline-danger plus">+</button><button type="button"class="btn btn-outline-danger disabled" id="result">1</button><button type="button" class="btn btn-outline-danger mines">-</button></div><p class="text-danger ">تومان<span class="span1">418,000</span></p></div><div class="col-1"><img src="./img/icons8-macos-close-24.png" class="closepro" alt="img"></div></div>')
-
-
-            $(".closepro").click(function(e){
-                $((e.target.parentElement).parentElement).css({display:"none"})
-            })
-
-            $(".bodyforclick").click(function(){
-                $(".hidden-basket").css({transform: "translateX(-100%)",transition:"0.4s linear"});
-                $(".bodyforclick").css({display:"none",})
-                $(".plus").click(function(){
-                    var a=parseInt($("#result").text());
-                    a=a+1;
-                    $("#result").text(a);
-                })
-                $(".mines").click(function(){
-                    var a=parseInt($("#result").text());
-                    if (a>1) {
-                        a=a-1;
-                        $("#result").text(a);
-                    }
-                })
-            })
-            $(".closebas").click(function(){
-                $(".hidden-basket").css({transform: "translateX(-100%)",transition:"0.4s linear"});
-                $(".bodyforclick").css({display:"none"});
-            })
-        }
-    })
-}
 
 
 

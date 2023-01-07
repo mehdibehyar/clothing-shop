@@ -1375,7 +1375,7 @@ CLOSE BASKET HIDDEN
         <div class="col-3 text-center position-relative"><a href="#"><img src="../img/icons8-heart-32.png" alt=""style="width:25px; height=25px">
                 <span class="span1
                                                     position-absolute
-                                                    text-white counter1"id="counter1">0</span>
+                                                    text-white counter1"id="counter1">{{auth()->check()?\App\Models\Interest::all()->count():\App\Http\Headers\Interest\Interest::all()->count()}}</span>
             </a> </div>
         <div class="col-3 text-center">
             <a href="#"> <img src="../img/icons8-customer-32 (1).png" alt="person" style="width: 25px;height: 25px;"></a>
@@ -1731,6 +1731,59 @@ CLOSE BASKET HIDDEN
         });
 
     });
+
+
+
+
+    function jsone(result1){
+
+        $.ajax({
+            type : 'post',
+            url : '/cart/get_date_cart',
+            data :{
+                cart: result1
+            },
+            headers:{
+                'X-CSRF-TOKEN' : document.querySelector('.csrf-token').content
+            },
+            success : function(result) {
+                let cart=result['cart'];
+                $(".hidden-basket").css({transform: "translateX(0%)",transition:"0.4s linear"});
+                $(".bodyforclick").css({display:"block",});
+                $(".bodyforclick").css('z-index',21);
+                $('.addingtobas').append(`<div class="row py-4 mx-2 forclosepro${$('.addingtobas').children.length}"><div class="col-5 col-md-4"><a href="/product/${cart['product']['id']}"><img src="${cart['image']}" class="img-for-bsket" alt="img"></a></div><div class="col-6 col-md-7 d-flex flex-column "><p class="">${cart['product']['title']}</p><div class="btn-group p-0 counterr1 trh diir "role="group" aria-label="First group" style="max-width: max-content;"><button type="button" onclick="plus(event,'${cart['id']}','${$('.addingtobas').children.length}')"" class="btn btn-outline-danger plus" >+</button><button type="button" class="btn btn-outline-danger disabled result-${$('.addingtobas').children.length}" id="result">${cart['quantity']}</button><button type="button" onclick="minus(event,'${cart['id']}','${$('.addingtobas').children.length}')" class="btn btn-outline-danger mines" >-</button></div><p class="text-danger ">تومان <span class="span1">${cart['discount']==0?cart['product']['price']:cart['product']['price']/100*cart['discount']-cart['product']['price']}</span></p></div><div class="col-1"><img src="../img/icons8-macos-close-24.png" onclick="closepro(event,'${cart['id']}','${$('.addingtobas').children.length}')" class="closepro" alt=""></div></div>`);
+
+
+                // $(".closepro").click(function(e){
+                //     $((e.target.parentElement).parentElement).css({display:"none"})
+                // })
+
+                $(".bodyforclick").click(function(){
+                    $(".hidden-basket").css({transform: "translateX(-100%)",transition:"0.4s linear"});
+                    $(".bodyforclick").css({display:"none",})
+                    // $(".plus").click(function(){
+                    //     var a=parseInt($("#result").text());
+                    //     a=a+1;
+                    //     $("#result").text(a);
+                    // })
+                    // $(".mines").click(function(){
+                    //     var a=parseInt($("#result").text());
+                    //     if (a>1) {
+                    //         a=a-1;
+                    //         $("#result").text(a);
+                    //     }
+                    // })
+                })
+                $(".closebas").click(function(){
+                    $(".hidden-basket").css({transform: "translateX(-100%)",transition:"0.4s linear"});
+                    $(".bodyforclick").css({display:"none"});
+                })
+            }
+        })
+    }
+
+
+
 
 
 
