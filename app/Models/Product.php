@@ -50,7 +50,7 @@ class Product extends Model
     //for connect to colors table
     public function colors()
     {
-        return $this->belongsToMany(Color::class)->withPivot(['number','size_id'])->withTimestamps();
+        return $this->belongsToMany(Color::class)->withTimestamps();
     }
 
 
@@ -64,6 +64,30 @@ class Product extends Model
     public function advertises()
     {
         return $this->belongsToMany(Advertise::class)->withTimestamps();
+    }
+
+    //for connect to size table
+    public function sizes()
+    {
+        return $this->belongsToMany(Size::class)->withTimestamps();
+    }
+
+    //for connect to statistics table
+    public function statistics()
+    {
+        return $this->hasMany(Statistics::class);
+    }
+
+    //for connect to orders table
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
+
+    //for connect to interests table
+    public function interests()
+    {
+        return $this->morphMany(Interest::class,'interestable');
     }
 
 

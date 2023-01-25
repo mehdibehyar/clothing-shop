@@ -224,10 +224,11 @@
                         <h6 class="">انتخاب رنگ</h6>
                         <hr>
                         <div id="attribute_color">
-                            @foreach($product->colors as $color)
+                            @foreach($product->statistics as $sta)
                                 <div class="row" id="colors-{{$loop->index}}">
                                     <div class="col-2">
                                         <div class="form-group">
+                                            @php($color=\App\Models\Color::find($sta->color_id))
                                             <label>انتخاب رنگ</label>
                                             <input type="color" value="{{$color->color}}" name="cs[{{$loop->index}}][color]"><br>
                                         </div>
@@ -241,13 +242,13 @@
                                     <div class="col-2">
                                         <div class="form-group">
                                             <label>سایز</label>
-                                            <input type="text" value="{{\App\Models\Size::find($color->pivot['size_id'])->size}}" name="cs[{{$loop->index}}][size]">
+                                            <input type="text" value="{{\App\Models\Size::find($sta->size_id)->size}}" name="cs[{{$loop->index}}][size]">
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <div class="form-group">
                                             <label>تعداد این نوع محصول</label>
-                                            <input type="number" value="{{$color->pivot['number']}}" name="cs[{{$loop->index}}][number]"><br>
+                                            <input type="number" value="{{$sta->number}}" name="cs[{{$loop->index}}][number]"><br>
                                         </div>
                                     </div>
                                     <div class="col-2 d-flex">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
+use App\Models\Product;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -31,8 +32,18 @@ class RoleController extends Controller
         }
 
 
-        $roles=$roles->paginate(20);
+        $roles=$roles->paginate(10);
         return view('admin.roles.all',compact('roles'));
+    }
+
+
+    public function fetch_data(Request $request)
+    {
+        if ($request->ajax()){
+            $roles=Role::query()->paginate(10);
+            return view('admin.roles.page',compact('roles'))->render();
+        }
+
     }
 
     /**

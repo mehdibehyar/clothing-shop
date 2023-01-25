@@ -31,8 +31,17 @@ class PermissionController extends Controller
         }
 
 
-        $permissions=$permissions->paginate(20);
+        $permissions=$permissions->paginate(10);
         return view('admin.permissions.all',compact('permissions'));
+    }
+
+    public function fetch_data(Request $request)
+    {
+        if ($request->ajax()){
+            $permissions=Permission::query()->paginate(10);
+            return view('admin.permissions.page',compact('permissions'))->render();
+        }
+
     }
 
     /**

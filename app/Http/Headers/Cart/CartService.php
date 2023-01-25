@@ -66,7 +66,7 @@ class CartService
     public function all(){
         return $this->cart->map(function ($item){
             return $this->getModelValue($item);
-        })->all();
+        })->collect();
     }
 
 
@@ -80,6 +80,16 @@ class CartService
                 ]
             );
         }
+        if (is_array($value)){
+            foreach ($value as $key=>$i){
+                $item=$item->merge([
+                    $key=>$i
+                ]);
+            }
+        }
+
+
+
 
         $this->put($item->toArray());
         return $this;
@@ -105,6 +115,49 @@ class CartService
         if (!$this->has($key)) return 0 ;
         return $this->get($key)['quantity'];
     }
+
+    public function delete($key)
+    {
+        if ($this->has($key)) {
+            $this->cart=$this->cart->filter(function ($item)use($key){
+                if ($key instanceof Model){
+                    return ($key->id!=$item['subject_id']) || (get_class($key)!=$item['subject_type']);
+                }
+
+                return $item['id']!=$key;
+            });
+            session()->put('cart',$this->cart);
+
+            return true;
+        }
+
+        return false;
+
+
+
+
+    }
+
+    public function getAll($key)
+    {
+        $item= $key instanceof Model ?
+            $this->cart->where('subject_id',$key->id)->where('subject_type',get_class($key))->collect():
+            $this->cart->where('id',$key)->collect();
+
+        return $item->map(function ($item){
+            return $this->getModelValue($item);
+        })->collect();
+    }
+
+    public function flush()
+    {
+        $this->cart=collect([]);
+        session()->put('cart',$this->cart);
+
+        return $this;
+    }
+
+
 
 
 

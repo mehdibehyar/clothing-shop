@@ -9,6 +9,7 @@ use App\Models\Color;
 use App\Models\Permission;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\Statistics;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use function PHPUnit\Framework\isNull;
@@ -31,13 +32,23 @@ class ProductController extends Controller
      */
     public function index()
     {
+
         $products=Product::query();
         if ($search=\request('search')){
             $products->orWhere('title','LIKE',"%{$search}%")->orWhere('id',$search);
         }
 
-        $products=$products->paginate(20);
-        return view('admin.products.all',compact('products'));
+        $products=$products->paginate(12);
+        return view('admin.products.all',compact('products'))->render();
+    }
+
+    public function fetch_data(Request $request)
+    {
+        if ($request->ajax()){
+            $products=Product::query()->paginate(12);
+            return view('admin.products.page',compact('products'))->render();
+        }
+
     }
 
     /**
@@ -79,7 +90,7 @@ class ProductController extends Controller
 
         $this->attachAttributes($data['attributes'], $product);
 
-        $this->attachColor($data, $product);
+        $this->attachSize_color($data,$product);
         return redirect(route('admin.products.index'));
 
     }
@@ -119,13 +130,13 @@ class ProductController extends Controller
             'cs.*.number'=>'required|integer',
             'cs'=>'array'
         ]);
-
         $product->update($data);
         $product->categories()->sync($data['categories']);
         $product->attributes()->detach();
         $this->attachAttributes($data['attributes'], $product);
-        $product->colors()->detach();
-        $this->attachColor($data, $product);
+        $product->colors()->delete();
+        $product->sizes()->delete();
+        $this->attachSize_color($data, $product);
 
         return redirect(route('admin.products.index'));
 
@@ -170,19 +181,27 @@ class ProductController extends Controller
      * @param $product
      * @return void
      */
-    public function attachColor(array $data, $product): void
+
+
+    public function attachSize_color(array $data, Product $product)
     {
         if (isset($data['cs'])) {
-            $colors = collect($data['cs']);
-            $colors->each(function ($item) use ($product) {
-                if (is_null($item['color'] || is_null($item['label'] || $item['size'] || $item['number']))) return;
-                $color = Color::firstOrCreate(
-                    ['color' => $item['color']],
-                    ['label' => $item['label']]
+            $date = collect($data['cs']);
+            $date->each(function ($item) use ($product) {
+                if (is_null($item['size']) || is_null($item['color']) || is_null($item['label'])) return;
+                $size = Size::firstOrCreate(
+                    ['size' => $item['size']]
                 );
-                $size= Size::firstOrCreate(['size'=>$item['size']]);
-                $number=$item['number'];
-                $product->colors()->attach($color->id,['size_id'=>$size->id,'number'=>$number]);
+
+                $color = Color::firstOrCreate(
+                    ['label' => $item['label']],
+                    ['color' => $item['color']]
+                );
+                $product->colors()->attach($color->id);
+
+                $product->sizes()->attach($size->id);
+
+                $product->statistics()->create(['size_id'=>$size->id,'color_id'=>$color->id,'number'=>$item['number']]);
 
             });
         }

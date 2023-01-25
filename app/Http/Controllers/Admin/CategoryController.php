@@ -8,13 +8,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:show_categories')->only(['index']);
-        $this->middleware('can:create_category')->only(['create','store']);
-        $this->middleware('can:edit_category')->only(['edit','update']);
-        $this->middleware('can:delete_category')->only(['destroy']);
-    }
+
 
     /**
      * Display a listing of the resource.
@@ -28,8 +22,18 @@ class CategoryController extends Controller
             $categories->where('parent_id',0)->orWhere('name_category','LIKE',"%{$search}%")->where('id',$search);
         }
 
-        $categories=$categories->where('parent_id',0)->latest()->paginate(10);
+        $categories=$categories->where('parent_id',0)->latest()->get();
         return view('admin.categories.all',compact('categories'));
+
+    }
+
+
+    public function fetch_data(Request $request)
+    {
+        if ($request->ajax()){
+            $categories=Category::query()->paginate(20);
+            return view('admin.categories.page',compact('categories'))->render();
+        }
 
     }
 
@@ -57,10 +61,12 @@ class CategoryController extends Controller
         }
         $request->validate([
             'name_category'=>'required|max:255',
+            'image'=>'nullable'
         ]);
         Category::create([
             'name_category'=>$request->name_category,
-            'parent_id'=>$request->parent??0
+            'parent_id'=>$request->parent??0,
+            'image'=>isset($request->image)?$request->image:null
         ]);
         return redirect(route('admin.categories.index'));
     }
@@ -95,9 +101,11 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name_category'=>'required|max:255',
+            'image'=>'nullable'
         ]);
         $category->update([
-            'name_category'=>$request->name_category
+            'name_category'=>$request->name_category,
+            'image'=>isset($request->image)?$request->image:null
         ]);
         return redirect(route('admin.categories.index'));
     }

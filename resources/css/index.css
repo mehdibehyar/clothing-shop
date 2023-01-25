@@ -1,1 +1,10 @@
 @import "./index/main-style.css";
+.counter1{
+    border-radius: 50%;
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

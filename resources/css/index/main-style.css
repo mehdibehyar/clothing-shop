@@ -23,7 +23,7 @@
     position: absolute;
     top:25px;
     width: 300px;
-  } 
+  }
 }
 @media screen and (max-width: 577px){
   .counter1{
@@ -79,7 +79,7 @@ body{
     text-align: start;
 }
 .logo-in-top{
-   
+
     max-width: -webkit-fill-available;
 }
 
@@ -98,7 +98,7 @@ body{
 }
 .dropdown:hover .dropdowncontent {
   display: block;
-  
+
 }
 /*============> دسته بندی===>dropdown1 & dropdowncontent1 <=============*/
 .dropdown1{
@@ -112,7 +112,7 @@ body{
   direction: ltr;
   border: 0.5px solid rgb(239, 235, 235);
   border-radius: 10px;
-  box-sizing: 5px 5px 5px rgba(5,1,0,0.1); 
+  box-sizing: 5px 5px 5px rgba(5,1,0,0.1);
 }
 .dropdown1:hover .dropdowncontent1{
   display: block;
@@ -163,7 +163,7 @@ body{
     align-items: center;
   }
   .itemforhover:hover .like{
-    display:flex;    
+    display:flex;
     animation-name: deelay;
     animation-duration: 0.8s;
   }
@@ -181,7 +181,7 @@ body{
   .vijhe{
     position: absolute;
    top: 15px;
-    right: 0px; 
+    right: 0px;
   }
   .mojoudi{
     position: absolute;
@@ -227,19 +227,10 @@ color: red;
  .iconfornav{
   text-align: center;
  }
- .counter1{
-  border-radius: 50%;
-  background-color: red;
-  width: 15px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
- }
  .navformobile{
   z-index: 2;
+     font-size: xx-small;
  }
- 
 
-  
-  
+
+

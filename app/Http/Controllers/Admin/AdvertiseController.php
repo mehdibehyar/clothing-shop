@@ -31,7 +31,7 @@ class AdvertiseController extends Controller
         }
 
 
-        $advertises=$advertises->paginate(20);
+        $advertises=$advertises->paginate(10);
         return view('admin.advertises.all',compact('advertises'));
 
     }

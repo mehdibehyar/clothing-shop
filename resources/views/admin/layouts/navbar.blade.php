@@ -28,9 +28,9 @@
     <ul class="navbar-nav mr-auto">
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
+            <a class="nav-link" data-toggle="dropdown" href="">
                 <i class="fa fa-comments-o"></i>
-                <span class="badge badge-danger navbar-badge">10</span>
+                <span class="badge badge-danger navbar-badge"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left">
                 <a href="#" class="dropdown-item">

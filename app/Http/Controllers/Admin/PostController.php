@@ -26,14 +26,25 @@ class PostController extends Controller
      */
     public function index()
     {
+
         $posts=Post::query();
         if ($search=\request('search')){
             $posts->Where('title','LIKE',"%{$search}%");
         }
 
 
-        $posts=$posts->paginate(20);
+        $posts=$posts->paginate(10);
         return view('admin.posts.all',compact('posts'));
+    }
+
+
+    public function fetch_data(Request $request)
+    {
+        if ($request->ajax()){
+            $posts=Post::query()->paginate(10);
+            return view('admin.posts.page',compact('posts'))->render();
+        }
+
     }
 
     /**

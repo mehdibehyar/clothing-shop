@@ -1,0 +1,156 @@
+{
+  "resources/css/products/font/Salamat/Salamat.ttf": {
+    "file": "assets/Salamat.07cca7dd.ttf",
+    "src": "resources/css/products/font/Salamat/Salamat.ttf"
+  },
+  "resources/css/products/font/vazir-font-v16.1.0/Vazir-Light.ttf": {
+    "file": "assets/Vazir-Light.140d5b6d.ttf",
+    "src": "resources/css/products/font/vazir-font-v16.1.0/Vazir-Light.ttf"
+  },
+  "resources/css/admin/fonts/Vazir-Bold.eot": {
+    "file": "assets/Vazir-Bold.9eacb7ea.eot",
+    "src": "resources/css/admin/fonts/Vazir-Bold.eot"
+  },
+  "resources/css/admin/fonts/Vazir.eot": {
+    "file": "assets/Vazir.070e782e.eot",
+    "src": "resources/css/admin/fonts/Vazir.eot"
+  },
+  "resources/css/admin/fonts/Vazir-Light.eot": {
+    "file": "assets/Vazir-Light.236c7ffd.eot",
+    "src": "resources/css/admin/fonts/Vazir-Light.eot"
+  },
+  "resources/css/admin/fonts/Vazir-Medium.eot": {
+    "file": "assets/Vazir-Medium.4bc06f94.eot",
+    "src": "resources/css/admin/fonts/Vazir-Medium.eot"
+  },
+  "resources/css/admin/fonts/Vazir-Thin.eot": {
+    "file": "assets/Vazir-Thin.cb18aac3.eot",
+    "src": "resources/css/admin/fonts/Vazir-Thin.eot"
+  },
+  "resources/css/admin/fonts/Vazir-Black.eot": {
+    "file": "assets/Vazir-Black.27f501d8.eot",
+    "src": "resources/css/admin/fonts/Vazir-Black.eot"
+  },
+  "resources/css/admin/fonts/Vazir-Bold.woff2": {
+    "file": "assets/Vazir-Bold.3e0cbf66.woff2",
+    "src": "resources/css/admin/fonts/Vazir-Bold.woff2"
+  },
+  "resources/css/admin/fonts/Vazir-Light.woff2": {
+    "file": "assets/Vazir-Light.081635b5.woff2",
+    "src": "resources/css/admin/fonts/Vazir-Light.woff2"
+  },
+  "resources/css/admin/fonts/Vazir-Medium.woff2": {
+    "file": "assets/Vazir-Medium.9595753d.woff2",
+    "src": "resources/css/admin/fonts/Vazir-Medium.woff2"
+  },
+  "resources/css/admin/fonts/Vazir-Thin.woff2": {
+    "file": "assets/Vazir-Thin.636de7b8.woff2",
+    "src": "resources/css/admin/fonts/Vazir-Thin.woff2"
+  },
+  "resources/css/admin/fonts/Vazir.woff2": {
+    "file": "assets/Vazir.86249bd1.woff2",
+    "src": "resources/css/admin/fonts/Vazir.woff2"
+  },
+  "resources/css/admin/fonts/Vazir-Black.woff2": {
+    "file": "assets/Vazir-Black.5303cd99.woff2",
+    "src": "resources/css/admin/fonts/Vazir-Black.woff2"
+  },
+  "resources/css/admin/fonts/Vazir-Bold.woff": {
+    "file": "assets/Vazir-Bold.7e07efc7.woff",
+    "src": "resources/css/admin/fonts/Vazir-Bold.woff"
+  },
+  "resources/css/admin/fonts/Vazir-Light.woff": {
+    "file": "assets/Vazir-Light.9db4e240.woff",
+    "src": "resources/css/admin/fonts/Vazir-Light.woff"
+  },
+  "resources/css/admin/fonts/Vazir-Medium.woff": {
+    "file": "assets/Vazir-Medium.78735188.woff",
+    "src": "resources/css/admin/fonts/Vazir-Medium.woff"
+  },
+  "resources/css/admin/fonts/Vazir.woff": {
+    "file": "assets/Vazir.cde392a2.woff",
+    "src": "resources/css/admin/fonts/Vazir.woff"
+  },
+  "resources/css/admin/fonts/Vazir-Thin.woff": {
+    "file": "assets/Vazir-Thin.8f6b3e12.woff",
+    "src": "resources/css/admin/fonts/Vazir-Thin.woff"
+  },
+  "resources/css/admin/fonts/Vazir-Black.woff": {
+    "file": "assets/Vazir-Black.4c9808cf.woff",
+    "src": "resources/css/admin/fonts/Vazir-Black.woff"
+  },
+  "resources/css/admin/fonts/Vazir-Bold.ttf": {
+    "file": "assets/Vazir-Bold.3b7e4b48.ttf",
+    "src": "resources/css/admin/fonts/Vazir-Bold.ttf"
+  },
+  "resources/css/admin/fonts/Vazir-Light.ttf": {
+    "file": "assets/Vazir-Light.37e3be0e.ttf",
+    "src": "resources/css/admin/fonts/Vazir-Light.ttf"
+  },
+  "resources/css/admin/fonts/Vazir.ttf": {
+    "file": "assets/Vazir.5e97359f.ttf",
+    "src": "resources/css/admin/fonts/Vazir.ttf"
+  },
+  "resources/css/admin/fonts/Vazir-Medium.ttf": {
+    "file": "assets/Vazir-Medium.9a25a4f3.ttf",
+    "src": "resources/css/admin/fonts/Vazir-Medium.ttf"
+  },
+  "resources/css/admin/fonts/Vazir-Thin.ttf": {
+    "file": "assets/Vazir-Thin.38e6ba90.ttf",
+    "src": "resources/css/admin/fonts/Vazir-Thin.ttf"
+  },
+  "resources/css/admin/fonts/Vazir-Black.ttf": {
+    "file": "assets/Vazir-Black.31a8f8d7.ttf",
+    "src": "resources/css/admin/fonts/Vazir-Black.ttf"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app.7c3c19f8.js",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app.334e7359.js",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/admin.js": {
+    "file": "assets/admin.bd00b5cd.js",
+    "src": "resources/js/admin.js",
+    "isEntry": true
+  },
+  "resources/js/index.js": {
+    "file": "assets/index.d7a6c649.js",
+    "src": "resources/js/index.js",
+    "isEntry": true
+  },
+  "resources/css/single_product.css": {
+    "file": "assets/single_product.b2c3c080.css",
+    "src": "resources/css/single_product.css",
+    "isEntry": true
+  },
+  "resources/css/index.css": {
+    "file": "assets/index.f41b3354.css",
+    "src": "resources/css/index.css",
+    "isEntry": true
+  },
+  "resources/css/auth.css": {
+    "file": "assets/auth.49efd136.css",
+    "src": "resources/css/auth.css",
+    "isEntry": true
+  },
+  "resources/css/products.css": {
+    "file": "assets/products.e8cb383c.css",
+    "src": "resources/css/products.css",
+    "isEntry": true
+  },
+  "resources/css/bascket.css": {
+    "file": "assets/bascket.84ce47cf.css",
+    "src": "resources/css/bascket.css",
+    "isEntry": true
+  },
+  "resources/css/admin.css": {
+    "file": "assets/admin.2e685f49.css",
+    "src": "resources/css/admin.css",
+    "isEntry": true
+  }
+}
